@@ -13,5 +13,6 @@
 		);
 		var $hasAndBelongsToMany = array('Pcode');
 		var $hasOne = 'Members';
+		var $order = 'name';
 	}
 ?>

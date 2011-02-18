@@ -2,5 +2,6 @@
 	class Portfolio extends AppModel {
 		var $name = 'Portfolio';
 		var $hasAndBelongsToMany = array('Member');
+		var $order = 'name';
 	}
 ?>
