@@ -1,9 +1,15 @@
 <?php
 	class ElectorateRelationship extends AppModel {
 		var $name = 'ElectorateRelationship';
-		var $belongsTo = array('Electorate' => 
-			array('foreignKey' => 'upper_id',
-				'foreignKey' => 'lower_id')
+		var $belongsTo = array(
+			'UpperHouse' => 
+				array(
+					'className' => 'Electorate',
+					'foreignKey' => 'upper_id'),
+			'LowerHouse' => 
+				array(
+					'className' => 'Electorate',
+					'foreignKey' => 'lower_id')
 		);
 	}
 ?>
