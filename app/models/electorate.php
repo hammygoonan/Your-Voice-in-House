@@ -2,6 +2,7 @@
 	class Electorate extends AppModel {
 		var $name = 'Electorate';
 		var $hasMany = array(
+			'Members',
 			'Upper' => array(
 				'className' => 'ElectorateRelationship',
 				'foreignKey' => 'upper_id'
@@ -12,7 +13,6 @@
 			)
 		);
 		var $hasAndBelongsToMany = array('Pcode');
-		var $hasOne = 'Members';
 		var $order = 'name';
 	}
 ?>
