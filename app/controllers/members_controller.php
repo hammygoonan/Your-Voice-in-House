@@ -15,7 +15,8 @@
 						$this->set('electorate', $this->Electorate->findById($search_value));
 						break;
 					case 'portfolio':
-						$this->set('portfolios', $this->Member->Portfolio->find('all', array('conditions' => array('Portfolio.id' => 1))));
+						$this->Member->bindModel(array('hasOne' => array('MembersPortfolio')));
+						$this->set('portfolios', $this->Member->find('all', array('conditions' => array('MembersPortfolio.portfolio_id' => 1, 'Electorate.state' => 'Fed'))));
 						break;
 					case 'pcode':
 						$this->set('pcode', $this->Pcode->findByPcode($search_value));

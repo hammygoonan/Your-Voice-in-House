@@ -1,34 +1,34 @@
 <div class="member_display">
 	<div class="primary_member_details">
 		<?php
-			echo $member['Member']['first_name'] . ' ' . $member['Member']['second_name'] . '<br />';
-			echo '<em>' . $member['Electorate']['name'] . '</em>';
+			echo $member['first_name'] . ' ' . $member['second_name'] . '<br />';
+			echo '<em>' . $electorate['name'] . '</em>';
 		?>
 	</div>
 	<div class="seconday_member_details">
 		<?php
-			echo '<br />' . $member['Member']['email'];
-			if(!empty($member['Member']['job'])){
-				echo '<br />' . $member['Member']['job'];
+			echo '<br />' . $member['email'];
+			if(!empty($member['job'])){
+				echo '<br />' . $member['job'];
 			}
 		?>
 			<table>
 				<tr>
 					<?php
-						if(!empty($member['Member']['el_address_1'])){
+						if(!empty($member['el_address_1'])){
 							echo '<td>Electoral Address:<br />';
-							echo $member['Member']['el_address_1'];
-							if(!empty($member['Member']['el_address_2'])){echo '<br />' . $member['Member']['el_address_2'];}
-							echo '<br />' . $member['Member']['el_suburb'] . '  ' . $member['Member']['el_state'] . '  ' . $member['Member']['el_pcode'];
+							echo $member['el_address_1'];
+							if(!empty($member['el_address_2'])){echo '<br />' . $member['el_address_2'];}
+							echo '<br />' . $member['el_suburb'] . '  ' . $member['el_state'] . '  ' . $member['el_pcode'];
 							echo '</td>';
 						}
 					?>
 					<?php
-						if(!empty($member['Member']['pa_address_1'])){
+						if(!empty($member['pa_address_1'])){
 							echo '<td>Parliamentary Address:<br />';
-							echo $member['Member']['pa_address_1'];
-							if(!empty($member['Member']['pa_address_2'])){echo '<br />' . $member['Member']['pa_address_2'];}
-							echo '<br />' . $member['Member']['pa_suburb'] . '  ' . $member['Member']['pa_state'] . '  ' . $member['Member']['pa_pcode'];
+							echo $member['pa_address_1'];
+							if(!empty($member['pa_address_2'])){echo '<br />' . $member['pa_address_2'];}
+							echo '<br />' . $member['pa_suburb'] . '  ' . $member['pa_state'] . '  ' . $member['pa_pcode'];
 							echo '</td>';
 						}
 					?>
