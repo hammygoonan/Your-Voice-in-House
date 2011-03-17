@@ -3,6 +3,7 @@
 		var $name = 'Members';
 		var $uses = array('Member', 'Electorate', 'Portfolio', 'Pcode');
 		var $scaffold;
+		var $helpers = array('Form', 'Html');
 		function search(){
 		}
 		function results(){
@@ -22,6 +23,22 @@
 						$this->set('pcode', $this->Pcode->findByPcode($search_value));
 						break;
 				}
+			}
+		}
+		function upload(){
+			if(!empty($this->data)){
+				if($this->data['Member']['over_ride'] == 1){
+					print('do some shit');
+				}
+				$file = file($this->data['Member']['submittedfile']['tmp_name']);
+				foreach($file as $row){
+					$line = explode(';', $row);
+					$electorate['name'] = $line[20];
+					$electorate['state'] = $this->data['Electorate']['state'];
+					$electorate['house'] = $this->data['Electorate']['house'];
+					debug($electorate);
+				}
+			// debug($this->data);
 			}
 		}
 	}
