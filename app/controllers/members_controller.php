@@ -28,7 +28,7 @@
 		function upload(){
 			if(!empty($this->data)){
 				if($this->data['Member']['over_ride'] == 1){
-					print('do some shit');
+					// print('do some shit');
 				}
 				$file = file($this->data['Member']['submittedfile']['tmp_name']);
 				foreach($file as $row){
@@ -36,7 +36,15 @@
 					$electorate['name'] = $line[20];
 					$electorate['state'] = $this->data['Electorate']['state'];
 					$electorate['house'] = $this->data['Electorate']['house'];
-					debug($electorate);
+					if($electorate_exists = $this->Electorate->find('first', array('conditions' => array('name' => $electorate['name'], 'state' => $electorate['state'])))){
+						print('electorate exisits and it\'s id is: ' . $electorate_exists);
+					}
+					else{
+						print('create new electorate');
+					}
+					
+					
+				//	debug($electorate_exists);
 				}
 			// debug($this->data);
 			}
