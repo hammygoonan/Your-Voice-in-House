@@ -1,7 +1,7 @@
 <?php
 	class MembersController extends AppController{
 		var $name = 'Members';
-		var $uses = array('Member', 'Electorate', 'Portfolio', 'Pcode');
+		var $uses = array('Member', 'Electorate', 'Portfolio', 'Pcode', 'Party');
 		var $scaffold;
 		var $helpers = array('Form', 'Html');
 		function search(){
@@ -27,26 +27,27 @@
 		}
 		function upload(){
 			if(!empty($this->data)){
-				if($this->data['Member']['over_ride'] == 1){
-					// print('do some shit');
-				}
-				$file = file($this->data['Member']['submittedfile']['tmp_name']);
-				foreach($file as $row){
-					$line = explode(';', $row);
-					$electorate['name'] = $line[20];
-					$electorate['state'] = $this->data['Electorate']['state'];
-					$electorate['house'] = $this->data['Electorate']['house'];
-					if($electorate_exists = $this->Electorate->find('first', array('conditions' => array('name' => $electorate['name'], 'state' => $electorate['state'])))){
-						print('electorate exisits and it\'s id is: ' . $electorate_exists);
+				$csv = fopen($this->data['Member']['submittedfile']['tmp_name'], 'r');
+				$j = 1;
+				while(!feof($csv)){
+					$member_keys = array_keys($this->Member->_schema);
+					$line = fgetcsv($csv, 0, ';', '"');
+					if($line[1] !== NULL){
+						$i = 0;
+						foreach($member_keys as $key){
+							$member['Member'][$key] = $line[$i];
+							$i++;
+						}
+						$member['Member']['electorate_id'] = $this->Electorate->return_electorate($line[20], $this->data['Electorate']['state'], $this->data['Electorate']['house']);
+						$member['Member']['party_id'] = $this->Party->return_party($line[21]);
+						if($this->data['Member']['over_ride'] == 1){
+							$this->Member->deleteAll(array('electorate_id' =>$member['Member']['electorate_id'], 'second_name' => $member['Member']['second_name']));
+						}
+						$this->Member->save($member);
+						$j++;
 					}
-					else{
-						print('create new electorate');
-					}
-					
-					
-				//	debug($electorate_exists);
 				}
-			// debug($this->data);
+				$this->Session->setFlash('<p>' . $j . ' lines exicuted');
 			}
 		}
 	}

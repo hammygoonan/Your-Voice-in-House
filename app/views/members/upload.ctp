@@ -1,5 +1,6 @@
 <h1>File Upload</h1>
 <?php
+	echo $this->Session->flash();
 	echo $this->Form->create('Member', array('type' => 'file'));
 	echo $this->Form->input('Electorate.state');
 	echo $this->Form->input('Electorate.house');
