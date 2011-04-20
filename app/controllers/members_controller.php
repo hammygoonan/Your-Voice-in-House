@@ -60,7 +60,7 @@
 			$this->set('portfolios', $this->Portfolio->find('list'));
 			debug($this->data);
 		}
-		function addresses(){
+	/*	function addresses(){
 			$members = $this->Member->find('all');
 			foreach($members as $member){
 				if(!empty($member['Member']['el_address_1'])){
@@ -96,6 +96,6 @@
 					unset($address);
 				}
 			}
-		}
+		} */
 	}
 ?>
