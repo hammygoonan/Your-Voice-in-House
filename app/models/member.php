@@ -5,5 +5,6 @@
 		var $hasMany = array('Address');
 		var $belongsTo = array('Electorate', 'Party');
 		var $order = 'second_name';
+		var $displayField = 'id';
 	}
 ?>

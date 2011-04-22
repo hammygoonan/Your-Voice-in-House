@@ -38,18 +38,58 @@
 							$member['Member'][$key] = $line[$i];
 							$i++;
 						}
-						$member['Member']['electorate_id'] = $this->Electorate->return_electorate($line[20], $this->data['Electorate']['state'], $this->data['Electorate']['house']);
-						$member['Member']['party_id'] = $this->Party->return_party($line[21]);
+						
+						// see if Electorate exists. Create it if it doesn't, return the id if it does
+						
+						$member['Member']['electorate_id'] = $this->Electorate->return_electorate($line[6], $this->data['Electorate']['state'], $this->data['Electorate']['house']);
+						
+						// see if Party exists. Create it if it doesn't, return the id if it does
+						
+						$member['Member']['party_id'] = $this->Party->return_party($line[7]);
 						if($this->data['Member']['over_ride'] == 1){
 							$this->Member->deleteAll(array('electorate_id' =>$member['Member']['electorate_id'], 'second_name' => $member['Member']['second_name']));
 						}
-						if($line[22] !== ''){
-							$member['Portfolio']['Portfolio'] = explode(',', $line[22]);
+						
+						// add portfolos
+						
+						if($line[8] !== ''){
+							$member['Portfolio']['Portfolio'] = explode(',', $line[8]);
 						}
+						
+						// unset member id so that a new record is created
 						unset($member['Member']['id']);
+						
+						// save
 						$this->Member->create();
 						$this->Member->save($member);
-						unset($member['Portfolio']['Portfolio']);
+						
+						$id = $this->Member->id;
+						// add addresses
+						$k = 9;
+						while(!empty($line[$k])){
+							if($line[$k] != ''){
+								$address['Address'] = array(
+									'member_id' => $id,
+									'address_type_id' => $line[$k++],
+									'postal' => $line[$k++],
+									'address1' => $line[$k++],
+									'address2' => $line[$k++],
+									'suburb' => $line[$k++],
+									'state' => $line[$k++],
+									'pcode' => $line[$k++],
+									'phone' => $line[$k++],
+									'tollfree' => $line[$k++],
+									'fax' => $line[$k++]
+								);
+								$this->Address->create();
+								$this->Address->save($address);
+							}
+						}
+						
+						// unset member to avoid duplication
+						
+						unset($member);
+						unset($address);
 						$j++;
 					}
 				}
@@ -60,42 +100,5 @@
 			$this->set('portfolios', $this->Portfolio->find('list'));
 			debug($this->data);
 		}
-	/*	function addresses(){
-			$members = $this->Member->find('all');
-			foreach($members as $member){
-				if(!empty($member['Member']['el_address_1'])){
-					$address['member_id'] = $member['Member']['id'];
-					$address['address_type_id'] = 1;
-					$address['postal'] = 0;
-					$address['address1'] = $member['Member']['el_address_1'];
-					$address['address2'] = $member['Member']['el_address_2'];
-					$address['state'] = $member['Member']['el_state'];
-					$address['suburb'] = $member['Member']['el_suburb'];
-					$address['pcode'] = $member['Member']['el_pcode'];
-					$address['phone'] = $member['Member']['el_phone'];
-					$address['fax'] = $member['Member']['el_fax'];
-					$this->Address->create();
-					$this->Address->save($address);
-					print('<p>New Address saved for ' . $member['Member']['first_name'] . ' ' . $member['Member']['second_name'] . '</p>');
-					unset($address);
-				}
-				if(!empty($member['Member']['pa_address_1'])){
-					$address['member_id'] = $member['Member']['id'];
-					$address['address_type_id'] = 1;
-					$address['postal'] = 0;
-					$address['address1'] = $member['Member']['pa_address_1'];
-					$address['address2'] = $member['Member']['pa_address_2'];
-					$address['state'] = $member['Member']['pa_state'];
-					$address['suburb'] = $member['Member']['pa_suburb'];
-					$address['pcode'] = $member['Member']['pa_pcode'];
-					$address['phone'] = $member['Member']['pa_phone'];
-					$address['fax'] = $member['Member']['pa_fax'];
-					$this->Address->create();
-					$this->Address->save($address);
-					print('<p>New Address saved for ' . $member['Member']['first_name'] . ' ' . $member['Member']['second_name'] . '</p>');
-					unset($address);
-				}
-			}
-		} */
 	}
 ?>
