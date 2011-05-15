@@ -5,22 +5,30 @@
 		var $scaffold;
 		var $helpers = array('Form', 'Html');
 		function search(){
+			$this->set('portfolios', $this->Portfolio->find('list'));
 		}
 		function results(){
-			foreach($this->params['named'] as $search_param => $search_value){
+			foreach($this->params['url'] as $search_param => $search_value){
 				switch($search_param){
-					case 'member':
-						$this->set('members', $this->Member->findById($search_value));
+					case 'Member':
+						if((int)$search_value){
+							$this->set('members', $this->Member->findById($search_value));
+						}
+						else{
+							$this->set('members', $this->Member->findBySecondName($search_value));
+						}
 						break;
-					case 'electorate':
-						$this->set('electorate', $this->Electorate->findById($search_value));
+					case 'Electorate':
+						if((int)$search_value){
+							$this->set('electorate', $this->Electorate->findById($search_value));
+						}
+						else{
+							$this->set('electorate', $this->Electorate->find('first', array('conditions' => array('name' => $this->params['url']['Electorate'], 'state' => $this->params['url']['State']))));
+						}
 						break;
-					case 'portfolio':
+					case 'Portfolio': // need to make it work for multipule portfolios
 						$this->Member->bindModel(array('hasOne' => array('MembersPortfolio')));
-						$this->set('portfolios', $this->Member->find('all', array('conditions' => array('MembersPortfolio.portfolio_id' => 1, 'Electorate.state' => 'Fed'))));
-						break;
-					case 'pcode':
-						$this->set('pcode', $this->Pcode->findByPcode($search_value));
+						$this->set('portfolios', $this->Member->find('all', array('conditions' => array('MembersPortfolio.portfolio_id' => $this->params['url']['Portfolio'], 'Electorate.state' => $this->params['url']['State']))));
 						break;
 				}
 			}
@@ -66,7 +74,8 @@
 						$id = $this->Member->id;
 						// add addresses
 						$k = 9;
-						while(!empty($line[$k])){
+					//	var_dump(is_string($line[$k]));
+						while(is_string($line[$k])){
 							if($line[$k] != ''){
 								$address['Address'] = array(
 									'member_id' => $id,
@@ -83,6 +92,9 @@
 								);
 								$this->Address->create();
 								$this->Address->save($address);
+							}
+							else{
+								$k = $k + 10;
 							}
 						}
 						
