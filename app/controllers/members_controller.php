@@ -8,6 +8,7 @@
 			$this->set('portfolios', $this->Portfolio->find('list'));
 		}
 		function results(){
+			$portfolios = array();
 			foreach($this->params['url'] as $search_param => $search_value){
 				switch($search_param){
 					case 'Member':
@@ -28,11 +29,35 @@
 						break;
 					case 'Portfolio': // need to make it work for multipule portfolios
 						$this->Member->bindModel(array('hasOne' => array('MembersPortfolio')));
-						$this->set('portfolios', $this->Member->find('all', array('conditions' => array('MembersPortfolio.portfolio_id' => $this->params['url']['Portfolio'], 'Electorate.state' => $this->params['url']['State']))));
+						$portfolios = $this->Member->find('all', array('conditions' => array('MembersPortfolio.portfolio_id' => $this->params['url']['Portfolio'], 'Electorate.state' => $this->params['url']['State'])));
+						$this->set('portfolios', $portfolios);
 						break;
 				}
 			}
 		}
+		function email(){
+		//	$recipients = array();
+			foreach($this->data['Member'] as $id => $on){
+				if($on == 1){
+					$recipients[] = $this->Member->findById($id);
+				}
+			}
+			$to_field = '';
+			for($i = 0; $i < sizeof($recipients); $i++){
+				$to_field .= $recipients[$i]['Member']['first_name'] . ' ' . $recipients[$i]['Member']['second_name'] . ' <' . $recipients[$i]['Member']['email'] . '>';
+				if($i < sizeof($recipients) - 1){
+					$to_field .= ", ";
+				}
+			}
+			$this->set('to_field', $to_field);
+		}
+		function email_send(){
+			debug($this->data);
+		}
+		
+		
+		
+		
 		function upload(){
 			if(!empty($this->data)){
 				$csv = fopen($this->data['Member']['submittedfile']['tmp_name'], 'r');

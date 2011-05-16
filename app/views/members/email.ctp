@@ -1,0 +1,32 @@
+<?php
+	echo '<h1>Send your Email</h1>';
+	echo $form->create('SendEmail', array('action' => 'index'));
+	echo "<table width='100%'>";
+	echo "\t<tr>";
+	echo "\t\t<td>";
+	echo $form->input('to', array('value' => $to_field, 'between' => '</td><td>'));
+	echo "\t\t</td>";
+	echo "\t</tr>";
+	echo "\t<tr>";
+	echo "\t\t<td>";
+	echo $form->input('from_name', array('between' => '</td><td>', 'label' => 'Your Name'));
+	echo "\t\t</td>";
+	echo "\t</tr>";
+	echo "\t<tr>";
+	echo "\t\t<td>";
+	echo $form->input('from_email', array('between' => '</td><td>', 'label' => 'Your Email Address'));
+	echo "\t\t</td>";
+	echo "\t</tr>";
+	echo "\t<tr>";
+	echo "\t\t<td>";
+	echo $form->input('subject', array('between' => '</td><td>'));
+	echo "\t\t</td>";
+	echo "\t</tr>";
+	echo "\t<tr>";
+	echo "\t\t<td>";
+	echo $form->input('msg', array('between' => '</td><td>', 'type' => 'textbox'));
+	echo "\t\t</td>";
+	echo "\t</tr>";
+	echo "</table>";
+	echo $form->end('Send Email');
+?>
