@@ -1,7 +1,7 @@
 <?php
 	class MembersController extends AppController{
 		var $name = 'Members';
-		var $uses = array('Member', 'Electorate', 'Portfolio', 'Pcode', 'Party', 'Address');
+		var $uses = array('Member', 'Electorate', 'Portfolio', 'Pcode', 'Party', 'Address', 'Correction');
 		var $scaffold;
 		var $helpers = array('Form', 'Html', 'Session', 'RecaptchaPlugin.Recaptcha');
 		var $components = array('Email', 'RecaptchaPlugin.Recaptcha');
@@ -14,7 +14,7 @@
 				switch($search_param){
 					case 'Member':
 						if((int)$search_value){
-							$this->set('members', $this->Member->findByAllId($search_value));
+							$this->set('members', $this->Member->findAllById($search_value));
 						}
 						else{
 							$this->set('members', $this->Member->find('all', array('conditions' => array('Member.second_name' => $this->params['url']['Member'], 'Electorate.state' => $this->params['url']['State']))));

@@ -2,13 +2,14 @@ Corrections
 
 Results layout
 Javascript
+Documentation
+Social Media
+Lockdown
 
 Phase 2:
-	Social Media
 	XML / CSS / API
 	RSS
 
 For live:
 	- ReCAPTCHA
 	- SMTP
-	- lock down parts of the site and add user login

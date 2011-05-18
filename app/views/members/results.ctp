@@ -51,5 +51,5 @@
 	<?php echo $form->end('Send Email'); ?>
 <?php else: ?>
 	<h2>Sorry, no results...</h2>
-	<p>Please try another search. If you think that this response is wrong, please let us know by <?php echo $html->link('clicking here', array('controller' => 'corrections', 'action' => 'add')); ?>
+	<p>Please try another search. If you think that this response is wrong, please let us know by <?php echo $html->link('clicking here', array('controller' => 'corrections', 'action' => 'add_search')); ?>
 <?php endif; ?>
