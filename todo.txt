@@ -1,12 +1,14 @@
-Results layout
 Corrections
-Emailing
-	- ReCapacture
-Javascript
-Social Media
-XML / CSS / API
-RSS
 
-Search
-	-> Results
-		-> Email
+Results layout
+Javascript
+
+Phase 2:
+	Social Media
+	XML / CSS / API
+	RSS
+
+For live:
+	- ReCAPTCHA
+	- SMTP
+	- lock down parts of the site and add user login

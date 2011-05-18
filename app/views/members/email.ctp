@@ -1,12 +1,8 @@
 <?php
 	echo '<h1>Send your Email</h1>';
-	echo $form->create('SendEmail', array('action' => 'index'));
+	echo $this->Session->flash();
+	echo $form->create('Member', array('action' => 'email'));
 	echo "<table width='100%'>";
-	echo "\t<tr>";
-	echo "\t\t<td>";
-	echo $form->input('to', array('value' => $to_field, 'between' => '</td><td>'));
-	echo "\t\t</td>";
-	echo "\t</tr>";
 	echo "\t<tr>";
 	echo "\t\t<td>";
 	echo $form->input('from_name', array('between' => '</td><td>', 'label' => 'Your Name'));
@@ -19,14 +15,31 @@
 	echo "\t</tr>";
 	echo "\t<tr>";
 	echo "\t\t<td>";
+	echo $form->input('to', array('value' => @$to_field, 'between' => '</td><td>'));
+	echo "\t\t</td>";
+	echo "\t</tr>";
+	echo "\t<tr>";
+	echo "\t\t<td>";
+	echo $form->input('cc', array('value' => @$cc_field, 'between' => '</td><td>'));
+	echo "\t\t</td>";
+	echo "\t</tr>";
+	echo "\t<tr>";
+	echo "\t\t<td>";
+	echo $form->input('bcc', array('value' => @$bcc_field, 'between' => '</td><td>'));
+	echo "\t\t</td>";
+	echo "\t</tr>";
+	echo "\t<tr>";
+	echo "\t\t<td>";
 	echo $form->input('subject', array('between' => '</td><td>'));
 	echo "\t\t</td>";
 	echo "\t</tr>";
 	echo "\t<tr>";
 	echo "\t\t<td>";
-	echo $form->input('msg', array('between' => '</td><td>', 'type' => 'textbox'));
+	echo $form->input('msg', array('between' => '</td><td>', 'type' => 'textbox', 'label' => 'Message'));
 	echo "\t\t</td>";
 	echo "\t</tr>";
 	echo "</table>";
+	echo $this->Recaptcha->show();
+	echo $this->Recaptcha->error();
 	echo $form->end('Send Email');
 ?>
