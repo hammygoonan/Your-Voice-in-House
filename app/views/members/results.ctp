@@ -9,7 +9,7 @@
 			<?php foreach($members as $member): ?>
 				<tr>
 					<td><?php echo $form->radio($member['Member']['id'], array('to' => 'to', 'cc' => 'cc', 'bcc' => 'bcc'), array('legend' => false)); ?></td>
-					<td><?php echo $this->element('display_member', array('member' => $member['Member'], 'electorate' => $member['Electorate'])); ?></td>
+					<td><?php echo $this->element('display_member', array('member' => $member)); ?></td>
 				</tr>
 			<?php endforeach; ?>
 		</table>
@@ -18,13 +18,14 @@
 	<?php
 		echo '<h2>' . $electorate['Electorate']['name'] . '</h2>';
 		echo '<table width="100%">';
-		foreach($electorate['Members'] as $member){
+		foreach($electorate as $member){
+			debug($electorate);
 			echo "\t<tr>";
 			echo "\t\t<td>";
 			echo $form->radio($member['id'], array('to' => 'to', 'cc' => 'cc', 'bcc' => 'bcc'), array('legend' => false));
 			echo "\t\t</td>";
 			echo "\t\t<td>";
-			echo $this->element('display_member', array('member' => $member, 'electorate' => $electorate['Electorate']));
+			echo $this->element('display_member', array('member' => $member));
 			echo "\t\t</td>";
 			echo "\t</tr>";
 		}
@@ -41,7 +42,7 @@
 			echo $form->radio($portfolio['Member']['id'], array('to' => 'to', 'cc' => 'cc', 'bcc' => 'bcc'), array('legend' => false));
 			echo "\t\t</td>";
 			echo "\t\t<td>";
-			echo $this->element('display_member', array('member' => $portfolio['Member'], 'electorate' => $portfolio['Electorate']));
+			echo $this->element('display_member', array('member' => $portfolio));
 			echo "\t\t</td>";
 			echo "\t</tr>";
 		}

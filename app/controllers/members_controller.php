@@ -9,7 +9,8 @@
 			$this->set('portfolios', $this->Portfolio->find('list'));
 		}
 		function results(){
-			$portfolios = array();
+			$portfolios = array(); // to allow for multiple portfolios to be searched
+			$this->Member->recursive = 2;
 			foreach($this->params['url'] as $search_param => $search_value){
 				switch($search_param){
 					case 'Member':
@@ -22,13 +23,15 @@
 						break;
 					case 'Electorate':
 						if((int)$search_value){
-							$this->set('electorate', $this->Electorate->findById($search_value));
+							$this->set('electorate', $this->Member->find('first', array('Electorate.id' => $search_value)));
+							// $this->set('electorate', $this->Electorate->findById($search_value));
 						}
 						else{
-							$this->set('electorate', $this->Electorate->find('first', array('conditions' => array('name' => $this->params['url']['Electorate'], 'state' => $this->params['url']['State']))));
+							$this->set('electorate', $this->Member->find('first', array('conditions' => array('Electorate.name' => $this->params['url']['Electorate'], 'Electorate.state' => $this->params['url']['State']))));
+							//$this->set('electorate', $this->Electorate->find('first', array('conditions' => array('name' => $this->params['url']['Electorate'], 'state' => $this->params['url']['State']))));
 						}
 						break;
-					case 'Portfolio': // need to make it work for multipule portfolios
+					case 'Portfolio':
 						$this->Member->bindModel(array('hasOne' => array('MembersPortfolio')));
 						$portfolios = $this->Member->find('all', array('conditions' => array('MembersPortfolio.portfolio_id' => $this->params['url']['Portfolio'], 'Electorate.state' => $this->params['url']['State'])));
 						$this->set('portfolios', $portfolios);

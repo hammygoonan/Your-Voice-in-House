@@ -1,38 +1,28 @@
 <div class="member_display">
 	<div class="primary_member_details">
 		<?php
-			echo $member['first_name'] . ' ' . $member['second_name'] . '<br />';
-			echo '<em>' . $electorate['name'] . '</em>';
+			echo $member['Member']['first_name'] . ' ' . $member['Member']['second_name'] . ' (<em>' . $member['Electorate']['name'] . '</em>)';
+			if(!empty($member['Member']['job'])){
+				echo '<br />' . $member['Member']['job'];
+			}
+			echo '<br />' . $member['Party']['name'];
 		?>
 	</div>
 	<div class="seconday_member_details">
 		<?php
-			echo '<br />' . $member['email'];
-			if(!empty($member['job'])){
-				echo '<br />' . $member['job'];
+			echo '<br />' . $member['Member']['email'];
+			foreach($member['Address'] as $address){
+				echo '<div class="address">';
+				echo '<br />' . $address['AddressType']['name'] . ' Address';
+				if($address['postal'] == 1){echo ' (postal)';}
+				echo ':<br />';
+				echo $address['address1'];
+				if(!empty($address['address2'])){echo '<br />' . $address['address2'];}
+				echo '<br />' . $address['suburb'] . '  ' . $address['state'] . '  ' . $address['pcode'];
+				echo '</div>';
 			}
+			
 		?>
-			<table>
-				<tr>
-					<?php
-						if(!empty($member['el_address_1'])){
-							echo '<td>Electoral Address:<br />';
-							echo $member['el_address_1'];
-							if(!empty($member['el_address_2'])){echo '<br />' . $member['el_address_2'];}
-							echo '<br />' . $member['el_suburb'] . '  ' . $member['el_state'] . '  ' . $member['el_pcode'];
-							echo '</td>';
-						}
-					?>
-					<?php
-						if(!empty($member['pa_address_1'])){
-							echo '<td>Parliamentary Address:<br />';
-							echo $member['pa_address_1'];
-							if(!empty($member['pa_address_2'])){echo '<br />' . $member['pa_address_2'];}
-							echo '<br />' . $member['pa_suburb'] . '  ' . $member['pa_state'] . '  ' . $member['pa_pcode'];
-							echo '</td>';
-						}
-					?>
-				</tr>
-			</table>
 	</div>
+	<p><?php echo $html->link('Something wrong?', array('controller' => 'corrections', 'action' => 'add_result', $member['Member']['id']), array('class' => 'correction_link')); ?></p>
 </div>
