@@ -1,0 +1,28 @@
+body{
+	font-size: 12px;
+	font-family: helvetica;
+	font-weight: 200;
+}
+
+/* layout */
+#header{}
+#content{}
+#footer{}
+
+/* core tags */
+p{
+	padding: 5px 0;
+}
+h1{}
+h2{}
+h3{}
+h4{}
+h5{}
+a{}
+
+/* specific elements */
+
+.correction_link{}
+.primary_member_details{}
+.seconday_member_details{}
+.address{}
