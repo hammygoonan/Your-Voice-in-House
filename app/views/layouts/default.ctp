@@ -15,15 +15,14 @@
 	<?php echo $this->Html->css(array('rest', 'grid', 'style')); ?> 
 </head>
 <body>
-	<div class="container_12">
 		<div id="header">
-			<h1>Header</h1>
+			<?php echo $html->image('http://yourvoiceinhouse.org.au/images/head.jpg', array(), array('class' => 'grid_12')); ?>
 		</div>
-		<div id="content">
+		<div id="content" class="container_12">
 			<?php echo $content_for_layout ?>
 		</div>
 		<div id="footer">
-			Designed and developed by Spire Software
+			Designed and developed by <?php echo $html->link('Spire Software', 'http://spiresoftware.com.au'); ?>
 		</div>
 	</div> <!-- end container_12 -->
 </body>

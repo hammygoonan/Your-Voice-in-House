@@ -1,53 +1,27 @@
-<?php
-	echo "<h1>Results Page</h1>";
-?>
+<h1 class="grid_12">Results Page</h1>
+<div class="clear"></div>
 <?php if(!empty($members) || !empty($electorate) || !empty($portfolios)): ?>
 	<?php echo $form->create('Member', array('action' => 'email')); ?>
 	<?php if(!empty($members)): ?>
-		<?php echo '<h2>Individual Members</h2>'; ?>
-		<table width="100%">
-			<?php foreach($members as $member): ?>
-				<tr>
-					<td><?php echo $form->radio($member['Member']['id'], array('to' => 'to', 'cc' => 'cc', 'bcc' => 'bcc'), array('legend' => false)); ?></td>
-					<td><?php echo $this->element('display_member', array('member' => $member)); ?></td>
-				</tr>
-			<?php endforeach; ?>
-		</table>
+		<h2 class="grid_12">Individual Members</h2>
+		<?php foreach($members as $member): ?>
+			<div class="grid_2"><?php echo $form->radio($member['Member']['id'], array('to' => 'to', 'cc' => 'cc', 'bcc' => 'bcc'), array('legend' => false)); ?></div>
+			<div class="grid_10"><?php echo $this->element('display_member', array('member' => $member)); ?></div>
+		<?php endforeach; ?>
 	<?php endif; ?>
 	<?php if(!empty($electorate)): ?>
-	<?php
-		echo '<h2>' . $electorate['Electorate']['name'] . '</h2>';
-		echo '<table width="100%">';
-		foreach($electorate as $member){
-			debug($electorate);
-			echo "\t<tr>";
-			echo "\t\t<td>";
-			echo $form->radio($member['id'], array('to' => 'to', 'cc' => 'cc', 'bcc' => 'bcc'), array('legend' => false));
-			echo "\t\t</td>";
-			echo "\t\t<td>";
-			echo $this->element('display_member', array('member' => $member));
-			echo "\t\t</td>";
-			echo "\t</tr>";
-		}
-		echo "</table>";
-	?>
+		<h2 class="grid_12"><?php echo $electorate[0]['Electorate']['name']; ?></h2>
+		<?php foreach($electorate as $member): ?>
+			<div class="grid_2"><?php echo $form->radio($member['Member']['id'], array('to' => 'to', 'cc' => 'cc', 'bcc' => 'bcc'), array('legend' => false)); ?></div>
+			<div class="grid_10"><?php echo $this->element('display_member', array('member' => $member)); ?></div>
+		<?php endforeach; ?>
 	<?php endif; ?>
 	<?php if(!empty($portfolios)): ?>
-	<?php
-		echo '<h2>Portfolio</h2>';
-		echo '<table width="100%">';
-		foreach($portfolios as $portfolio){
-			echo "\t<tr>";
-			echo "\t\t<td>";
-			echo $form->radio($portfolio['Member']['id'], array('to' => 'to', 'cc' => 'cc', 'bcc' => 'bcc'), array('legend' => false));
-			echo "\t\t</td>";
-			echo "\t\t<td>";
-			echo $this->element('display_member', array('member' => $portfolio));
-			echo "\t\t</td>";
-			echo "\t</tr>";
-		}
-		echo "</table>";
-	?>
+		<h2 class="grid_12">Portfolio</h2>
+		<?php foreach($portfolios as $portfolio): ?>
+			<div class="grid_2"><?php echo $form->radio($portfolio['Member']['id'], array('to' => 'to', 'cc' => 'cc', 'bcc' => 'bcc'), array('legend' => false)); ?></div>
+			<div class="grid_10"><?php echo $this->element('display_member', array('member' => $portfolio)); ?></div>
+		<?php endforeach; ?>
 	<?php endif; ?>
 	<?php echo $form->end('Send Email'); ?>
 <?php else: ?>

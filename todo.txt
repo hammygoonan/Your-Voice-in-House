@@ -1,13 +1,26 @@
+Comma separated members and electorates
+Terms and conditions
+
 Site Layout/css
+
 Javascript
+	- Autocomplete
+	- validation
+	
 Documentation
 Social Media
 Lockdown
+Log
 
 Phase 2:
 	XML / CSS / API
 	RSS
+	Open Australia
+	Wordpress Plugin
 
 For live:
 	- ReCAPTCHA
 	- SMTP
+	- NSW
+	
+	http://www.colourlovers.com/palette/58881/FlashDen

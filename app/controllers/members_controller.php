@@ -10,7 +10,7 @@
 		}
 		function results(){
 			$portfolios = array(); // to allow for multiple portfolios to be searched
-			$this->Member->recursive = 2;
+			$this->Member->recursive = 2; // to enable access to the Address Type data
 			foreach($this->params['url'] as $search_param => $search_value){
 				switch($search_param){
 					case 'Member':
@@ -23,17 +23,17 @@
 						break;
 					case 'Electorate':
 						if((int)$search_value){
-							$this->set('electorate', $this->Member->find('first', array('Electorate.id' => $search_value)));
+							$this->set('electorate', $this->Member->find('all', array('Electorate.id' => $search_value)));
 							// $this->set('electorate', $this->Electorate->findById($search_value));
 						}
 						else{
-							$this->set('electorate', $this->Member->find('first', array('conditions' => array('Electorate.name' => $this->params['url']['Electorate'], 'Electorate.state' => $this->params['url']['State']))));
+							$this->set('electorate', $this->Member->find('all', array('conditions' => array('Electorate.name' => $this->params['url']['Electorate'], 'Electorate.state' => $this->params['url']['State']))));
 							//$this->set('electorate', $this->Electorate->find('first', array('conditions' => array('name' => $this->params['url']['Electorate'], 'state' => $this->params['url']['State']))));
 						}
 						break;
 					case 'Portfolio':
 						$this->Member->bindModel(array('hasOne' => array('MembersPortfolio')));
-						$portfolios = $this->Member->find('all', array('conditions' => array('MembersPortfolio.portfolio_id' => $this->params['url']['Portfolio'], 'Electorate.state' => $this->params['url']['State'])));
+						$portfolios = $this->Member->find('all', array('conditions' => array('MembersPortfolio.portfolio_id' => $this->params['url']['Portfolio'], 'Electorate.state' => $this->params['url']['State']), 'fields' => 'DISTINCT *'));
 						$this->set('portfolios', $portfolios);
 						break;
 				}

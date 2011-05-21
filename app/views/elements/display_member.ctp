@@ -23,6 +23,6 @@
 			}
 			
 		?>
+	<p><?php echo $html->link('Something wrong?', array('controller' => 'corrections', 'action' => 'add_result', $member['Member']['id']), array('class' => 'correction_link grid_2 prefix_7')); ?></p>
 	</div>
-	<p><?php echo $html->link('Something wrong?', array('controller' => 'corrections', 'action' => 'add_result', $member['Member']['id']), array('class' => 'correction_link')); ?></p>
 </div>
