@@ -1,10 +1,6 @@
-Comma separated members and electorates
-Terms and conditions
-
-Site Layout/css
-
 Javascript
 	- Autocomplete
+	- accordion
 	- validation
 	
 Documentation

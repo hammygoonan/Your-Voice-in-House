@@ -5,25 +5,28 @@
 	<p>It's up to you whether you leave your name and emails address. We will only use it to contact you to clarify your comments and it will not be stored or passed on to anyone else.</p>
 </div>
 <?php echo $form->create('Correction', array('action' => 'add_search')); ?>
-<label for="CorrectionName" class="grid_5">
+<label for="CorrectionName" class="grid_6">
 	Your Name
 </label>
-<?php echo $form->input('name', array('class' => 'grid_6', 'label' => false)); ?>
+<?php echo $form->input('name', array('div' => 'grid_6', 'label' => false)); ?>
 <div class="clear"></div>
-<label for="CorrectionEmail" class="grid_5">
+<label for="CorrectionEmail" class="grid_6">
 	Your Email Address
 </label>
-<?php echo $form->input('email', array('class' => 'grid_6', 'label' => false)); ?>
+<?php echo $form->input('email', array('div' => 'grid_6', 'label' => false)); ?>
 <div class="clear"></div>
-<label for="CorrectionComment" class="grid_5">
+<label for="CorrectionComment" class="grid_6">
 	Any Comments?
 </label>
-<?php echo $form->input('comment', array('class' => 'grid_6', 'label' => false)); ?>
+<?php echo $form->input('comment', array('div' => 'grid_6', 'label' => false)); ?>
 <div class="clear"></div>
-<label for="CorrectionCorrectionTypeId" class="grid_5">
+<label for="CorrectionCorrectionTypeId" class="grid_6">
 	Type of error?
 </label>
-<?php echo $form->input('correction_type_id', array('class' => 'grid_6', 'label' => false, 'options' => $correction_types, 'default' => 5)); ?>
+<?php echo $form->input('correction_type_id', array('div' => 'grid_6', 'label' => false, 'options' => $correction_types, 'default' => 5)); ?>
 <div class="clear"></div>
 <?php echo $form->hidden('search_fields', array('value' => $referer)); ?>
-<?php echo $form->end('Submit'); ?>
+<div class="grid_6">
+	<?php echo $form->end('Submit'); ?>
+</div>
+<div class="clear"></div>

@@ -18,7 +18,16 @@
 							$this->set('members', $this->Member->findAllById($search_value));
 						}
 						else{
-							$this->set('members', $this->Member->find('all', array('conditions' => array('Member.second_name' => $this->params['url']['Member'], 'Electorate.state' => $this->params['url']['State']))));
+							$search_terms = explode(',', $this->params['url']['Member']);
+							$member_array = array();
+							foreach($search_terms as $last_name){
+								$last_name = trim($last_name);
+								$member_array = $this->Member->find('all', array('conditions' => array('Member.second_name' => $last_name, 'Electorate.state' => $this->params['url']['State'])));
+								foreach($member_array as $ind_arrary){
+									$results[] = $ind_arrary;
+								}
+							}
+							$this->set('members', $results);
 						}
 						break;
 					case 'Electorate':
@@ -94,7 +103,8 @@
 					|| empty($this->data['Member']['from_email'])
 					|| empty($this->data['Member']['subject'])
 					|| empty($this->data['Member']['msg'])
-				){
+					|| $this->data['Member']['terms'] == 0
+				){;
 					$this->Session->setFlash('Either your email address is incorrect or you are missing some manditory fields');
 				}
 				elseif($this->Member->validates(array('fieldList' => array('recaptcha_response_field')))){ // if recapture is right, then sent the email

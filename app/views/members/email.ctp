@@ -2,64 +2,71 @@
 <div class="clear"></div>
 <?php echo $this->Session->flash(); ?>
 <?php echo $form->create('Member', array('action' => 'email')); ?>
-<label for="MemberFromName" class="grid_5">
+<label for="MemberFromName" class="grid_6">
 	Your name:*
 </label>
 <?php echo $form->input('from_name', array(
 	'label' => false,
-	'class' => 'grid_6'
+	'div' => 'grid_6'
 )); ?>
 <div class="clear"></div>
-<label for="MemberFromEmail" class="grid_5">
+<label for="MemberFromEmail" class="grid_6">
 	Your email address:*
 </label>
 <?php echo $form->input('from_email', array(
 	'label' => false,
-	'class' => 'grid_6'
+	'div' => 'grid_6'
 	
 )); ?>
 <div class="clear"></div>
-<label for="MemberTo" class="grid_5">
+<label for="MemberTo" class="grid_6">
 	To:*
 </label>
 <?php echo $form->input('to', array(
 	'value' => @$to_field,
 	'label' => false,
-	'class' => 'grid_6'
+	'div' => 'grid_6'
 )); ?>
 <div class="clear"></div>
-<label for="MemberCc" class="grid_5">
+<label for="MemberCc" class="grid_6">
 	Cc:
 </label>
 <?php echo $form->input('cc', array(
 	'value' => @$cc_field, 
 	'label' => false,
-	'class' => 'grid_6'
+	'div' => 'grid_6'
 ));?>
 <div class="clear"></div>
-<label for="MemberBcc" class="grid_5">
+<label for="MemberBcc" class="grid_6">
 	Bcc:
 </label>
 <?php echo $form->input('bcc', array('value' => @$bcc_field, 
 	'label' => false,
-	'class' => 'grid_6'
+	'div' => 'grid_6'
 )); ?>
 <div class="clear"></div>
-<label for="MemberSubject" class="grid_5">
+<label for="MemberSubject" class="grid_6">
 	Subject:*
 </label>
 <?php echo $form->input('subject', array(
 	'label' => false,
-	'class' => 'grid_6'
+	'div' => 'grid_6'
 )); ?>
 <div class="clear"></div>
-<label for="MemberMsg" class="grid_5">
+<label for="MemberMsg" class="grid_6">
 	Message:*
 </label>
 <?php echo $form->input('msg', array('type' => 'textbox', 
 	'label' => false,
-	'class' => 'grid_6',
+	'div' => 'grid_6',
 	'rows' => 15
+)); ?>
+<label for="MemberTerms" class="grid_6">
+	I agree to the terms and conditions:*
+</label>
+<?php echo $form->input('terms', array('type' => 'checkbox', 
+	'label' => false,
+	'div' => 'grid_6'
 )); ?>
 <div class="clear"></div>
 <?php echo $this->Recaptcha->show(); ?>

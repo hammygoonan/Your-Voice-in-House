@@ -16,13 +16,13 @@ body{
 }
 #content{
 	background-color: white;
+	padding-bottom: 10px;
 }
 #footer{
 	background-color: white;
 	border-top: 1px solid grey;
-	padding: 10px;	
+	padding: 10px;
 	width: 940px;
-	margin: 0 auto;
 }
 /*.container_12{
 	margin-top: 0;
@@ -52,8 +52,8 @@ a:hover{
 	text-decoration: underline;
 }
 input[type='text']{
-	width: 300px;
 	padding: 5px;
+	width: 400px;
 	border: 1px solid #C7BA99;
 	-moz-border-radius: 5px;
 	border-radius: 5px;
@@ -64,6 +64,7 @@ input[type='text']:focus{
 }
 select{
 	padding: 5px;
+	width: 411px;
 	font-size: 1em;
 	border: 1px solid #C7BA99;
 	-moz-border-radius: 5px;
@@ -74,6 +75,7 @@ select:focus{
 }
 textarea{
 	padding: 5px;
+	width: 400px;
 	border: 1px solid #C7BA99;
 	-moz-border-radius: 5px;
 	border-radius: 5px;
