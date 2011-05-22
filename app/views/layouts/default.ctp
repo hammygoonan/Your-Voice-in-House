@@ -12,7 +12,8 @@
 	    'enter any meta description here'
 	   );?> 
 	<link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
-	<?php echo $this->Html->css(array('style', 'rest', 'grid')); ?> 
+	<?php echo $this->Html->css(array('style', 'rest', 'grid', 'ui-lightness/jquery-ui')); ?>
+	<?php echo $javascript->link(array('jquery.js', 'jquery-ui.js', 'jquery.validate.min.js', 'javascript.js')); ?>
 </head>
 <body>
 	<div class="container_12">

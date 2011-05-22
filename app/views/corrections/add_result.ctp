@@ -29,5 +29,5 @@
 <div class="clear"></div>
 <div class="grid_12">
 	<?php echo $form->end('Submit'); ?>
-</div> <!-- submit div -->
+</div>
 <div class="clear"></div>

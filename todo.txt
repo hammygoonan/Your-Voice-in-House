@@ -1,12 +1,11 @@
 Javascript
 	- Autocomplete
-	- accordion
-	- validation
 	
 Documentation
 Social Media
 Lockdown
 Log
+fix font issue - italics
 
 Phase 2:
 	XML / CSS / API

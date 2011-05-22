@@ -27,7 +27,7 @@
 									$results[] = $ind_arrary;
 								}
 							}
-							$this->set('members', $results);
+							$this->set('members', @$results);
 						}
 						break;
 					case 'Electorate':
@@ -69,7 +69,7 @@
 				$bcc_field = '';
 				if(!empty($to_members)){
 					for($i = 0; $i < sizeof($to_members); $i++){
-						$to_field .= $to_members[$i]['Member']['first_name'] . ' ' . $to_members[$i]['Member']['second_name'] . ' <' . $to_members[$i]['Member']['email'] . '>';
+						$to_field .= $to_members[$i]['Member']['email'];
 						if($i < sizeof($to_members) - 1){
 							$to_field .= ", ";
 						}
@@ -77,7 +77,7 @@
 				}
 				if(!empty($cc_members)){
 					for($i = 0; $i < sizeof($cc_members); $i++){
-						$cc_field .= $cc_members[$i]['Member']['first_name'] . ' ' . $cc_members[$i]['Member']['second_name'] . ' <' . $cc_members[$i]['Member']['email'] . '>';
+						$cc_field .= $cc_members[$i]['Member']['email'];
 						if($i < sizeof($cc_members) - 1){
 							$cc_field .= ", ";
 						}
@@ -85,7 +85,7 @@
 				}
 				if(!empty($bcc_members)){
 					for($i = 0; $i < sizeof($bcc_members); $i++){
-						$bcc_field .= $bcc_members[$i]['Member']['first_name'] . ' ' . $bcc_members[$i]['Member']['second_name'] . ' <' . $bcc_members[$i]['Member']['email'] . '>';
+						$bcc_field .= $bcc_members[$i]['Member']['email'];
 						if($i < sizeof($bcc_members) - 1){
 							$bcc_field .= ", ";
 						}
@@ -138,6 +138,9 @@
 			$this->Email->delivery = 'smtp';
 			*/
 			$this->Email->send($data['Member']['msg']);
+		}
+		function terms(){
+			$this->layout = 'ajax';
 		}
 		function upload(){
 			if(!empty($this->data)){
