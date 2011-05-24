@@ -27,24 +27,49 @@ $(document).ready(function(){
 	});
 	
 	// ajax search
+	
+	var input_value = Array();
+	var hidden_value = Array();;
+	
 	$('#MemberMember').autocomplete({		
 		source: function(request, response){
-			$.get('/yvih2/members/ajax_autocomplete/' + request.term, function(data){
+			var term = request.term.split(',');
+			$.get('/yvih2/members/ajax_autocomplete/' + $.trim(term[term.length - 1]), function(data){
 				response($.map(data, function(item){
 					return{
-						label: item.Member.first_name + ' ' + item.Member.second_name + ' (' + item.Electorate.name + ')',
+						label: item.Member.first_name + ' ' + item.Member.second_name + " (" + item.Electorate.name + ')',
 						value: item.Member.id
 					}
 				}));
 			}, 'json');
 		},
 		select: function( event, ui ){
-			$('#MemberMember').val(ui.item.label);
-			// add value to hidden element
-			return false;
-		},
-		focus: function( event, ui ){ // unsure if we want this
-			$('#MemberMember').val(ui.item.label);
+			// update what is displayed in the text box
+			
+			input_value.push(ui.item.label);
+			for(var i in input_value){
+				if(i == 0){
+					var input_display = input_value[i];
+				}
+				else{
+					input_display = input_display + ', ' + input_value[i];
+				}
+			}
+			$('#MemberMember').val(input_display);
+			
+			//update what is displayed in the hidden field
+			
+			hidden_value.push(ui.item.value);
+			for(var i in hidden_value){
+				if(i == 0){
+					var input_hidden = hidden_value[i];
+				}
+				else{
+					input_hidden = input_hidden + ',' + hidden_value[i];
+				}
+			}
+			$('#MemberId').val(input_hidden);
+
 			return false;
 		},
 		dataType: 'json',

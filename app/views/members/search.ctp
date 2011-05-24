@@ -9,13 +9,15 @@
 		'label' => false,
 		'div' => 'grid_6'
 	)); ?>
+	<?php echo $form->hidden('Member.id'); ?>
 	<div class="clear"></div>
 	<label for="PortfolioPortfolio" class="grid_6">
 		Search by portfolio
 	</label>
 	<?php echo $form->input('Portfolio', array(
 		'label' => false,
-		'div' => 'grid_6'
+		'div' => 'grid_6',
+		'size' => 10
 	));?>
 	<div class="clear"></div>
 	<label for="MemberElectorate" class="grid_6">

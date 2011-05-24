@@ -9,26 +9,27 @@
 			$this->set('portfolios', $this->Portfolio->find('list'));
 		}
 		function results(){
-			$portfolios = array(); // to allow for multiple portfolios to be searched
 			$this->Member->recursive = 2; // to enable access to the Address Type data
 			foreach($this->params['url'] as $search_param => $search_value){
 				switch($search_param){
 					case 'Member':
-						if((int)$search_value){
-							$this->set('members', $this->Member->findAllById($search_value));
-						}
-						else{
-							$search_terms = explode(',', $this->params['url']['Member']);
-							$member_array = array();
-							foreach($search_terms as $last_name){
-								$last_name = trim($last_name);
-								$member_array = $this->Member->find('all', array('conditions' => array('Member.second_name' => $last_name, 'Electorate.state' => $this->params['url']['State'])));
-								foreach($member_array as $ind_arrary){
-									$results[] = $ind_arrary;
-								}
+						$search_terms = explode(',', $this->params['url']['Member']);
+						$member_array = array();
+						foreach($search_terms as $last_name){
+							$last_name = trim($last_name);
+							$member_array = $this->Member->find('all', array('conditions' => array('Member.second_name' => $last_name, 'Electorate.state' => $this->params['url']['State'])));
+							foreach($member_array as $ind_arrary){
+								$results[] = $ind_arrary;
 							}
-							$this->set('members', @$results);
 						}
+						$this->set('members', @$results);
+						break;
+					case 'id':
+						$member_ids = explode(',', $this->params['url']['id']);
+						foreach($member_ids as $member_id){
+							$members[] = $this->Member->findById($member_id);
+						}
+						$this->set('members', $members);
 						break;
 					case 'Electorate':
 						if((int)$search_value){
@@ -41,6 +42,7 @@
 						}
 						break;
 					case 'Portfolio':
+						$portfolios = array(); // to allow for multiple portfolios to be searched
 						$this->Member->bindModel(array('hasOne' => array('MembersPortfolio')));
 						$portfolios = $this->Member->find('all', array('conditions' => array('MembersPortfolio.portfolio_id' => $this->params['url']['Portfolio'], 'Electorate.state' => $this->params['url']['State']), 'fields' => 'DISTINCT *'));
 						$this->set('portfolios', $portfolios);

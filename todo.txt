@@ -1,7 +1,3 @@
-Javascript
-	- Autocomplete
-		- use request handler and $this->param['isAjax']
-	
 Documentation
 Social Media
 Lockdown
@@ -13,6 +9,7 @@ Phase 2:
 	RSS
 	Open Australia
 	Wordpress Plugin
+	Deleting autocomplete
 
 For live:
 	- ReCAPTCHA
