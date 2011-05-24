@@ -3,7 +3,7 @@
 		var $name = 'Members';
 		var $uses = array('Member', 'Electorate', 'Portfolio', 'Pcode', 'Party', 'Address', 'Correction');
 		var $scaffold;
-		var $helpers = array('Form', 'Html', 'Session', 'RecaptchaPlugin.Recaptcha');
+		var $helpers = array('Form', 'Html', 'Session', 'RecaptchaPlugin.Recaptcha', 'Js');
 		var $components = array('Email', 'RecaptchaPlugin.Recaptcha');
 		function search(){
 			$this->set('portfolios', $this->Portfolio->find('list'));
@@ -141,6 +141,15 @@
 		}
 		function terms(){
 			$this->layout = 'ajax';
+		}
+		function ajax_autocomplete($id = null){
+			$this->layout = 'json';
+			$this->set('members', $this->Member->find('all', array('conditions' => array(
+				'OR' => array(
+					'Member.second_name LIKE' => '%' . $id . '%',
+					'Electorate.name LIKE' => '%' . $id . '%'
+				)
+			))));
 		}
 		function upload(){
 			if(!empty($this->data)){

@@ -1,5 +1,6 @@
 Javascript
 	- Autocomplete
+		- use request handler and $this->param['isAjax']
 	
 Documentation
 Social Media

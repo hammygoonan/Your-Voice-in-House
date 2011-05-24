@@ -27,12 +27,29 @@ $(document).ready(function(){
 	});
 	
 	// ajax search
-//	$('#MemberMember').autocomplete({		
-//		source: function( request, response ) {
-//			$.post();
-//			};,
-//		minlength: 2
-//	});
+	$('#MemberMember').autocomplete({		
+		source: function(request, response){
+			$.get('/yvih2/members/ajax_autocomplete/' + request.term, function(data){
+				response($.map(data, function(item){
+					return{
+						label: item.Member.first_name + ' ' + item.Member.second_name + ' (' + item.Electorate.name + ')',
+						value: item.Member.id
+					}
+				}));
+			}, 'json');
+		},
+		select: function( event, ui ){
+			$('#MemberMember').val(ui.item.label);
+			// add value to hidden element
+			return false;
+		},
+		focus: function( event, ui ){ // unsure if we want this
+			$('#MemberMember').val(ui.item.label);
+			return false;
+		},
+		dataType: 'json',
+		minLength: 2
+	});
 }); // end ready
 
  jQuery.validator.addMethod("multiemail", function(value, element) {
