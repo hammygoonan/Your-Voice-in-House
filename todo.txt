@@ -1,5 +1,3 @@
-Documentation
-Social Media
 Lockdown
 Log
 fix font issue - italics
@@ -15,5 +13,6 @@ For live:
 	- ReCAPTCHA
 	- SMTP
 	- NSW
+	- resort hosting for ACDJ
 	
 	http://www.colourlovers.com/palette/58881/FlashDen
