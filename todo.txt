@@ -1,6 +1,5 @@
-Lockdown
-Log
-fix font issue - italics
+NSW data
+ISO
 
 Phase 2:
 	XML / CSS / API
@@ -8,11 +7,13 @@ Phase 2:
 	Open Australia
 	Wordpress Plugin
 	Deleting autocomplete
+	Mailing list
+	spam list
+	Log
 
 For live:
-	- ReCAPTCHA
-	- SMTP
 	- NSW
 	- resort hosting for ACDJ
 	
 	http://www.colourlovers.com/palette/58881/FlashDen
+	email password: HJKFKT&HxHO6

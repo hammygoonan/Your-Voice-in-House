@@ -23,7 +23,10 @@
 			<div class="grid_10"><?php echo $this->element('display_member', array('member' => $portfolio)); ?></div>
 		<?php endforeach; ?>
 	<?php endif; ?>
-	<?php echo $form->end('Send Email'); ?>
+	<div class="grid_12">
+		<?php echo $form->end('Send Email'); ?>
+	</div>
+	<div class="clear"></div>
 <?php else: ?>
 	<div class="grid_12">
 		<h2>Sorry, no results...</h2>
