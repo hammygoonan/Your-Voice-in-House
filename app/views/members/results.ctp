@@ -1,6 +1,7 @@
-<h1 class="grid_12">Results Page</h1>
-<div class="clear"></div>
 <?php if(!empty($members) || !empty($electorate) || !empty($portfolios)): ?>
+	<h1 class="grid_12">Results Page</h1>
+	<small class="grid_12">Click on a members name for additional detail</small> 
+	<div class="clear"></div>
 	<?php echo $form->create('Member', array('action' => 'email')); ?>
 	<?php if(!empty($members)): ?>
 		<h2 class="grid_12">Individual Members</h2>

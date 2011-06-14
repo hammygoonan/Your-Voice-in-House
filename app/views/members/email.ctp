@@ -2,7 +2,7 @@
 <div class="clear"></div>
 <?php echo $this->Session->flash(); ?>
 <?php echo $form->create('Member', array('action' => 'email')); ?>
-<label for="MemberFromName" class="grid_6">
+<label for="MemberFromName" class="grid_3">
 	Your name:*
 </label>
 <?php echo $form->input('from_name', array(
@@ -11,7 +11,7 @@
 	'class' => 'required'
 )); ?>
 <div class="clear"></div>
-<label for="MemberFromEmail" class="grid_6">
+<label for="MemberFromEmail" class="grid_3">
 	Your email address:*
 </label>
 <?php echo $form->input('from_email', array(
@@ -21,7 +21,7 @@
 	
 )); ?>
 <div class="clear"></div>
-<label for="MemberTo" class="grid_6">
+<label for="MemberTo" class="grid_3">
 	To:*
 </label>
 <?php echo $form->input('to', array(
@@ -31,7 +31,7 @@
 	'class' => 'multiemail required'
 )); ?>
 <div class="clear"></div>
-<label for="MemberCc" class="grid_6">
+<label for="MemberCc" class="grid_3">
 	Cc:
 </label>
 <?php echo $form->input('cc', array(
@@ -41,7 +41,7 @@
 	'class' => 'multiemail'
 ));?>
 <div class="clear"></div>
-<label for="MemberBcc" class="grid_6">
+<label for="MemberBcc" class="grid_3">
 	Bcc:
 </label>
 <?php echo $form->input('bcc', array(
@@ -51,7 +51,7 @@
 	'class' => 'multiemail'
 )); ?>
 <div class="clear"></div>
-<label for="MemberSubject" class="grid_6">
+<label for="MemberSubject" class="grid_3">
 	Subject:*
 </label>
 <?php echo $form->input('subject', array(
@@ -60,7 +60,7 @@
 	'class' => 'required'
 )); ?>
 <div class="clear"></div>
-<label for="MemberMsg" class="grid_6">
+<label for="MemberMsg" class="grid_3">
 	Message:*
 </label>
 <?php echo $form->input('msg', array('type' => 'textbox', 
@@ -69,7 +69,7 @@
 	'rows' => 15,
 	'class' => 'required'
 )); ?>
-<label for="MemberTerms" class="grid_6">
+<label for="MemberTerms" class="grid_4">
 	I agree to the <?php echo $html->link('terms and conditions', array('controller' => 'pages', 'action' => 'terms'), array('class' => 'terms')); ?>:*
 </label>
 <?php echo $form->input('terms', array('type' => 'checkbox', 

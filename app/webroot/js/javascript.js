@@ -31,6 +31,8 @@ $(document).ready(function(){
 	var input_value = Array();
 	var hidden_value = Array();;
 	
+	// member_autocomplete
+	
 	$('#MemberMember').autocomplete({		
 		source: function(request, response){
 			var term = request.term.split(',');
@@ -69,6 +71,33 @@ $(document).ready(function(){
 				}
 			}
 			$('#MemberId').val(input_hidden);
+
+			return false;
+		},
+		dataType: 'json',
+		minLength: 2
+	});
+	
+	//electorate Autocomplete
+	
+	$('#MemberElectorate').autocomplete({		
+		source: function(request, response){
+			$.get('/yvih2/members/electorate_autocomplete/' + request.term, function(data){
+				response($.map(data, function(item){
+					return{
+						label: item.Electorate.name + ' (' + item.Electorate.house + ', ' + item.Electorate.state + ')',
+						value: item.Electorate.id
+					}
+				}));
+			}, 'json');
+		},
+		select: function( event, ui ){
+			// update what is displayed in the text box
+			
+			$('#MemberElectorate').val(ui.item.label);
+			
+			//update what is displayed in the hidden field
+			$('#MemberElectorateId').val(ui.item.value);
 
 			return false;
 		},

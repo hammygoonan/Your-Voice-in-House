@@ -37,13 +37,23 @@ p{
 h1{
 	font-size: 2em;
 	color: #F58723;
+	margin-bottom: 2px;
 }
 h2{
 	font-size: 1.8em;
 	color: #C7BA99;
+	margin-bottom: 2px;
 }
-h3{}
-h4{}
+h3{
+	color: #4d83b2;
+	font-size: 1.7em;
+	margin: 5px 0 0 0;
+}
+h4{
+	color: #4d83b2;
+	font-size: 1.3em;
+	margin: 0;
+}
 h5{}
 a{
 	color: #F58723;
@@ -112,7 +122,14 @@ label{
 .seconday_member_details{
 	/* display: none; */
 }
-.member_arrow{
+.search_field{
+	background-color: #f7f7f7;
+	border: 1px solid #c3c3c3;
+	padding: 10px;
+	margin: 10px;
+	width: 600px;
+	-moz-border-radius: 10px;
+	border-radius: 10px;
 }
 .address{}
 #flashMessage, .error-message{

@@ -13,32 +13,32 @@
 			foreach($this->params['url'] as $search_param => $search_value){
 				switch($search_param){
 					case 'Member':
-						$search_terms = explode(',', $this->params['url']['Member']);
-						$member_array = array();
-						foreach($search_terms as $last_name){
-							$last_name = trim($last_name);
-							$member_array = $this->Member->find('all', array('conditions' => array('Member.second_name' => $last_name, 'Electorate.state' => $this->params['url']['State'])));
-							foreach($member_array as $ind_arrary){
-								$results[] = $ind_arrary;
+						if( !empty($this->params['url']['id']) ){
+							$member_ids = explode(',', $this->params['url']['id']);
+							foreach($member_ids as $member_id){
+								$members[] = $this->Member->findById($member_id);
 							}
+							$this->set('members', $members);
 						}
-						$this->set('members', @$results);
-						break;
-					case 'id':
-						$member_ids = explode(',', $this->params['url']['id']);
-						foreach($member_ids as $member_id){
-							$members[] = $this->Member->findById($member_id);
+						elseif( !empty($this->params['url']['Member']) && empty($this->params['url']['id']) ){ // don't search if the Member.id hidden field is set. This search is only done if Javascript is turned off.
+							$search_terms = explode(',', $this->params['url']['Member']);
+							$member_array = array();
+							foreach($search_terms as $last_name){
+								$last_name = trim($last_name);
+								$member_array = $this->Member->find('all', array('conditions' => array('Member.second_name' => $last_name, 'Electorate.state' => $this->params['url']['State'])));
+								foreach($member_array as $ind_arrary){
+									$results[] = $ind_arrary;
+								}
+							}
+							$this->set('members', $results);
 						}
-						$this->set('members', $members);
 						break;
 					case 'Electorate':
-						if((int)$search_value){
-							$this->set('electorate', $this->Member->find('all', array('Electorate.id' => $search_value)));
-							// $this->set('electorate', $this->Electorate->findById($search_value));
+						if(!empty($this->params['url']['electorate_id'])){
+							$this->set('electorate', $this->Member->find('all', array('conditions' => array('Electorate.id' => $this->params['url']['electorate_id']))));
 						}
 						else{
 							$this->set('electorate', $this->Member->find('all', array('conditions' => array('Electorate.name' => $this->params['url']['Electorate'], 'Electorate.state' => $this->params['url']['State']))));
-							//$this->set('electorate', $this->Electorate->find('first', array('conditions' => array('name' => $this->params['url']['Electorate'], 'state' => $this->params['url']['State']))));
 						}
 						break;
 					case 'Portfolio':
@@ -152,6 +152,15 @@
 					'Electorate.name LIKE' => '%' . $id . '%'
 				)
 			))));
+		}
+		function electorate_autocomplete($id = null){
+			$this->layout = 'json';
+			$this->set('electorates', $this->Electorate->find('all', array('conditions' => array(
+				'OR' => array(
+					'Electorate.name LIKE' => '%' . $id . '%',
+					'Electorate.house LIKE' => '%' . $id . '%',
+				)
+			), 'fields' => 'DISTINCT *')));
 		}
 		function upload(){
 			if(!empty($this->data)){
