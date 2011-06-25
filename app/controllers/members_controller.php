@@ -2,7 +2,7 @@
 	class MembersController extends AppController{
 		var $name = 'Members';
 		var $uses = array('Member', 'Electorate', 'Portfolio', 'Pcode', 'Party', 'Address', 'Correction');
-		var $scaffold;
+	//	var $scaffold;
 		var $helpers = array('Form', 'Html', 'Session', 'RecaptchaPlugin.Recaptcha', 'Js');
 		var $components = array('Email', 'RecaptchaPlugin.Recaptcha');
 		function search(){

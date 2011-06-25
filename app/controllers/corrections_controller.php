@@ -3,7 +3,7 @@
 		var $name = "Corrections";
 		var $uses = array("Correction", "Member", "CorrectionType");
 		var $helpers = array('form');
-		var $scaffold;
+	//	var $scaffold;
 		function add_search(){
 			if($this->data){
 				$this->Correction->save($this->data);
