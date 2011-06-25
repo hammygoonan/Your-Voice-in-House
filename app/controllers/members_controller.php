@@ -197,10 +197,9 @@
 						unset($member['Member']['id']);
 						
 						// save
-						$this->Member->create();
-						$this->Member->save($member);
 						
-						$id = $this->Member->id;
+						$this->Member->create();
+						$this->Member->save($member, array('validate' => false));
 						// add addresses
 						$k = 9;
 					//	var_dump(is_string($line[$k]));

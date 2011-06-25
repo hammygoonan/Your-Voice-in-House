@@ -5,11 +5,11 @@
 	<title><?php echo $title_for_layout?></title>
 	<?php echo $this->Html->meta(
 	    'keywords',
-	    'enter any meta keyword here'
+	    'Politics, Politicians, Australia'
 	);?>
 	<?php echo $this->Html->meta(
 	    'description',
-	    'enter any meta description here'
+	    'Your Voice in House allows you to search for, find and contact every politician in Australia'
 	   );?> 
 	<link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
 	<?php echo $this->Html->css(array('grid', 'ui-lightness/jquery-ui', 'style')); ?>
