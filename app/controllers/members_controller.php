@@ -111,6 +111,7 @@
 				}
 				elseif($this->Member->validates(array('fieldList' => array('recaptcha_response_field')))){ // if recapture is right, then sent the email
 					$this->_smtp_send($this->data);
+					CakeLog::write('sent_emails', "IP: " . $_SERVER['REMOTE_ADDR'] . "\tTo: " . $this->data['Member']['to'] . "\tCc: " . $this->data['Member']['cc'] . "\tBcc: " . $this->data['Member']['bcc'] . "\tSubject: " . $this->data['Member']['subject']);
 					$this->redirect(array('action' => 'send_email'));
 				}
 			}		
