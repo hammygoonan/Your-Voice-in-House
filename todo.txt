@@ -1,21 +1,21 @@
-NSW data
 Senate data
 ISO
-change the class for the labels on the send email page
 
 Phase 2:
 	XML / CSS / API
 	RSS
 	Open Australia
+	Federal Postcodes
 	Wordpress Plugin
 	Deleting autocomplete
 	Mailing list
 	spam list
-	Log
 
 For live:
 	- NSW
+	- Senate
 	- resort hosting for ACDJ
+	- send configuration details
 	
 	http://www.colourlovers.com/palette/58881/FlashDen
 	email password: HJKFKT&HxHO6

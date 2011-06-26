@@ -30,7 +30,7 @@
 									$results[] = $ind_arrary;
 								}
 							}
-							$this->set('members', $results);
+							$this->set('members', @$results);
 						}
 						break;
 					case 'Electorate':
@@ -49,7 +49,14 @@
 						break;
 				}
 			}
-			// in case we need to make a correction, we need to know what the search was:
+			// log search
+			
+			$portfolio_list = '';
+			foreach($this->params['url']['Portfolio'] as $portfolio){
+				$portfolio_list .= $portfolio . ', ';
+			}
+			CakeLog::write('search', "Member: " . $this->params['url']['Member'] . "\tMemer id: " . $this->params['url']['id'] . "\tElectorate: " . $this->params['url']['Electorate'] . "\tElectorate Id: " . $this->params['url']['electorate_id'] . "\tPortfolio: " . $portfolio_list . "\tState: " . $this->params['url']['State']);
+			// CakeLog::write('results', '');
 		}
 		function email(){
 			if(preg_match('/members\/results/', $this->referer())){

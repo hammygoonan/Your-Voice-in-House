@@ -5,7 +5,7 @@
 	<title><?php echo $title_for_layout?></title>
 	<?php echo $this->Html->meta(
 	    'keywords',
-	    'Politics, Politicians, Australia'
+	    'Democracy, Politics, Politicians, Australia, ACT, NSW, NT, QLD, TAS, SA, VIC, WA, Senate, House, House of Representatives, Legislative Council, Legislative Assembly, Labor, Liberal, Nation, Green, Member, Party, Electorate, State, Federal, Australian Capital Territory, New South Wales, Northern Territory, Queensland, South Australia, Tasmania, Victoria, Western Australia'
 	);?>
 	<?php echo $this->Html->meta(
 	    'description',
