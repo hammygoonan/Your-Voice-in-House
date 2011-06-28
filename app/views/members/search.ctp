@@ -1,6 +1,6 @@
 <h1 class="grid_12">Search for Members of Parliament</h1>
 <div class="clear"></div>
-<small class="grid_12">You can search in as many fields as you like</small>
+<strong class="grid_12">You can search in as many fields as you like</strong>
 <?php echo $form->create('Member', array('action' => 'results', 'type' => 'get')); ?>
 	<h3 class="grid_12">Search for a politician by name</h3>
 	<div class="clear"></div>

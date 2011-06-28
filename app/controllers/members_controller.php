@@ -210,7 +210,6 @@
 						$this->Member->save($member, array('validate' => false));
 						// add addresses
 						$k = 9;
-					//	var_dump(is_string($line[$k]));
 						while(is_string($line[$k])){
 							if($line[$k] != ''){
 								$address['Address'] = array(
@@ -244,9 +243,30 @@
 				$this->Session->setFlash('<p>' . $j . ' lines exicuted');
 			}
 		}
-		function test(){
+		function find(){
+			$this->set('house', $this->Electorate->find('all', array('fields' => 'DISTINCT house')));
+		}
+		function find_results(){
+			if(!empty($this->data['Electorate']['house'])){
+				$this->set('house', $this->Electorate->find('all', array(
+					'conditions' => array(
+						'house' => $this->data['Electorate']['house'],
+						'state' => $this->data['Electorate']['state']
+					)
+				)));
+				$this->set('search', $this->data['Electorate']['house'] . ' (' . $this->data['Electorate']['state'] .')');
+			}
+			elseif(!empty($this->data['Member']['id'])){
+				$this->redirect(array('controller' => 'members', 'action' => 'edit', 'id' => $this->data['Member']['id']));
+			}
+			elseif(!empty($this->data['Member']['electorate_id'])){
+				$this->set('electorates', $this->Member->findAllByElectorateId($this->data['Member']['electorate_id']));
+			}
+		}
+		function edit($id = null){
+			$this->set('member', $this->Member->findById($this->params['named']['id']));
+			$this->set('parties', $this->Party->find('list'));
 			$this->set('portfolios', $this->Portfolio->find('list'));
-			debug($this->data);
 		}
 	}
 ?>
