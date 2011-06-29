@@ -264,6 +264,7 @@
 			}
 		}
 		function edit($id = null){
+			$this->Member->recursive = 2;
 			$this->set('member', $this->Member->findById($this->params['named']['id']));
 			$this->set('parties', $this->Party->find('list'));
 			$this->set('portfolios', $this->Portfolio->find('list'));

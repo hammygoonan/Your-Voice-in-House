@@ -27,13 +27,27 @@
 		<td><?php echo $form->input('party', array('between' => '</td><td>', 'value' => $member['Party']['id'])); ?></td>
 	</tr>
 	<tr>
-		<td><?php echo $form->input('portfolios', array('between' => '</td><td>', 'size' => 10, 'multiple' => true)); ?></td>
+		<td><?php 
+			foreach($member['Portfolio'] as $portfolio){
+				$portfolio_id[] = $portfolio['id'];
+			}
+			echo $form->input('portfolios', array('between' => '</td><td>', 'selected' => @$portfolio_id, 'size' => 10, 'multiple' => true));
+		?></td>
 	</tr>
 </table>
 <?php foreach($member['Address'] as $address): ?>
-	<?php echo 'address<br />'; ?>
+	Id: <?php echo $address['id']; ?>  <?php echo $html->link('Edit Address', array('controller' => 'addresses', 'action' => 'edit', 'member_id' => $member['Member']['id'], 'address_id' => $address['id'])); ?><br />
+	Postal: <?php echo ($address['postal'] == 1) ? 'Postal' : 'Pysical'; ?><br />
+	Address Type: <?php echo $address['AddressType']['name']; ?><br />
+	Address Line 1: <?php echo $address['address1']; ?><br />
+	Address Line 2: <?php echo $address['address2']; ?><br />
+	Suburb: <?php echo $address['suburb']; ?><br />
+	State: <?php echo $address['state']; ?><br />
+	Postcode: <?php echo $address['pcode']; ?><br />
+	Phone: <?php echo $address['phone']; ?><br />
+	Tollfree: <?php echo $address['tollfree']; ?><br />
+	Fax: <?php echo $address['fax']; ?>
 <?php endforeach; ?>
 
-
-
+<p><?php echo $html->link('Add Address', array('controller' => 'addresses', 'action' => 'add', 'member_id' => $member['Member']['id'])); ?></p> 
 <?php echo $form->end('submit');?>
