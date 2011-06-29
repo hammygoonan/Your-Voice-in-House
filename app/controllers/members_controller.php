@@ -4,7 +4,7 @@
 		var $uses = array('Member', 'Electorate', 'Portfolio', 'Pcode', 'Party', 'Address', 'Correction');
 	//	var $scaffold;
 		var $helpers = array('Form', 'Html', 'Session', 'RecaptchaPlugin.Recaptcha', 'Js');
-		var $components = array('Email', 'RecaptchaPlugin.Recaptcha');
+		var $components = array('Email', 'RecaptchaPlugin.Recaptcha', 'Auth');
 		function search(){
 			$this->set('portfolios', $this->Portfolio->find('list'));
 		}
@@ -267,6 +267,9 @@
 			$this->set('member', $this->Member->findById($this->params['named']['id']));
 			$this->set('parties', $this->Party->find('list'));
 			$this->set('portfolios', $this->Portfolio->find('list'));
+		}
+		function beforeFilter(){
+			$this->Auth->allow('search', 'results', 'email', 'send_email', 'terms', 'ajax_autocomplete', 'electorate_autocomplete');
 		}
 	}
 ?>

@@ -2,25 +2,24 @@ Phase 2:
 	XML / CSV / JSON / API
 	Open Australia
 	Deleting autocomplete
-	Mailing list
-	spam list
+	Promotion
 	separate out house of parliament
 	
 Phase 3:
-	RSS
+	RSS / Mailing list
 	Federal Postcodes
 	Wordpress Plugin
 	Joomla Plugin
 	
 Current
 	Preselected portfolio list on member edit page.
+	User login and auth module for backends
 
 For live:
 	- NSW
 	- Senate
 	- resort hosting for ACDJ
 	- send configuration details
-	- Senate data
 	- ISO
 	
 	http://www.colourlovers.com/palette/58881/FlashDen
