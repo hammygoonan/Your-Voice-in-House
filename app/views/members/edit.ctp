@@ -3,7 +3,10 @@
 <table>
 	<tr>
 		<td>Member ID</td>
-		<td><?php echo $member['Member']['id']; ?></td>
+		<td>
+			<?php echo $member['Member']['id']; ?>
+			<?php echo $form->hidden('id', array('value' => $member['Member']['id'])); ?>
+		</td>
 	</tr>
 	<tr>
 		<td><?php echo $form->input('first_name', array('between' => '</td><td>', 'value' => $member['Member']['first_name'])); ?></td>
@@ -20,23 +23,25 @@
 	<tr>
 		<td>
 			<?php echo $form->input('Electorate', array('between' => '</td><td>', 'value' => $member['Electorate']['name'])); ?>
-			<?php echo $form->hidden('electorate_id'); ?>
+			<?php echo $form->hidden('electorate_id', array('value' => $member['Member']['electorate_id'])); ?>
 		</td>
 	</tr>
 	<tr>
-		<td><?php echo $form->input('party', array('between' => '</td><td>', 'value' => $member['Party']['id'])); ?></td>
+		<td><?php echo $form->input('party_id', array('between' => '</td><td>', 'value' => $member['Party']['id'])); ?></td>
 	</tr>
 	<tr>
 		<td><?php 
 			foreach($member['Portfolio'] as $portfolio){
 				$portfolio_id[] = $portfolio['id'];
 			}
-			echo $form->input('portfolios', array('between' => '</td><td>', 'selected' => @$portfolio_id, 'size' => 10, 'multiple' => true));
+			echo $form->input('Portfolio', array('between' => '</td><td>', 'selected' => @$portfolio_id, 'size' => 10, 'multiple' => true));
 		?></td>
 	</tr>
 </table>
+<h2>Addresses</h2>
 <?php foreach($member['Address'] as $address): ?>
-	Id: <?php echo $address['id']; ?>  <?php echo $html->link('Edit Address', array('controller' => 'addresses', 'action' => 'edit', 'member_id' => $member['Member']['id'], 'address_id' => $address['id'])); ?><br />
+	<h3>Address</h3>
+	Id: <?php echo $address['id']; ?> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <?php echo $html->link('Edit Address', array('controller' => 'addresses', 'action' => 'edit', 'member_id' => $member['Member']['id'], 'address_id' => $address['id'])); ?><br />
 	Postal: <?php echo ($address['postal'] == 1) ? 'Postal' : 'Pysical'; ?><br />
 	Address Type: <?php echo $address['AddressType']['name']; ?><br />
 	Address Line 1: <?php echo $address['address1']; ?><br />
