@@ -52,8 +52,10 @@
 			// log search
 			
 			$portfolio_list = '';
-			foreach($this->params['url']['Portfolio'] as $portfolio){
-				$portfolio_list .= $portfolio . ', ';
+			if(!empty($this->params['url']['Portfolio'])){
+				foreach($this->params['url']['Portfolio'] as $portfolio){
+					$portfolio_list .= $portfolio . ', ';
+				}
 			}
 			CakeLog::write('search', "Member: " . $this->params['url']['Member'] . "\tMemer id: " . $this->params['url']['id'] . "\tElectorate: " . $this->params['url']['Electorate'] . "\tElectorate Id: " . $this->params['url']['electorate_id'] . "\tPortfolio: " . $portfolio_list . "\tState: " . $this->params['url']['State']);
 			// CakeLog::write('results', '');
@@ -208,6 +210,7 @@
 						
 						$this->Member->create();
 						$this->Member->save($member, array('validate' => false));
+						$id = $this->Member->id;
 						// add addresses
 						$k = 9;
 						while(is_string($line[$k])){
@@ -221,9 +224,9 @@
 									'suburb' => $line[$k++],
 									'state' => $line[$k++],
 									'pcode' => $line[$k++],
-									'phone' => $line[$k++],
-									'tollfree' => $line[$k++],
-									'fax' => $line[$k++]
+									'phone' => @$line[$k++],
+									'tollfree' => @$line[$k++],
+									'fax' => @$line[$k++]
 								);
 								$this->Address->create();
 								$this->Address->save($address);

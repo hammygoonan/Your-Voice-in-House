@@ -4,6 +4,11 @@ Phase 2:
 	Deleting autocomplete
 	Promotion
 	separate out house of parliament
+	back end
+		- delete member
+		- add member
+		- delete address
+		- Delete groups of members
 	
 Phase 3:
 	RSS / Mailing list
@@ -12,8 +17,8 @@ Phase 3:
 	Joomla Plugin
 	
 Current
-	Preselected portfolio list on member edit page.
-	User login and auth module for backends
+	deleting of addresses
+
 
 For live:
 	- NSW

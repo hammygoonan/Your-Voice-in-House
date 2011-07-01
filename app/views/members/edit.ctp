@@ -41,7 +41,7 @@
 <h2>Addresses</h2>
 <?php foreach($member['Address'] as $address): ?>
 	<h3>Address</h3>
-	Id: <?php echo $address['id']; ?> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <?php echo $html->link('Edit Address', array('controller' => 'addresses', 'action' => 'edit', 'member_id' => $member['Member']['id'], 'address_id' => $address['id'])); ?><br />
+	Id: <?php echo $address['id']; ?> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <?php echo $html->link('Edit Address', array('controller' => 'addresses', 'action' => 'edit', 'member_id' => $member['Member']['id'], 'address_id' => $address['id'])); ?> | <?php echo $html->link('Delete Address', array('controller' => 'addresses', 'action' => 'delete', 'id' => $member['Member']['id'])); ?><br />
 	Postal: <?php echo ($address['postal'] == 1) ? 'Postal' : 'Pysical'; ?><br />
 	Address Type: <?php echo $address['AddressType']['name']; ?><br />
 	Address Line 1: <?php echo $address['address1']; ?><br />
