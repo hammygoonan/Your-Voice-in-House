@@ -1,3 +1,6 @@
+Tweeks:
+	- make T&C look better.
+
 Phase 2:
 	XML / CSV / JSON / API
 	Open Australia
@@ -7,8 +10,8 @@ Phase 2:
 	back end
 		- delete member
 		- add member
-		- delete address
 		- Delete groups of members
+		- delete address
 	
 Phase 3:
 	RSS / Mailing list
@@ -21,11 +24,11 @@ Current
 
 
 For live:
-	- NSW
-	- Senate
 	- resort hosting for ACDJ
 	- send configuration details
 	- ISO
+	- JS path
+	- Turn off Debugging
 	
 	http://www.colourlovers.com/palette/58881/FlashDen
 	email password: HJKFKT&HxHO6

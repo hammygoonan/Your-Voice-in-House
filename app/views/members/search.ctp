@@ -69,7 +69,9 @@
 	<?php echo $form->end('Submit'); ?>
 </div>
 <div class="grid_12">
-	<a href="http://twitter.com/share" class="twitter-share-button" data-url="http://yourvoiceinhouse.org.au" data-text="Your Voice in House can help you find and contact any politician in Australia" data-count="vertical" data-via="spiresoft">Tweet</a><script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
-	<iframe src="http://www.facebook.com/plugins/likebox.php?href=https%3A%2F%2Fwww.facebook.com%2Fpages%2FYour-Voice-in-House%2F204204789616697&amp;width=140&amp;colorscheme=light&amp;show_faces=true&amp;stream=false&amp;header=false&amp;height=62" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:140px; height:62px;" allowTransparency="true"></iframe>
+	<div class="grid_1">
+		<a href="http://twitter.com/share" class="twitter-share-button" data-url="http://yourvoiceinhouse.org.au" data-text="I just found and contacted politicians using Your Voice in House" data-count="vertical" data-via="spiresoft">Tweet</a><script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
+	</div>
+	<div id="fb-root" class="grid_2"></div><script src="http://connect.facebook.net/en_US/all.js#xfbml=1"></script><fb:like-box href="https://www.facebook.com/pages/Your-Voice-in-House/204204789616697" width="100" show_faces="true" border_color="" stream="false" header="true"></fb:like-box>
 </div>
 <div class="clear"></div>

@@ -6,6 +6,7 @@
 		var $helpers = array('Form', 'Html', 'Session', 'RecaptchaPlugin.Recaptcha', 'Js');
 		var $components = array('Email', 'RecaptchaPlugin.Recaptcha', 'Auth');
 		function search(){
+			$this->set('title_for_layout', 'Your Voice in House');
 			$this->set('portfolios', $this->Portfolio->find('list'));
 		}
 		function results(){
@@ -130,25 +131,22 @@
 		function _smtp_send($data){
 			$this->Email->from    = $data['Member']['from_name'] . ' <no-reply@yourvoiceinhouse.org.au>';
 		//	$this->Email->to      = $data['Member']['to'];
-		//	$this->Email->cc      = $data['Member']['cc'];
-		//	$this->Email->bcc      = $data['Member']['bcc'];
+		//	$this->Email->cc      = explode(', ', $data['Member']['cc']);
+		//	$this->Email->bcc      = explode(', ', $data['Member']['bcc']);
 			$this->Email->to      = 'hammy@goonanism.com';
 			$this->Email->replyTo    = $data['Member']['from_name'] . ' <' . $data['Member']['from_email'] . '>';
 			$this->Email->subject = $data['Member']['subject'];
 			$this->Email->sendAs = 'both';
 			
-				/* SMTP Options 
+				/* SMTP Options */
 				
 			$this->Email->smtpOptions = array(
 				'port'=>'25',
 				'timeout'=>'30',
 				'host' => 'mail.yourvoiceinhouse.org.au',
-				'username'=>'your_smtp_username',
-				'password'=>'your_smtp_password',
-				'client' => 'smtp_helo_hostname'
+				'username'=>'no-reply+yourvoiceinhouse.org.au',
+				'password'=>'HJKFKT&HxHO6',
 			);
-			$this->Email->delivery = 'smtp';
-			*/
 			$this->Email->send($data['Member']['msg']);
 		}
 		function terms(){

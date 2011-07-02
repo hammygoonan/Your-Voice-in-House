@@ -18,7 +18,7 @@
 <body>
 	<div class="container_12">
 		<div id="header">
-			<?php echo $html->image('head.jpg', array('class' => 'grid_12', 'alt' => 'Your Voice In House')); ?>
+			<a href="/"><?php echo $html->image('head.jpg', array('class' => 'grid_12', 'alt' => 'Your Voice In House')); ?></a>
 		</div>
 		<div id="content">
 			<?php echo $content_for_layout ?>
