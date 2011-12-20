@@ -13,6 +13,7 @@ $(document).ready(function(){
 	
 	// form validation
 	$('#MemberEmailForm').validate();
+	$('#ApiSignupForm').validate();
 	$('.terms').click(function(){
 		$('.dialog').dialog({
 			modal: true,
@@ -85,7 +86,7 @@ $(document).ready(function(){
 			$.get('/yvih2/members/electorate_autocomplete/' + request.term, function(data){
 				response($.map(data, function(item){
 					return{
-						label: item.Electorate.name + ' (' + item.Electorate.house + ', ' + item.Electorate.state + ')',
+						label: item.Electorate.name + ' (' + item.House.name + ', ' + item.House.state + ')',
 						value: item.Electorate.id
 					}
 				}));
@@ -106,14 +107,15 @@ $(document).ready(function(){
 	});
 }); // end ready
 
- jQuery.validator.addMethod("multiemail", function(value, element) {
-                    if (this.optional(element)) {
-                        return true;
-                    }
-                    var emails = value.split( new RegExp( "\\s*,\\s*", "gi" ) );
-                    valid = true;
-                    for(var i in emails) {
-                        value = emails[i];
-                        valid=valid && jQuery.validator.methods.email.call(this, value,element);
-                    }
-                    return valid;}, "Invalid email format");
+jQuery.validator.addMethod("multiemail", function(value, element) {
+	if (this.optional(element)) {
+		return true;
+	}
+	var emails = value.split( new RegExp( "\\s*,\\s*", "gi" ) );
+    valid = true;
+    for(var i in emails) {
+    	value = emails[i];
+		valid=valid && jQuery.validator.methods.email.call(this, value,element);
+	}
+	return valid;},
+	"Invalid email format");

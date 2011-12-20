@@ -1,12 +1,31 @@
 Tweeks:
 	- make T&C look better.
+	- Favicon
+	
+Bugs:
+	To doesn't show up if duplicated (ie in individual and portfolio results)
+	Add Html helper to AppController
+	It's calling an undefined controller somewhere (probably)
 
 Phase 2:
 	XML / CSV / JSON / API
+		- Make query recursive so we can get the address type - Done
+		- will need to clean up a lot more fields - Done
+		- if no query sent return error - Done
+		- Add 'House', 'Party', 'Address Type' to XML
+		- API creation page
+		- Make portfolios state specific ???
+		- Further explination about the way the url stuff works.
+		
+		- A list of Houses
+		- A list of Electorates
+		- A list of Members
+		- A list of Portfolios
+		
 	Open Australia
 	Deleting autocomplete
 	Promotion
-	separate out house of parliament
+	separate out house of parliament - done
 	back end
 		- delete member
 		- add member
@@ -32,3 +51,15 @@ For live:
 	
 	http://www.colourlovers.com/palette/58881/FlashDen
 	email password: HJKFKT&HxHO6
+	
+API:
+
+	ID
+	Key
+	Version
+	URL
+	Email
+	
+	index
+	feed/key:/output:(RSS/JSON)/house:/member:/electorate:/version:/
+	query (generate query page)

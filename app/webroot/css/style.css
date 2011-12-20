@@ -102,11 +102,44 @@ label{
 	cursor: pointer;
 	font-style: normal;
 }
-
+code{
+	display: block;
+	color: #eee;
+	background-color: #333;
+	font-family: courier;
+	padding: 20px 10px;
+	margin: 10px;
+}
+th{
+	text-align: left;
+}
 /* specific elements */
-
+.api_tables table{
+	width: 80%;
+	margin: 0 auto;
+/*	padding-left: 100px; */
+}
+.api_tables ul{
+	text-align: center;
+}
+.api_tables li{
+	display: inline;
+	padding-right: 20px;
+}
 .correction_link{
 	font-size: 0.8em;
+}
+.api_tables td.first{
+	width: 35%
+}
+.api_tables td.second{
+	width: 35%
+}
+.api_tables td.third{
+	width: 15%
+}
+.api_tables td.forth{
+	width: 15%
 }
 .member_display{
 	border: 1px solid #C7BA99;
@@ -144,4 +177,15 @@ label{
 .error{
 	display: block;
 	color: red;
+}
+ul.footer_list{
+	list-style-type: none;
+	padding: 0;
+	text-align: right;
+}
+.footer_list li{
+	display: inline;
+}
+.footer_list li a{
+	padding-right: 10px;
 }

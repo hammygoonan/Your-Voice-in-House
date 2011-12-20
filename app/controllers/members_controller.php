@@ -1,7 +1,7 @@
 <?php
 	class MembersController extends AppController{
 		var $name = 'Members';
-		var $uses = array('Member', 'Electorate', 'Portfolio', 'Pcode', 'Party', 'Address', 'Correction');
+		var $uses = array('Member', 'Electorate', 'House', 'Portfolio', 'Pcode', 'Party', 'Address', 'Correction');
 	//	var $scaffold;
 		var $helpers = array('Form', 'Html', 'Session', 'RecaptchaPlugin.Recaptcha', 'Js');
 		var $components = array('Email', 'RecaptchaPlugin.Recaptcha', 'Auth');
@@ -11,7 +11,13 @@
 		}
 		function results(){
 			$this->Member->recursive = 2; // to enable access to the Address Type data
-			foreach($this->params['url'] as $search_param => $search_value){
+			$search_terms = array(); // create and array of search terms that removes empty variables
+			foreach($this->params['url'] as $params => $value){
+				if($value !== ''){
+					$search_terms[$params] = $value;
+				}
+			}
+			foreach($search_terms as $search_param => $search_value){ // loop throgh variables and running the necessary queries
 				switch($search_param){
 					case 'Member':
 						if( !empty($this->params['url']['id']) ){
@@ -26,7 +32,7 @@
 							$member_array = array();
 							foreach($search_terms as $last_name){
 								$last_name = trim($last_name);
-								$member_array = $this->Member->find('all', array('conditions' => array('Member.second_name' => $last_name, 'Electorate.state' => $this->params['url']['State'])));
+								$member_array = $this->Member->find('all', array('conditions' => array('Member.second_name' => $last_name, 'House.state' => $this->params['url']['State'])));
 								foreach($member_array as $ind_arrary){
 									$results[] = $ind_arrary;
 								}
@@ -39,15 +45,21 @@
 							$this->set('electorate', $this->Member->find('all', array('conditions' => array('Electorate.id' => $this->params['url']['electorate_id']))));
 						}
 						else{
-							$this->set('electorate', $this->Member->find('all', array('conditions' => array('Electorate.name' => $this->params['url']['Electorate'], 'Electorate.state' => $this->params['url']['State']))));
+							$this->set('electorate', $this->Member->find('threaded', array('conditions' => array('Electorate.name' => $this->params['url']['Electorate'], 'House.state' => $this->params['url']['State']))));
 						}
 						break;
-					case 'Portfolio':
+					case 'Portfolio':  
 						$portfolios = array(); // to allow for multiple portfolios to be searched
 						$this->Member->bindModel(array('hasOne' => array('MembersPortfolio')));
-						$portfolios = $this->Member->find('all', array('conditions' => array('MembersPortfolio.portfolio_id' => $this->params['url']['Portfolio'], 'Electorate.state' => $this->params['url']['State']), 'fields' => 'DISTINCT *'));
-						$this->set('portfolios', $portfolios);
-						break;
+						$portfolios = $this->Member->find('all', array('conditions' => array('MembersPortfolio.portfolio_id' => $this->params['url']['Portfolio']), 'fields' => 'DISTINCT *'));
+						$final_list = array();
+						foreach($portfolios as $portfolio){
+							if($portfolio['Electorate']['House']['state'] == $this->params['url']['State']){
+								$final_list[] = $portfolio;
+							}
+						}
+						$this->set('portfolios', $final_list);
+						break; 
 				}
 			}
 			// log search
@@ -62,6 +74,7 @@
 			// CakeLog::write('results', '');
 		}
 		function email(){
+			debug($this->data);
 			if(preg_match('/members\/results/', $this->referer())){
 				foreach($this->data['Member'] as $id => $on){
 					switch($on){
@@ -163,10 +176,11 @@
 		}
 		function electorate_autocomplete($id = null){
 			$this->layout = 'json';
+			$this->Electorate->recursive = 2;
 			$this->set('electorates', $this->Electorate->find('all', array('conditions' => array(
 				'OR' => array(
 					'Electorate.name LIKE' => '%' . $id . '%',
-					'Electorate.house LIKE' => '%' . $id . '%',
+					'House.name LIKE' => '%' . $id . '%',
 				)
 			), 'fields' => 'DISTINCT *')));
 		}
@@ -245,14 +259,14 @@
 			}
 		}
 		function find(){
-			$this->set('house', $this->Electorate->find('all', array('fields' => 'DISTINCT house')));
+			$this->set('house', $this->Electorate->find('all', array('fields' => 'DISTINCT House.name')));
 		}
 		function find_results(){
 			if(!empty($this->data['Electorate']['house'])){
 				$this->set('house', $this->Electorate->find('all', array(
 					'conditions' => array(
-						'house' => $this->data['Electorate']['house'],
-						'state' => $this->data['Electorate']['state']
+						'House.name' => $this->data['Electorate']['house'],
+						'House.state' => $this->data['Electorate']['state']
 					)
 				)));
 				$this->set('search', $this->data['Electorate']['house'] . ' (' . $this->data['Electorate']['state'] .')');

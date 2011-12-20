@@ -24,9 +24,14 @@
 			<?php echo $content_for_layout ?>
 		</div> <!-- end content -->
 		<div id="footer">
-			Designed and developed by <?php echo $html->link('Spire Software', 'http://spiresoftware.com.au'); ?>
+			<ul class="footer_list">
+				<li><a href="/<?php echo basename(dirname(APP)); ?>">Home</a></li>
+				<li><a href="/<?php echo basename(dirname(APP)); ?>/pages/about">About</a></li>
+				<li><a href="/latest">Latest</a></li>
+				<li><a href="/<?php echo basename(dirname(APP)); ?>/api">API</a></li>
+				<li><?php echo $html->link('Spire Software', 'http://spiresoftware.com.au'); ?></li>
+			</ul>
 		</div>
-		
 	</div> <!-- end container_12 -->
 </body>
 </html>
