@@ -293,6 +293,12 @@
 			$this->set('parties', $this->Party->find('list'));
 			$this->set('portfolios', $this->Portfolio->find('list'));
 		}
+		function vic_list(){
+			$members = $this->Member->find('threaded', array('conditions' => array('Electorate.house_id' => 12), 'order' => 'Electorate.name'));
+			foreach($members as $member){
+				print('<option value="' . $member['Member']['email'] . '">' . $member['Electorate']['name'] . ' (' . $member['Member']['first_name'] . ' ' . $member['Member']['second_name'] . ')</option>' . "\n");
+			}
+		}
 		function beforeFilter(){
 			$this->Auth->allow('search', 'results', 'email', 'send_email', 'terms', 'ajax_autocomplete', 'electorate_autocomplete');
 		}
