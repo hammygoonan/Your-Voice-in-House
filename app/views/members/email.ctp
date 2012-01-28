@@ -81,8 +81,8 @@
 )); ?>
 <div class="clear"></div>
 <div class="grid_12">
-	<?php echo $this->Recaptcha->show(); ?>
-	<?php echo $this->Recaptcha->error(); ?>
+	<?php /*echo $this->Recaptcha->show(); */?>
+	<?php /*echo $this->Recaptcha->error(); */?>
 	<small>*required fields</small>
 	<?php echo $form->end('Send Email'); ?>
 </div>

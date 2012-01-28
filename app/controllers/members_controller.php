@@ -91,6 +91,9 @@
 							break;
 					}
 				}
+				if(isset($to_members)) $to_members = array_unique($to_members);
+				if(isset($cc_members)) $cc_members = array_unique($cc_members);
+				if(isset($bcc_members)) $bcc_members = array_unique($bcc_members);
 				$to_field = '';
 				$cc_field = '';
 				$bcc_field = '';
