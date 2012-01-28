@@ -74,18 +74,20 @@
 			// CakeLog::write('results', '');
 		}
 		function email(){
-			debug($this->data);
 			if(preg_match('/members\/results/', $this->referer())){
 				foreach($this->data['Member'] as $id => $on){
 					switch($on){
 						case 'to':
-							$to_members[] = $this->Member->findById($id);
+							$to_member_id = split('_', $id);
+							$to_members[] = $this->Member->findById($to_member_id[1]);
 							break;
 						case 'cc':
-							$cc_members[] = $this->Member->findById($id);
+							$cc_member_id = split('_', $id);
+							$cc_members[] = $this->Member->findById($cc_member_id[1]);
 							break;
 						case 'bcc':
-							$bcc_members[] = $this->Member->findById($id);
+							$bcc_member_id = split('_', $id);
+							$bcc_members[] = $this->Member->findById($bcc_member_id[1]);
 							break;
 					}
 				}
