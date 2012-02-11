@@ -32,7 +32,7 @@
 							$member_array = array();
 							foreach($search_terms as $last_name){
 								$last_name = trim($last_name);
-								$member_array = $this->Member->find('all', array('conditions' => array('Member.second_name' => $last_name, 'House.state' => $this->params['url']['State'])));
+								$member_array = $this->Member->find('all', array('conditions' => array('Member.second_name' => $last_name)));
 								foreach($member_array as $ind_arrary){
 									$results[] = $ind_arrary;
 								}
