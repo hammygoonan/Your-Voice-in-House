@@ -263,26 +263,6 @@
 				$this->Session->setFlash('<p>' . $j . ' lines exicuted');
 			}
 		}
-		function find(){
-			$this->set('house', $this->Electorate->find('all', array('fields' => 'DISTINCT House.name')));
-		}
-		function find_results(){
-			if(!empty($this->data['Electorate']['house'])){
-				$this->set('house', $this->Electorate->find('all', array(
-					'conditions' => array(
-						'House.name' => $this->data['Electorate']['house'],
-						'House.state' => $this->data['Electorate']['state']
-					)
-				)));
-				$this->set('search', $this->data['Electorate']['house'] . ' (' . $this->data['Electorate']['state'] .')');
-			}
-			elseif(!empty($this->data['Member']['id'])){
-				$this->redirect(array('controller' => 'members', 'action' => 'edit', 'id' => $this->data['Member']['id']));
-			}
-			elseif(!empty($this->data['Member']['electorate_id'])){
-				$this->set('electorates', $this->Member->findAllByElectorateId($this->data['Member']['electorate_id']));
-			}
-		}
 		function edit($id = null){
 			$this->Member->recursive = 2;
 			if(!empty($this->data)){
@@ -297,12 +277,6 @@
 			}
 			$this->set('parties', $this->Party->find('list'));
 			$this->set('portfolios', $this->Portfolio->find('list'));
-		}
-		function vic_list(){
-			$members = $this->Member->find('threaded', array('conditions' => array('Electorate.house_id' => 12), 'order' => 'Electorate.name'));
-			foreach($members as $member){
-				print('<option value="' . $member['Member']['email'] . '">' . $member['Electorate']['name'] . ' (' . $member['Member']['first_name'] . ' ' . $member['Member']['second_name'] . ')</option>' . "\n");
-			}
 		}
 		function beforeFilter(){
 			$this->Auth->allow('search', 'results', 'email', 'send_email', 'terms', 'ajax_autocomplete', 'electorate_autocomplete');

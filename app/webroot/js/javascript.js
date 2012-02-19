@@ -1,3 +1,5 @@
+var root = '/yvih2/';
+
 $(document).ready(function(){
 	// accordion bit
 	$('.primary_member_details').toggle(
@@ -21,7 +23,7 @@ $(document).ready(function(){
 			width: 800,
 			height: 600
 		});
-		$.post('/yvih/members/terms', function(data){
+		$.post(root + 'members/terms', function(data){
 			$('.dialog').html(data);
 		});
 		return false;
@@ -37,7 +39,7 @@ $(document).ready(function(){
 	$('#MemberMember').autocomplete({		
 		source: function(request, response){
 			var term = request.term.split(',');
-			$.get('/yvih/members/ajax_autocomplete/' + $.trim(term[term.length - 1]), function(data){
+			$.get(root + 'members/ajax_autocomplete/' + $.trim(term[term.length - 1]), function(data){
 				response($.map(data, function(item){
 					return{
 						label: item.Member.first_name + ' ' + item.Member.second_name + " (" + item.Electorate.name + ')',
@@ -83,7 +85,7 @@ $(document).ready(function(){
 	
 	$('#MemberElectorate').autocomplete({		
 		source: function(request, response){
-			$.get('/yvih/members/electorate_autocomplete/' + request.term, function(data){
+			$.get(root + 'members/electorate_autocomplete/' + request.term, function(data){
 				response($.map(data, function(item){
 					return{
 						label: item.Electorate.name + ' (' + item.House.name + ', ' + item.House.state + ')',
