@@ -181,13 +181,13 @@
 		}
 		function electorate_autocomplete($id = null){
 			$this->layout = 'json';
-			$this->Electorate->recursive = 2;
+//			$this->Electorate->recursive = 2;
 			$this->set('electorates', $this->Electorate->find('all', array('conditions' => array(
 				'OR' => array(
 					'Electorate.name LIKE' => '%' . $id . '%',
-					'House.name LIKE' => '%' . $id . '%',
+					'House.name LIKE' => '%' . $id . '%'
 				)
-			), 'fields' => 'DISTINCT *')));
+			))));
 		}
 		function upload(){
 			if(!empty($this->data)){
