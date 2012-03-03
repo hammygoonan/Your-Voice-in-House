@@ -269,11 +269,8 @@
 				$this->Member->save($this->data, array('validate' => false));
 				$this->set('member', $this->Member->findById($this->data['Member']['id']));
 			}
-			elseif($id != null){
-				$this->Member->save($this->data, array('validate' => false));
-			}
 			else{
-				$this->set('member', $this->Member->findById($this->params['named']['id']));
+				$this->set('member', $this->Member->findById($id));
 			}
 			$this->set('parties', $this->Party->find('list'));
 			$this->set('portfolios', $this->Portfolio->find('list'));
