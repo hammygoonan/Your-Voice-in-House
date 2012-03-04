@@ -88,7 +88,7 @@
 		}
 		function export(){
 			if($this->data['users']['House']){ // search results
-				$options['conditions'] = array('electorates.house_id' => $this->data['users']['House']);
+				$options['conditions'] = array();
 				$options['contain'] = array('Electorate', 'House');
 				$options['joins'] = array(
 					array(
@@ -102,8 +102,19 @@
 						'conditions' => array('electorates.house_id = houses.id')
 					)
 				);
-				$members = $this->Member->Electorate->find('all', $options);
-				debug($members);
+				$this->Member->Behaviors->attach('Containable');
+				$members = $this->Member->find(
+					'all', array(
+						'contain' => array(
+							'Electorate' => array(
+								'House'
+							),
+							'Portfolio',
+							'Address',
+							'Party'
+						)
+					)
+				);
 				$csv_values = array();
 				foreach($members as $member){
 
@@ -137,8 +148,8 @@
 						'email' => $member['Member']['email'],
 						'party' => $member['Party']['abbreviation'],
 						'electorate' => $member['Electorate']['name'],
-						'house',
-						'state',
+						'house' => $member['Electorate']['House']['name'],
+						'state' => $member['Electorate']['House']['state'],
 						'portfolio' => $portfolio_ids
 					);
 					$csv_values[] = array_merge($line, $addresses);
