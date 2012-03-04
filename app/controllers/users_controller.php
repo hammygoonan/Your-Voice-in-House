@@ -2,7 +2,7 @@
 	class UsersController extends AppController{
 		var $name = 'Users';
 		var $uses = array('Member', 'Electorate', 'House', 'Portfolio', 'Pcode', 'Party', 'Address');
-		var $components = array('Auth');
+		var $components = array('Auth', 'RequestHandler');
 		var $helpers = array('Html', 'Form', 'Session');
 		function index(){
 		
@@ -87,8 +87,71 @@
 			}
 		}
 		function export(){
-			// do export
-			$this->redirect($this->referer());
+			if($this->data['users']['House']){ // search results
+				$options['conditions'] = array('electorates.house_id' => $this->data['users']['House']);
+				$options['contain'] = array('Electorate', 'House');
+				$options['joins'] = array(
+					array(
+						'table' => 'electorates',
+						'type' => 'INNER',
+						'conditions' => array('members.electorate_id = electorates.id')
+					),
+					array(
+						'table' => 'houses',
+						'type' => 'INNER',
+						'conditions' => array('electorates.house_id = houses.id')
+					)
+				);
+				$members = $this->Member->Electorate->find('all', $options);
+				debug($members);
+				$csv_values = array();
+				foreach($members as $member){
+
+					$portfolio_ids = array();
+					foreach($member['Portfolio'] as $portfolio){
+						$portfolio_ids[] = $portfolio['id'];
+					}
+					$portfolio_ids = join(',', $portfolio_ids);
+					
+					$i = 1;
+					foreach($member['Address'] as $address){
+						$addresses['address_type_' . $i] = $address['address_type_id'];
+						$addresses['postal_' . $i] = $address['postal'];
+						$addresses['address1_' . $i] = $address['address1'];
+						$addresses['address2_' . $i] = $address['address2'];
+						$addresses['state_' . $i] = $address['state'];
+						$addresses['suburb_' . $i] = $address['suburb'];
+						$addresses['pcode_' . $i] = $address['pcode'];
+						$addresses['phone_' . $i] = $address['phone'];
+						$addresses['tollfree_' . $i] = $address['tollfree'];
+						$addresses['fax_' . $i] = $address['fax'];
+						$i++;
+					}
+
+					$line = array(
+						'id' => $member['Member']['id'],
+						'title' => $member['Member']['title'],
+						'first_name' => $member['Member']['first_name'],
+						'second_name' => $member['Member']['second_name'],
+						'job' => $member['Member']['job'],
+						'email' => $member['Member']['email'],
+						'party' => $member['Party']['abbreviation'],
+						'electorate' => $member['Electorate']['name'],
+						'house',
+						'state',
+						'portfolio' => $portfolio_ids
+					);
+					$csv_values[] = array_merge($line, $addresses);
+				}
+				$this->set('members', $csv_values);
+			}
+			else{
+				$houses = $this->House->find('all');
+				foreach($houses as $house){
+					$house_array[$house['House']['id']] = $house['House']['name'] . ' (' . $house['House']['state'] . ')';
+				}
+				$this->set('houses', $house_array);
+			}
 		}
 		function mass_action(){
 			if($this->data['users']['House']){ // search results

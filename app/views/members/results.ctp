@@ -9,9 +9,6 @@
 			<div class="grid_2"><?php echo $form->radio('member_' . $member['Member']['id'], array('to' => 'to', 'cc' => 'cc', 'bcc' => 'bcc'), array('legend' => false)); ?></div>
 			<div class="grid_10">
 				<?php echo $this->element('display_member', array('member' => $member)); ?>
-				<?php if($session->check('Auth.User.id')): ?>
-					<p><?php echo $html->link('Edit', array('controller' => 'members', 'action' => 'edit', $member['Member']['id'])); ?></p>
-				<?php endif; ?>
 			</div>
 		<?php endforeach; ?>
 	<?php endif; ?>
@@ -21,9 +18,6 @@
 			<div class="grid_2"><?php echo $form->radio('electorate_' . $member['Member']['id'], array('to' => 'to', 'cc' => 'cc', 'bcc' => 'bcc'), array('legend' => false)); ?></div>
 			<div class="grid_10">
 				<?php echo $this->element('display_member', array('member' => $member)); ?>
-					<?php if($session->check('Auth.User.id')): ?>
-					<p><?php echo $html->link('Edit', array('controller' => 'members', 'action' => 'edit', $member['Member']['id'])); ?></p>
-				<?php endif; ?>
 			</div>
 		<?php endforeach; ?>
 	<?php endif; ?>
@@ -31,7 +25,9 @@
 		<h2 class="grid_12">Portfolio</h2>
 		<?php foreach($portfolios as $portfolio): ?>
 			<div class="grid_2"><?php echo $form->radio('portolio_' . $portfolio['Member']['id'], array('to' => 'to', 'cc' => 'cc', 'bcc' => 'bcc'), array('legend' => false)); ?></div>
-			<div class="grid_10"><?php echo $this->element('display_member', array('member' => $portfolio)); ?></div>
+			<div class="grid_10">
+				<?php echo $this->element('display_member', array('member' => $portfolio)); ?>
+			</div>
 		<?php endforeach; ?>
 	<?php endif; ?>
 	<div class="grid_12">
