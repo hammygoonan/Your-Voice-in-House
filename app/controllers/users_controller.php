@@ -3,7 +3,7 @@
 		var $name = 'Users';
 		var $uses = array('Member', 'Electorate', 'House', 'Portfolio', 'Pcode', 'Party', 'Address');
 		var $components = array('Auth', 'RequestHandler');
-		var $helpers = array('Html', 'Form', 'Session');
+		var $helpers = array('Html', 'Form', 'Session', 'Csv');
 		function index(){
 		
 		}
@@ -88,20 +88,7 @@
 		}
 		function export(){
 			if($this->data['users']['House']){ // search results
-				$options['conditions'] = array();
-				$options['contain'] = array('Electorate', 'House');
-				$options['joins'] = array(
-					array(
-						'table' => 'electorates',
-						'type' => 'INNER',
-						'conditions' => array('members.electorate_id = electorates.id')
-					),
-					array(
-						'table' => 'houses',
-						'type' => 'INNER',
-						'conditions' => array('electorates.house_id = houses.id')
-					)
-				);
+				$this->layout = 'ajax';
 				$this->Member->Behaviors->attach('Containable');
 				$members = $this->Member->find(
 					'all', array(
@@ -110,9 +97,10 @@
 								'House'
 							),
 							'Portfolio',
-							'Address',
+							'Address' => array('AddressType'),
 							'Party'
-						)
+						),
+						'conditions' => array('Electorate.house_id' => $this->data['users']['House'])
 					)
 				);
 				$csv_values = array();
@@ -126,7 +114,7 @@
 					
 					$i = 1;
 					foreach($member['Address'] as $address){
-						$addresses['address_type_' . $i] = $address['address_type_id'];
+						$addresses['address_type_' . $i] = $address['AddressType']['name'];
 						$addresses['postal_' . $i] = $address['postal'];
 						$addresses['address1_' . $i] = $address['address1'];
 						$addresses['address2_' . $i] = $address['address2'];
