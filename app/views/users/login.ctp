@@ -1,8 +1,7 @@
-<?php
-    echo $this->Session->flash('auth');
-    echo $this->Form->create('User');
-    echo $this->Form->input('username');
-    echo $this->Form->input('password');
-    echo $this->Form->end('Login');
-?>
-
+<div class="grid_12">
+	<?php echo $this->Session->flash('auth'); ?>
+	<?php echo $this->Form->create('User'); ?>
+	<?php echo $this->Form->input('username'); ?>
+	<?php echo $this->Form->input('password'); ?>
+	<?php echo $this->Form->end('Login'); ?>
+</div>

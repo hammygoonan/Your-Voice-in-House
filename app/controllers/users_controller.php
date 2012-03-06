@@ -8,6 +8,7 @@
 		
 		}
 		function login(){
+			$this->Auth->loginRedirect = array('controller' => 'users', 'action' => 'index');
 		}
 		function logout(){
 			$this->redirect($this->Auth->logout());
@@ -15,9 +16,10 @@
 		function upload(){
 			if(!empty($this->data)){
 				$csv = fopen($this->data['Member']['submittedfile']['tmp_name'], 'r');
+				$index = feof($csv);
+				$index = fgetcsv($csv, 0, ';', '"');
 				$j = 0;
 				while(!feof($csv)){
-					$member_keys = array_keys($this->Member->_schema);
 					$line = fgetcsv($csv, 0, ';', '"');
 					if($line[1] !== NULL){
 						$i = 0;
@@ -88,6 +90,7 @@
 		}
 		function export(){
 			if($this->data['users']['House']){ // search results
+				Configure::write('debug', '0');
 				$this->layout = 'ajax';
 				$this->Member->Behaviors->attach('Containable');
 				$members = $this->Member->find(
@@ -142,6 +145,11 @@
 					);
 					$csv_values[] = array_merge($line, $addresses);
 				}
+				$max = 0;
+				for($i = 0; sizeof($csv_values) > $i; $i++){
+					if(sizeof($csv_values[$i]) > $max) $max = $i;
+				}
+				array_unshift($csv_values, array_keys($csv_values[$max]));
 				$this->set('members', $csv_values);
 			}
 			else{
