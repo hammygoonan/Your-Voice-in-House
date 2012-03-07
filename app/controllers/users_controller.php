@@ -3,12 +3,11 @@
 		var $name = 'Users';
 		var $uses = array('Member', 'Electorate', 'House', 'Portfolio', 'Pcode', 'Party', 'Address');
 		var $components = array('Auth', 'RequestHandler');
-		var $helpers = array('Html', 'Form', 'Session', 'Csv');
+		var $helpers = array('Html', 'Form', 'Session');
 		function index(){
 		
 		}
 		function login(){
-			$this->Auth->loginRedirect = array('controller' => 'users', 'action' => 'index');
 		}
 		function logout(){
 			$this->redirect($this->Auth->logout());
@@ -16,10 +15,9 @@
 		function upload(){
 			if(!empty($this->data)){
 				$csv = fopen($this->data['Member']['submittedfile']['tmp_name'], 'r');
-				$index = feof($csv);
-				$index = fgetcsv($csv, 0, ';', '"');
 				$j = 0;
 				while(!feof($csv)){
+					$member_keys = array_keys($this->Member->_schema);
 					$line = fgetcsv($csv, 0, ';', '"');
 					if($line[1] !== NULL){
 						$i = 0;
@@ -90,22 +88,22 @@
 		}
 		function export(){
 			if($this->data['users']['House']){ // search results
-				Configure::write('debug', '0');
-				$this->layout = 'ajax';
-				$this->Member->Behaviors->attach('Containable');
-				$members = $this->Member->find(
-					'all', array(
-						'contain' => array(
-							'Electorate' => array(
-								'House'
-							),
-							'Portfolio',
-							'Address' => array('AddressType'),
-							'Party'
-						),
-						'conditions' => array('Electorate.house_id' => $this->data['users']['House'])
+				$options['conditions'] = array('electorates.house_id' => $this->data['users']['House']);
+				$options['contain'] = array('Electorate', 'House');
+				$options['joins'] = array(
+					array(
+						'table' => 'electorates',
+						'type' => 'INNER',
+						'conditions' => array('members.electorate_id = electorates.id')
+					),
+					array(
+						'table' => 'houses',
+						'type' => 'INNER',
+						'conditions' => array('electorates.house_id = houses.id')
 					)
 				);
+				$members = $this->Member->Electorate->find('all', $options);
+				debug($members);
 				$csv_values = array();
 				foreach($members as $member){
 
@@ -117,7 +115,7 @@
 					
 					$i = 1;
 					foreach($member['Address'] as $address){
-						$addresses['address_type_' . $i] = $address['AddressType']['name'];
+						$addresses['address_type_' . $i] = $address['address_type_id'];
 						$addresses['postal_' . $i] = $address['postal'];
 						$addresses['address1_' . $i] = $address['address1'];
 						$addresses['address2_' . $i] = $address['address2'];
@@ -139,17 +137,12 @@
 						'email' => $member['Member']['email'],
 						'party' => $member['Party']['abbreviation'],
 						'electorate' => $member['Electorate']['name'],
-						'house' => $member['Electorate']['House']['name'],
-						'state' => $member['Electorate']['House']['state'],
+						'house',
+						'state',
 						'portfolio' => $portfolio_ids
 					);
 					$csv_values[] = array_merge($line, $addresses);
 				}
-				$max = 0;
-				for($i = 0; sizeof($csv_values) > $i; $i++){
-					if(sizeof($csv_values[$i]) > $max) $max = $i;
-				}
-				array_unshift($csv_values, array_keys($csv_values[$max]));
 				$this->set('members', $csv_values);
 			}
 			else{
