@@ -13,7 +13,10 @@
 		//	)
 		);
 		var $hasAndBelongsToMany = array('Pcode');
-		var $belongsTo = 'House';
+		var $belongsTo = array('House' => array(
+				'className' => 'House',
+				'foreignKey' => 'house_id'
+			));
 //		var $order = 'name';
 		function return_electorate($name, $state, $house){ // returns electorate ID - either of a new electorate or the existing one
 			$electorate['Electorate']['name'] = $name;

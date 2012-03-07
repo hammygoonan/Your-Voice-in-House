@@ -7,21 +7,27 @@
 		<h2 class="grid_12">Individual Members</h2>
 		<?php foreach($members as $member): ?>
 			<div class="grid_2"><?php echo $form->radio('member_' . $member['Member']['id'], array('to' => 'to', 'cc' => 'cc', 'bcc' => 'bcc'), array('legend' => false)); ?></div>
-			<div class="grid_10"><?php echo $this->element('display_member', array('member' => $member)); ?></div>
+			<div class="grid_10">
+				<?php echo $this->element('display_member', array('member' => $member)); ?>
+			</div>
 		<?php endforeach; ?>
 	<?php endif; ?>
 	<?php if(!empty($electorate)): ?>
 		<h2 class="grid_12"><?php echo $electorate[0]['Electorate']['name']; ?></h2>
 		<?php foreach($electorate as $member): ?>
 			<div class="grid_2"><?php echo $form->radio('electorate_' . $member['Member']['id'], array('to' => 'to', 'cc' => 'cc', 'bcc' => 'bcc'), array('legend' => false)); ?></div>
-			<div class="grid_10"><?php echo $this->element('display_member', array('member' => $member)); ?></div>
+			<div class="grid_10">
+				<?php echo $this->element('display_member', array('member' => $member)); ?>
+			</div>
 		<?php endforeach; ?>
 	<?php endif; ?>
 	<?php if(!empty($portfolios)): ?>
 		<h2 class="grid_12">Portfolio</h2>
 		<?php foreach($portfolios as $portfolio): ?>
 			<div class="grid_2"><?php echo $form->radio('portolio_' . $portfolio['Member']['id'], array('to' => 'to', 'cc' => 'cc', 'bcc' => 'bcc'), array('legend' => false)); ?></div>
-			<div class="grid_10"><?php echo $this->element('display_member', array('member' => $portfolio)); ?></div>
+			<div class="grid_10">
+				<?php echo $this->element('display_member', array('member' => $portfolio)); ?>
+			</div>
 		<?php endforeach; ?>
 	<?php endif; ?>
 	<div class="grid_12">

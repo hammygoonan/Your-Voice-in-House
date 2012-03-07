@@ -2,7 +2,7 @@
 	class CorrectionsController extends AppController{
 		var $name = "Corrections";
 		var $uses = array("Correction", "Member", "CorrectionType");
-		var $helpers = array('form');
+		var $helpers = array('Form');
 	//	var $scaffold;
 		function add_search(){
 			if($this->data){

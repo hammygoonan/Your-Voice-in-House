@@ -181,107 +181,13 @@
 		}
 		function electorate_autocomplete($id = null){
 			$this->layout = 'json';
-			$this->Electorate->recursive = 2;
+//			$this->Electorate->recursive = 2;
 			$this->set('electorates', $this->Electorate->find('all', array('conditions' => array(
 				'OR' => array(
 					'Electorate.name LIKE' => '%' . $id . '%',
-					'House.name LIKE' => '%' . $id . '%',
+					'House.name LIKE' => '%' . $id . '%'
 				)
-			), 'fields' => 'DISTINCT *')));
-		}
-		function upload(){
-			if(!empty($this->data)){
-				$csv = fopen($this->data['Member']['submittedfile']['tmp_name'], 'r');
-				$j = 0;
-				while(!feof($csv)){
-					$member_keys = array_keys($this->Member->_schema);
-					$line = fgetcsv($csv, 0, ';', '"');
-					if($line[1] !== NULL){
-						$i = 0;
-						foreach($member_keys as $key){
-							$member['Member'][$key] = $line[$i];
-							$i++;
-						}
-						
-						// see if Electorate exists. Create it if it doesn't, return the id if it does
-						
-						$member['Member']['electorate_id'] = $this->Electorate->return_electorate($line[6], $this->data['Electorate']['state'], $this->data['Electorate']['house']);
-						
-						// see if Party exists. Create it if it doesn't, return the id if it does
-						
-						$member['Member']['party_id'] = $this->Party->return_party($line[7]);
-						if($this->data['Member']['over_ride'] == 1){
-							$this->Member->deleteAll(array('electorate_id' =>$member['Member']['electorate_id'], 'second_name' => $member['Member']['second_name']));
-						}
-						
-						// add portfolos
-						
-						if($line[8] !== ''){
-							$member['Portfolio']['Portfolio'] = explode(',', $line[8]);
-						}
-						
-						// unset member id so that a new record is created
-						unset($member['Member']['id']);
-						
-						// save
-						
-						$this->Member->create();
-						$this->Member->save($member, array('validate' => false));
-						$id = $this->Member->id;
-						// add addresses
-						$k = 9;
-						while(is_string($line[$k])){
-							if($line[$k] != ''){
-								$address['Address'] = array(
-									'member_id' => $id,
-									'address_type_id' => $line[$k++],
-									'postal' => $line[$k++],
-									'address1' => $line[$k++],
-									'address2' => $line[$k++],
-									'suburb' => $line[$k++],
-									'state' => $line[$k++],
-									'pcode' => $line[$k++],
-									'phone' => @$line[$k++],
-									'tollfree' => @$line[$k++],
-									'fax' => @$line[$k++]
-								);
-								$this->Address->create();
-								$this->Address->save($address);
-							}
-							else{
-								$k = $k + 10;
-							}
-						}
-						
-						// unset member to avoid duplication
-						
-						unset($member);
-						unset($address);
-						$j++;
-					}
-				}
-				$this->Session->setFlash('<p>' . $j . ' lines exicuted');
-			}
-		}
-		function find(){
-			$this->set('house', $this->Electorate->find('all', array('fields' => 'DISTINCT House.name')));
-		}
-		function find_results(){
-			if(!empty($this->data['Electorate']['house'])){
-				$this->set('house', $this->Electorate->find('all', array(
-					'conditions' => array(
-						'House.name' => $this->data['Electorate']['house'],
-						'House.state' => $this->data['Electorate']['state']
-					)
-				)));
-				$this->set('search', $this->data['Electorate']['house'] . ' (' . $this->data['Electorate']['state'] .')');
-			}
-			elseif(!empty($this->data['Member']['id'])){
-				$this->redirect(array('controller' => 'members', 'action' => 'edit', 'id' => $this->data['Member']['id']));
-			}
-			elseif(!empty($this->data['Member']['electorate_id'])){
-				$this->set('electorates', $this->Member->findAllByElectorateId($this->data['Member']['electorate_id']));
-			}
+			))));
 		}
 		function edit($id = null){
 			$this->Member->recursive = 2;
@@ -289,20 +195,11 @@
 				$this->Member->save($this->data, array('validate' => false));
 				$this->set('member', $this->Member->findById($this->data['Member']['id']));
 			}
-			elseif($id != null){
-				$this->Member->save($this->data, array('validate' => false));
-			}
 			else{
-				$this->set('member', $this->Member->findById($this->params['named']['id']));
+				$this->set('member', $this->Member->findById($id));
 			}
 			$this->set('parties', $this->Party->find('list'));
 			$this->set('portfolios', $this->Portfolio->find('list'));
-		}
-		function vic_list(){
-			$members = $this->Member->find('threaded', array('conditions' => array('Electorate.house_id' => 12), 'order' => 'Electorate.name'));
-			foreach($members as $member){
-				print('<option value="' . $member['Member']['email'] . '">' . $member['Electorate']['name'] . ' (' . $member['Member']['first_name'] . ' ' . $member['Member']['second_name'] . ')</option>' . "\n");
-			}
 		}
 		function beforeFilter(){
 			$this->Auth->allow('search', 'results', 'email', 'send_email', 'terms', 'ajax_autocomplete', 'electorate_autocomplete');
