@@ -30,9 +30,10 @@ class CsvHelper extends AppHelper {
         fputcsv($this->buffer, $row, $this->delimiter, $this->enclosure); 
     } 
      
-    function renderHeaders() { 
-        header("Content-type:application/vnd.ms-excel"); 
-        header("Content-disposition:attachment;filename=".$this->filename); 
+    function renderHeaders() {
+		header('Content-Type: text/csv; charset=utf-8');
+		// header("Content-type:application/vnd.ms-excel");
+		header('Content-Disposition: attachment; filename=' . $this->filename);
     } 
      
     function setFilename($filename) { 
@@ -42,19 +43,19 @@ class CsvHelper extends AppHelper {
         } 
     } 
      
-    function render($outputHeaders = true, $to_encoding = null, $from_encoding = "auto") { 
-        if ($outputHeaders) { 
-            if (is_string($outputHeaders)) { 
-                $this->setFilename($outputHeaders); 
-            } 
-            $this->renderHeaders(); 
-        } 
-        rewind($this->buffer); 
-        $output = stream_get_contents($this->buffer); 
-        if ($to_encoding) { 
-            $output = mb_convert_encoding($output, $to_encoding, $from_encoding); 
-        } 
-        return $this->output($output); 
+    function render($outputHeaders = true, $to_encoding = null, $from_encoding = "auto") {
+        if ($outputHeaders) {
+            if (is_string($outputHeaders)) {
+                $this->setFilename($outputHeaders);
+            }
+            $this->renderHeaders();
+        }
+        rewind($this->buffer);
+		$output = stream_get_contents($this->buffer);
+		if($to_encoding){
+			$output = mb_convert_encoding($output, $to_encoding, $from_encoding);
+        }
+		return $this->output($output); 
     } 
 } 
 

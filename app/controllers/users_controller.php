@@ -3,7 +3,7 @@
 		var $name = 'Users';
 		var $uses = array('Member', 'Electorate', 'House', 'Portfolio', 'Pcode', 'Party', 'Address');
 		var $components = array('Auth', 'RequestHandler');
-		var $helpers = array('Html', 'Form', 'Session', 'Csv');
+		var $helpers = array('Html', 'Form', 'Session');
 		function index(){
 		
 		}
@@ -88,21 +88,22 @@
 		}
 		function export(){
 			if($this->data['users']['House']){ // search results
-				$this->layout = 'ajax';
-				$this->Member->Behaviors->attach('Containable');
-				$members = $this->Member->find(
-					'all', array(
-						'contain' => array(
-							'Electorate' => array(
-								'House'
-							),
-							'Portfolio',
-							'Address' => array('AddressType'),
-							'Party'
-						),
-						'conditions' => array('Electorate.house_id' => $this->data['users']['House'])
+				$options['conditions'] = array('electorates.house_id' => $this->data['users']['House']);
+				$options['contain'] = array('Electorate', 'House');
+				$options['joins'] = array(
+					array(
+						'table' => 'electorates',
+						'type' => 'INNER',
+						'conditions' => array('members.electorate_id = electorates.id')
+					),
+					array(
+						'table' => 'houses',
+						'type' => 'INNER',
+						'conditions' => array('electorates.house_id = houses.id')
 					)
 				);
+				$members = $this->Member->Electorate->find('all', $options);
+				debug($members);
 				$csv_values = array();
 				foreach($members as $member){
 
@@ -114,7 +115,7 @@
 					
 					$i = 1;
 					foreach($member['Address'] as $address){
-						$addresses['address_type_' . $i] = $address['AddressType']['name'];
+						$addresses['address_type_' . $i] = $address['address_type_id'];
 						$addresses['postal_' . $i] = $address['postal'];
 						$addresses['address1_' . $i] = $address['address1'];
 						$addresses['address2_' . $i] = $address['address2'];
@@ -136,8 +137,8 @@
 						'email' => $member['Member']['email'],
 						'party' => $member['Party']['abbreviation'],
 						'electorate' => $member['Electorate']['name'],
-						'house' => $member['Electorate']['House']['name'],
-						'state' => $member['Electorate']['House']['state'],
+						'house',
+						'state',
 						'portfolio' => $portfolio_ids
 					);
 					$csv_values[] = array_merge($line, $addresses);
