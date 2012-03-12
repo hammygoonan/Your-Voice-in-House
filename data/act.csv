@@ -1,61 +1,61 @@
-"title";"first_name";"second_name";"job";"electorate";"address1";"suburb";"state";"pcode";"postal";"address_type";"phone";"fax";"email"
-"Mr";"Andrew";"Barr";"Deputy Chief Minister
+"Id";"Title";"First Name";"Second Name";"Job";"Email";"Electorate";"Party";"Portfolios";"Address Type";"Postal";"Address 1";"Address 2";"Suburb";"State";"Pcode";"Phone";"Tollfree";"Fax"
+;"Mr";"Andrew";"Barr";"Deputy Chief Minister
 Treasurer
 Minister for Tourism, Sport and Recreation
-Minister for Economic Development";"Molonglo";"GPO Box 1020";"CANBERRA";"ACT";2601;1;3;"(02) 6205 0011";"(02) 6205 0157";"barr@act.gov.au"
-"Dr";"Chris";"Bourke";"Minister for Education and Training
+Minister for Economic Development";"barr@act.gov.au";"Molonglo";"ALP";;3;1;"GPO Box 1020";;"CANBERRA";"ACT";2601;"(02) 6205 0011";;"(02) 6205 0157"
+;"Dr";"Chris";"Bourke";"Minister for Education and Training
 Minister for Industrial Relations
 Minister for Corrections
-Minister for Aboriginal and Torres Strait Islander Affairs";"Ginninderra";"GPO Box 1020";"CANBERRA";"ACT";2601;1;3;"(02) 6205 0541";"(02) 6205 0332";"bourke@act.gov.au"
-"Ms";"Amanda";"Bresnan";;"Brindabella";"GPO Box 1020";"CANBERRA";"ACT";2601;1;3;"(02) 6205 0130";"(02) 6205 0777";"bresnan@act.gov.au"
-"Ms";"Joy";"Burch";"Minister for the Arts
+Minister for Aboriginal and Torres Strait Islander Affairs";"bourke@act.gov.au";"Ginninderra";"ALP";;3;1;"GPO Box 1020";;"CANBERRA";"ACT";2601;"(02) 6205 0541";;"(02) 6205 0332"
+;"Ms";"Amanda";"Bresnan";;"bresnan@act.gov.au";"Brindabella";"GRN";;3;1;"GPO Box 1020";;"CANBERRA";"ACT";2601;"(02) 6205 0130";;"(02) 6205 0777"
+;"Ms";"Joy";"Burch";"Minister for the Arts
 Minister for Gaming and Racing
 Minister for Women
 Minister for Multicultural Affairs
 Minister for Community Services
-Minister for Ageing";"Brindabella";"GPO Box 1020";"CANBERRA";"ACT";2601;1;3;"(02) 6205 0020";"(02) 6205 3165";"burch@act.gov.au"
-"Mr";"Alistair";"Coe";"Shadow Minister for Heritage
+Minister for Ageing";"burch@act.gov.au";"Brindabella";"ALP";;3;1;"GPO Box 1020";;"CANBERRA";"ACT";2601;"(02) 6205 0020";;"(02) 6205 3165"
+;"Mr";"Alistair";"Coe";"Shadow Minister for Heritage
 Shadow Minister for Housing
 Shadow Minister for Urban Services
 Shadow Minister for Transport Services
-Shadow Minister for Youth";"Ginninderra";"GPO Box 1020";"CANBERRA";"ACT";2601;1;3;"(02) 6205 0101";"(02) 6205 3002";"coe@act.gov.au"
-"Mr";"Simon";"Corbell";"Attorney-General
+Shadow Minister for Youth";"coe@act.gov.au";"Ginninderra";"LIB";;3;1;"GPO Box 1020";;"CANBERRA";"ACT";2601;"(02) 6205 0101";;"(02) 6205 3002"
+;"Mr";"Simon";"Corbell";"Attorney-General
 Minister for the Environment and Sustainable Development
-Minister for Police and Emergency Services";"Molonglo";"GPO Box 1020";"CANBERRA";"ACT";2601;1;3;"(02) 6205 0000";"(02) 6205 0535";"corbell@act.gov.au"
-"Mr";"Steve";"Doszpot";"Shadow Minister for Sport and Recreation
+Minister for Police and Emergency Services";"corbell@act.gov.au";"Molonglo";"ALP";;3;1;"GPO Box 1020";;"CANBERRA";"ACT";2601;"(02) 6205 0000";;"(02) 6205 0535"
+;"Mr";"Steve";"Doszpot";"Shadow Minister for Sport and Recreation
 Shadow Minister for Multicultural Affairs
 Shadow Minister for Education and Training
-Shadow Minister for Disability";"Brindabella";"GPO Box 1020";"CANBERRA";"ACT";2601;1;3;"(02) 6205 0131";"(02) 6205 0412";"doszpot@act.gov.au"
-"Mrs";"Vicki";"Dunne";"Shadow Minister for Industrial Relations
+Shadow Minister for Disability";"doszpot@act.gov.au";"Brindabella";"LIB";;3;1;"GPO Box 1020";;"CANBERRA";"ACT";2601;"(02) 6205 0131";;"(02) 6205 0412"
+;"Mrs";"Vicki";"Dunne";"Shadow Minister for Industrial Relations
 Shadow Minister for Women
 Shadow Attorney General
 Shadow Minister for Family and Community Services
 Shadow Minister for the Arts
-Shadow Minister for Nature Conservation and Water";"Ginninderra";"GPO Box 1020";"CANBERRA";"ACT";2601;1;3;"(02) 6205 0283";"(02) 6205 3106";"dunne@act.gov.au"
-"Ms";"Katy";"Gallagher";"Chief Minister
+Shadow Minister for Nature Conservation and Water";"dunne@act.gov.au";"Ginninderra";"LIB";;3;1;"GPO Box 1020";;"CANBERRA";"ACT";2601;"(02) 6205 0283";;"(02) 6205 3106"
+;"Ms";"Katy";"Gallagher";"Chief Minister
 Minister for Health
-Minister for Territory and Municipal Services";"Molonglo";"GPO Box 1020";"CANBERRA";"ACT";2601;1;3;"(02) 6205 0840";"(02) 6205 3030";"gallagher@act.gov.au"
-"Mr";"Jeremy";"Hanson";"Opposition Whip
+Minister for Territory and Municipal Services";"gallagher@act.gov.au";"Molonglo";"ALP";;3;1;"GPO Box 1020";;"CANBERRA";"ACT";2601;"(02) 6205 0840";;"(02) 6205 3030"
+;"Mr";"Jeremy";"Hanson";"Opposition Whip
 Shadow Minister for Indigenous Affairs
 Shadow Minister for Health
 Shadow Minister for Corrections
 Shadow Minister for Mental Health
-Shadow Minister for Police";"Molonglo";"GPO Box 1020";"CANBERRA";"ACT";2601;1;3;"(02) 6205 0133";"(02) 6205 3017";"hanson@act.gov.au"
-"Mr";"John";"Hargreaves";;"Brindabella";"GPO Box 1020";"CANBERRA";"ACT";2601;1;3;"(02) 6205 0111";"(02) 6205 0427";"hargreaves@parliament.act.gov.au"
-"Ms";"Meredith";"Hunter";"ACT Greens Parliamentary Convenor";"Ginninderra";"GPO Box 1020";"CANBERRA";"ACT";2601;1;3;"(02) 6205 0106";"(02) 6205 0418";"hunter@act.gov.au"
-"Ms";"Caroline";"Le Couteur";;"Molonglo";"GPO Box 1020";"CANBERRA";"ACT";2601;1;3;"(02) 6205 0051";"(02) 6205 3000";"lecouteur@act.gov.au"
-"Ms";"Mary";"Porter";;"Ginninderra";"GPO Box 1020";"CANBERRA";"ACT";2601;1;3;"(02) 6205 0100";"(02) 6205 0040";"porter@act.gov.au"
-"Mr";"Shane";"Rattenbury";"Speaker";"Molonglo";"GPO Box 1020";"CANBERRA";"ACT";2601;1;3;"(02) 6205 0005";"(02) 6205 0007";"rattenbury@act.gov.au"
-"Mr";"Zed";"Seselja";"Leader of the Opposition
+Shadow Minister for Police";"hanson@act.gov.au";"Molonglo";"LIB";;3;1;"GPO Box 1020";;"CANBERRA";"ACT";2601;"(02) 6205 0133";;"(02) 6205 3017"
+;"Mr";"John";"Hargreaves";;"hargreaves@parliament.act.gov.au";"Brindabella";"ALP";;3;1;"GPO Box 1020";;"CANBERRA";"ACT";2601;"(02) 6205 0111";;"(02) 6205 0427"
+;"Ms";"Meredith";"Hunter";"ACT Greens Parliamentary Convenor";"hunter@act.gov.au";"Ginninderra";"GRN";;3;1;"GPO Box 1020";;"CANBERRA";"ACT";2601;"(02) 6205 0106";;"(02) 6205 0418"
+;"Ms";"Caroline";"Le Couteur";;"lecouteur@act.gov.au";"Molonglo";"GRN";;3;1;"GPO Box 1020";;"CANBERRA";"ACT";2601;"(02) 6205 0051";;"(02) 6205 3000"
+;"Ms";"Mary";"Porter";;"porter@act.gov.au";"Ginninderra";"ALP";;3;1;"GPO Box 1020";;"CANBERRA";"ACT";2601;"(02) 6205 0100";;"(02) 6205 0040"
+;"Mr";"Shane";"Rattenbury";"Speaker";"rattenbury@act.gov.au";"Molonglo";"GRN";;3;1;"GPO Box 1020";;"CANBERRA";"ACT";2601;"(02) 6205 0005";;"(02) 6205 0007"
+;"Mr";"Zed";"Seselja";"Leader of the Opposition
 Shadow Minister for Planning and Housing Affordability
 Shadow Minister for the Environment and Climate Change
 Shadow Minister for the Ageing
 Shadow Minister for Housing Affordability
 Shadow Minister for Human Rights
-Shadow Minister for Transport Planning";"Molonglo";"GPO Box 1020";"CANBERRA";"ACT";2601;1;3;"(02) 6205 0323";"(02) 6205 3001";"seselja@act.gov.au"
-"Mr";"Brendan";"Smyth";"Deputy Leader of the Opposition
+Shadow Minister for Transport Planning";"seselja@act.gov.au";"Molonglo";"LIB";;3;1;"GPO Box 1020";;"CANBERRA";"ACT";2601;"(02) 6205 0323";;"(02) 6205 3001"
+;"Mr";"Brendan";"Smyth";"Deputy Leader of the Opposition
 Shadow Minister for Gaming and Racing
 Shadow Minister for Emergency Services
 Shadow Minister for Economic Development, Business and Tourism
 Shadow Treasurer
-Shadow Minister for Territory-Owned Corporations";"Brindabella";"GPO Box 1020";"CANBERRA";"ACT";2601;1;3;"(02) 6205 0104";"(02) 6205 0433";"smyth@act.gov.au"
+Shadow Minister for Territory-Owned Corporations";"smyth@act.gov.au";"Brindabella";"LIB";;3;1;"GPO Box 1020";;"CANBERRA";"ACT";2601;"(02) 6205 0104";;"(02) 6205 0433"
