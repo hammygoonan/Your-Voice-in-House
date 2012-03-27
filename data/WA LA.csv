@@ -1,106 +1,60 @@
-"Hon.";"Title";"Initials";"First Name";"Surname";"House";"Electorate";"Title";"Greeting";"Ministerial Address";"Ministerial Address 2";"Postal address";"Postal Address";"Electorate Address";"Electorate Address";"Parliament";"Parliament";"Ministerial Email";"Member Email"
-;"Mr";"P.";"Peter";"Abetz";"MLA";"Member for Southern River";;"Mr Abetz";;;"Unit 4, 2 Furley Road";"SOUTHERN RIVER  WA  6110";"Unit 4, 2 Furley Road";"SOUTHERN RIVER WA 6110";"Parliament House";"PERTH  WA  6000";;"peter.abetz@mp.wa.gov.au"
-;"Mr";"F.";"Frank";"Alban";"MLA";"Member for Swan Hills";;"M. Alban";;;"Unit 3, 28-32 Main Street";"ELLENBROOK  WA  6069";"Unit 3, 28-32 Main Street";"ELLENBROOK  WA  6069";"Parliament House";"PERTH  WA  6000";;"frank.alban@mp.wa.gov.au"
-;"Ms";"L.L.";"Lisa";"Baker";"MLA";"Member for Maylands";;"Ms Baker";;;"PO Box 97";"INGLEWOOD  WA  6932";"946 Beaufort Street";"MT LAWLEY  WA  6052";"Parliament House";"PERTH  WA  6000";;"lisa.baker@mp.wa.gov.au"
-"Hon";"Mr";"C.J.";"Colin";"Barnett";"MLA";"Member for Cottesloe";"Premier; Minister for State Development";"Premier";"24th Floor, Governor Stirling Tower
-197 St Georges Terrace";"PERTH WA 6000";"Suite 12, 589 Stirling Highway";"COTTESLOE  WA  6011";"Suite 12, 589 Stirling Highway";"COTTESLOE  WA  6011";"Parliament House";"PERTH  WA  6000";"wa-government@dpc.wa.gov.au";"cottesloe@mp.wa.gov.au"
-;"Mr";"I.C.";"Ian";"Blayney";"MLA";"Member for Geraldton";;"Mr Blayney";;;"Shop 2, 5 Chapman Road";"GERALDTON  WA  6530";"Shop 2, 5 Chapman Road";"GERALDTON WA 6530";"Parliament House";"PERTH  WA  6000";;"geraldton@mp.wa.gov.au"
-;"Mr";"J.J.M.";"John";"Bowler";"MLA";"Member for Kalgoorlie";;"Mr Bowler";;;"PO Box 10406";"KALGOORLIE  WA  6433";"305 Hannan Street";"KALGOORLIE WA 6430";"Parliament House";"PERTH  WA  6000";;"john.bowler@mp.wa.gov.au"
-;"Mr";"I.M.";"Ian";"Britza";"MLA";"Member for Morley";;"Mr Britza";;;"Box 126, Centro Galleria Shopping Centre";"MORLEY  WA  6062";"Suite 1, Centro Galleria Shopping Centre
-Collier Road";"MORLEY WA 6062";"Parliament House";"PERTH  WA  6000";;"ian.britza@mp.wa.gov.au"
-"Hon";"Mr";"T.R.";"Troy";"Buswell";"MLA";"Member for Vasse";"Minister for Transport; Housing; Emergency Services";"Minister";"10th Floor, Dumas House
-2 Havelock Street";"WEST PERTH WA 6005";"PO Box 516";"BUSSELTON  WA  6280";"16 Prince Street";"BUSSELTON WA 6280";"Parliament House";"PERTH  WA  6000";;"troy.buswell@mp.wa.gov.au"
-;"Dr";"T.";"Tony";"Buti";"MLA";"Member for Armadale";;"Dr Buti";;;"Unit 11,
-2756 Albany Hwy";"KELMSCOTT  WA  6111";"Unit 11,
-2756 Albany Hwy";"KELMSCOTT WA 6111";"Parliament House";"PERTH  WA  6000";;"armadale@mp.wa.gov.au"
-;"Ms";"A.S.";"Adele";"Carles";"MLA";"Member for Fremantle";;"Ms Carles";;;"Shop 1,
-Queensgate Centre,
-William Street";"FREMANTLE WA 6160";"Shop 1,
-Queensgate Centre,
-William Street";"FREMANTLE WA 6160";"Parliament House";"PERTH  WA  6000";;"adele.carles@mp.wa.gov.au"
-"Hon";"Mr";"G.M.";"John";"Castrilli";"MLA";"Member for Bunbury";"Minister for Local Government; Heritage; Citizenship and Multicultural Interests";"Minister";"8th Floor, Dumas House
-2 Havelock Street ";"WEST PERTH WA 6005";"PO Box 2009";"BUNBURY  WA  6230";"4B Spencer Street";"BUNBURY WA 6320";"Parliament House";"PERTH  WA  6000";"Minister.Castrilli@dpc.wa.gov.au";"john.castrilli@mp.wa.gov.au"
-;"Mr";"V.";"Vincent";"Catania";"MLA";"Member for North West";;"Mr Catania";;;"PO Box 1000";"CARNARVON  WA  6701";"Shop 14, Carnavron Boulevard Shopping Centre, Robinson Street";"CARNARVON WA 6701";"Parliament House";"PERTH  WA  6000";;"vincent.catania@mp.wa.gov.au"
-"Hon";"Dr";"E.";"Elizabeth";"Constable";"MLA";"Member for Churchlands";"Minister for Education";"Minister";"19th Floor, Governor Stirling Tower
-197 St Georges Terrace";"PERTH WA 6000";"Suite 4, Selby Square
-271 Selby Street";"CHURCHLANDS  WA  6018";"Suite 4, Selby Square
-271 Selby Street";"Churchlands WA 6018";"Parliament House";"PERTH  WA  6000";"Minister.Constable@dpc.wa.gov.au";"elizabeth.constable@mp.wa.gov.au"
-;"Mr";"R.H.";"Roger";"Cook";"MLA";"Member for Kwinana";"Deputy Leader of the Opposition";"Mr Cook";;;"PO Box 428";"KWINANA  WA  6966";"3 Chisham Avenue";"KWINANA  6167";"Parliament House";"PERTH  WA  6000";;"kwinana@mp.wa.gov.au"
-;"Mr";"M.J.";"Murray";"Cowper";"MLA";"Member for Murray-Wellington";"Parliamentary Secretary to the Minsiter for Energy; Training and Workforce Development; Indigenous Affairs";"Mr Cowper";;;"PO Box 480";"PINJARRA  WA  6208";"Shop 1, Pinjarra Junction Shopping Centre";"Pinjarra WA 6208";"Parliament House";"PERTH  WA  6000";;"murray.cowper@mp.wa.gov.au"
-"Hon";"Mr";"J.H.D.";"John";"Day";"MLA";"Member for Kalamunda";"Minister for Planing; Culture and the Arts; Science and Innovation";"Minister";"13th Floor, Dumas House
-2 Havelock Street";"WEST PERTH WA 6005";"PO Box 610";"KALAMUNDA  WA  6076";"Unit 1, 14-16 Mead Street";"KALAMUNDA WA 6076";"Parliament House";"PERTH  WA  6000";"Minister.Day@dpc.wa.gov.au";"john.day@mp.wa.gov.au"
-;"Mr";"J.M.";"Joe";"Francis";"MLA";"Member for Jandakot";;"Mr Francis";;;"PO Box 130 ";"BULLCREEK  WA  6149";"Suite 11, Corner of Calley Drive and South Street";"LEEMING  WA  6149";"Parliament House";"PERTH  WA  6000";;"joseph.francis@mp.wa.gov.au"
-;"Ms";"J.M.";"Janine";"Freeman";"MLA";"Member for Nollamara";;"Ms Freeman";;;"PO Box 669";"MIRRABOOKA  WA  6941";"Shop 4, 1 Chesterfield Road";"MIRRABOOKA  WA  6061";"Parliament House";"PERTH  WA  6000";;"nollamara@mp.wa.gov.au"
-"Hon";"Mr";"B.J.";"Brendon";"Grylls";"MLA";"Member for Central Wheatbelt";"Minister for Regional Development; Lands; Minister Assisting the Minister for State Development; Leader of the Parliamentary National Party";"Minister";"14th Floor, Dumas House
-2 Havelock Street";"WEST PERTH WA 6005";"PO Box 66";"MERREDIN  WA  6415";"The Old Town Hall,
-Mitchell Street";"MERREDIN WA 6415";"Parliament House";"PERTH  WA  6000";"Minister.Grylls@dpc.wa.gov.au";"brendon.grylls@mp.wa.gov.au"
-"Hon";"Dr";"K.D.";"Kim";"Hames";"MLA";"Member for Dawesville";"Deputy Premier; Minister for Health; Tourism";"Deputy Premier";"28th Floor, Governor Stirling Tower
-197 St Georges Terrace";"PERTH WA 6000";"PO Box 5551";"FALCON  WA  6210";"Suite 2, 633 Old Coast Road";"FALCON WA 6210";"Parliament House";"PERTH  WA  6000";"Minister.Hames@dpc.wa.gov.au";"kim.hames@mp.wa.gov.au"
-;"Mrs";"L.M.";"Liza";"Harvey";"MLA";"Member for Scarborough";"Parliamentary Secretary to the Minister for Finance; Commerce; Small Business";"Mrs Harvey";;;"197 Scarborough Beach Road";"DOUBLEVIEW WA 6005";"169 Scarborough Beach Road";"SCARBOROUGH WA 6005";"Parliament House";"PERTH  WA  6000";;"liza.harvey@mp.wa.gov.au"
-;"Mr";"J.N.";"John";"Hyde";"MLA";"Member for Perth";;"Mr Hyde";;;"446 William Street";"PERTH  WA  6000";"446 William Street";"PERTH WA 6000";"Parliament House";"PERTH  WA  6000";;"john.hyde@mp.wa.gov.au"
-;"Mr";"A.P.";"Albert";"Jacob";"MLA";"Member for Ocean Reef";" ";"Mr Jacob";;;"PO Box 47";"JOONDALUP  WA  6919";"Shop 22, Currambine Marketplace, Marmion Avenue";"CURRAMBINE WA 6028";"Parliament House";"PERTH  WA  6000";;"albert.jacob@mp.wa.gov.au"
-;"Dr";"G.G. ";"Graham";"Jacobs";"MLA";"Member for Eyre";;"Dr Jacobs";;;"PO Box 1394";"ESPERANCE  WA  6450";"Fenwick House, 
-107 Dempster Street";"ESPERANCE WA 6450";"Parliament House";"PERTH  WA  6000";;"graham.jacobs@mp.wa.gov.au"
-"Hon";"Mr";"R.F.";"Rob";"Johnson";"MLA";"Member for Hillarys";"Minister for Police; Road Safety; Leader of the House";"Minister";"20th Floor, Governor Stirling Tower
-197 St Georges Terrace";"PERTH WA 6000";"Suite 2, Endeavour House
-Cnr Endeavour Rd & Banks Ave";"HILLARYS  WA  6025";"Suite 2, Endeavour House
-Cnr Endeavour Rd & Banks Ave";"HILLARYS   WA    6025";"Parliament House";"PERTH  WA  6000";"Minister.Johnson@dpc.wa.gov.au";"rob.johnson@mp.wa.gov.au"
-;"Mr";"W.J.";"Bill";"Johnston";"MLA";"Member for Cannington";;"Mr Johnston";;;"PO Box 1171";"CANNINGTON  WA  6987";"Unit 4, 10 Cecil Avenue";"CANNINGTON WA 6107";"Parliament House";"PERTH  WA  6000";;"cannington@mp.wa.gov.au"
-"Hon";"Mr";"J.C.";"John";"Kobelke";"MLA";"Member for Balcatta";;"Mr Kobelke";;;"Locked Bag 5001";"OSBORNE PARK  WA  6017";"Suite 1, 136 Main Street";"OSBORNE PARK  WA 6917";"Parliament House";"PERTH  WA  6000";;"john.kobelke@mp.wa.gov.au"
-;"Mr";"A.";"Tony";"Krsticevic";"MLA";"Member for Carine";;"Mr Krsticevic";;;"Suite 6, Carine Glades Commerical Centre,
-6 Davallia Road";"DUNCRAIG  WA  6023";"Suite 6, Carine Glades Commerical Centre,
-6 Davallia Road";"DUNCRAIG WA 6023";"Parliament House";"PERTH  WA  6000";;"tony.krsticevic@mp.wa.gov.au"
-"Hon";"Mr";"F.M.";"Fran";"Logan";"MLA";"Member for Cockburn";;"Mr Logan";;;"PO Box 3483";"SUCCESS  WA  6964";"Shop 30, Gateways Shopping,
-Wentworth Avenue";"SUCCESS WA 6164";"Parliament House";"PERTH  WA  6000";;"fran.logan@mp.wa.gov.au"
-"Hon";"Mr";"W.R.";"Bill";"Marmion";"MLA";"Member for Nedlands";"Minister for Environment; Water";"Minister";"29th Floor, Allendale Square, 77 St Georges Terrace";"PERTH WA 6000";"Shop 1, 160 Hampden Road";"NEDLANDS  WA  6009";"Shop 1, 160 Hampden Road";"NEDLANDS   WA    6009";"Parliament House";"PERTH  WA  6000";"Minister.Marmion@dpc.wa.gov.au";"bill.marmion@mp.wa.gov.au"
-"Hon";"Mr";"M.";"Mark";"McGowan";"MLA";"Member for Rockingham";"Leader of the Opposition";"Mr McGowan";"Opposition Office
-Parliament House";"PERTH   WA   6000";"PO Box 5324";"ROCKINGHAM BEACH  WA  6168";"Shop 13, The Boardwalk,
-7 Railway Terrace";"ROCKINGHAM WA 6168";"Parliament House";"PERTH  WA  6000";"leader@loop.wa.gov.au";"mark.mcgowan@mp.wa.gov.au"
-;"Mr";"J.E.";"John";"McGrath";"MLA";"Member for South Perth";"Parliamentary Secretary to the Premier: Minister for State Development";"Mr McGrath";;;"Suite 8,
-The South Perth Enterprise Building,
-219 Canning Highway";"SOUTH PERTH  WA  6151";"Suite 8,
-219 Canning Highway";"SOUTH PERTH   WA  6151";"Parliament House";"PERTH  WA  6000";;"john.mcgrath@mp.wa.gov.au"
-;"Mrs";"C.A.";"Carol";"Martin";"MLA";"Member for Kimberley";;"Mrs Martin";;;"PO Box 1433";"BROOME  WA  6725";"19 Barker Street";"BROOME   WA   6725";"Parliament House";"PERTH  WA  6000";;"carol.martin@mp.wa.gov.au"
-;"Mr";"P.";"Paul";"Miles";"MLA";"Member for Wanneroo";;"Mr Miles";;;"PO Box 225";"WANNEROO  WA  6946";"Wanneroo Central Shopping Precinct, Rocca Way";"WANNEROO WA 6065";"Parliament House";"PERTH  WA  6000";;"paul.miles@mp.wa.gov.au"
-;"Ms";"A.R.";"Andrea";"Mitchell";"MLA";"Member for Kingsley";;"Ms Mitchell";;;"PO Box 464";"GREENWOOD  WA  6924";"Unit 4, Woodvale Park Commercial Centre
-923 Whitfords Avenue";"WOODVALE WA 6065";"Parliament House";"PERTH  WA  6000";;"andrea.mitchell@mp.wa.gov.au"
-;"Mr";"M.P.";"Mick";"Murray";"MLA";"Member for Collie-Preston";;"Mr Murray";;;"76 Forrest Street";"COLLIE  WA  6225";"76 Forrest Street";"COLLIE    WA    6225";"Parliament House";"PERTH  WA  6000";;"mick.murray@mp.wa.gov.au"
-;"Dr";"M.D.";"Michael";"Nahan";"MLA";"Member for Riverton";;"Dr Nahan";;;"Shop P05, Stockland Riverton, Cnr of High Road & Willeri Drive";"RIVERTON  WA  6148";"Shop P05, Stockland Riverton, Cnr of High Road & Willeri Drive";"RIVERTON WA 6148";"Parliament House";"PERTH  WA  6000";;"michael.nahan@mp.wa.gov.au"
-;"Mr";"A.P.";"Tony";"O'Gorman";"MLA";"Member for Joondalup";;"Mr O'Gorman";;;"PO Box 1034";"JOONDALUP  WA  6919";"Unit 2,
-1 Wise Road";"JOONDALUP WA 6027";"Parliament House";"PERTH  WA  6000";;"tony.ogorman@mp.wa.gov.au"
-;"Mr";"P.";"Paul";"Papalia";"MLA";"Member for Warnbro";;"Mr Papalia";;;"PO Box 8443";"WARNBRO  WA  6169";"Unit 10A
-2 Oasis Drive";"SECRET HARBOUR WA 6173";"Parliament House";"PERTH  WA  6000";;"paul.papalia@mp.wa.gov.au"
-"Hon";"Mr";"C.C.";"Christian";"Porter";"MLA";"Member for Bateman";"Treasurer; Attorney General";"Treasurer";"21st Floor, Governor Stirling Tower, 197 St Georges Terrace";"PERTH WA 6000";"PO Box 1641";"Booragoon  WA  6954";"Riseley Corporate Centre, Suite 12, 135 Riseley Street";"BOORAGOON  WA  6154";"Parliament House";"PERTH  WA  6000";"Minister.Porter@dpc.wa.gov.au";"christian.porter@mp.wa.gov.au"
-;"Mr";"J.R.";"John";"Quigley";"MLA";"Member for Mindarie";;"Mr Quigley";;;"PO Box 2024";"CLARKSON  WA  6030";"Shop 35,
-Ocean Keys Shopping Centre,
-36 Ocean Keys Boulevard";"CLARKSON WA 6030";"Parliament House";"PERTH  WA  6000";;"john.quigley@mp.wa.gov.au"
-;"Ms";"M.M.";"Margaret";"Quirk";"MLA";"Member for Girrawheen";;"Ms Quirk";;;"PO Box 6085";"GIRRAWHEEN  WA  6064";"Shop 10,
-Newpark Shopping Centre,
-Templeton Crescent";"GIRRAWHEEN WA 6064";"Parliament House";"PERTH  WA  6000";;"girrawheen@mp.wa.gov.au"
-"Hon";"Mr";"D.T.";"Terry";"Redman";"MLA";"Member for Blackwood-Stirling";"Minister for Agriculture and Food; Forestry; Corrective Services";"Minister";"11th Floor, Dumas House,
-2 Havelock Street";"WEST PERTH WA 6005";"PO Box 61";"MT BARKER  WA  6324";"2A Langton Road";"MT BARKER WA 6324";"Parliament House";"PERTH  WA  6000";"Minister.Redman@dpc.wa.gov.au";"terry.redman@mp.wa.gov.au"
-"Hon";"Mr";"E.S.";"Eric";" Ripper";"MLA";"Member for Belmont";;"Mr Ripper";;;"Unit 6,
-268 Belmont Avenue";"CLOVERDALE  WA  6105";"Unit 6,
-268 Belmont Avenue";"CLOVERDALE WA 6105";"Parliament House";"PERTH  WA  6000";;"eric.ripper@mp.wa.gov.au"
-"Hon";"Mrs";"M.H.";"Michelle";"Roberts";"MLA";"Member for Midland";;"Mrs Roberts";;;"PO Box 1792";"MIDLAND  WA  6936";"Shop 5, 50 Helena Street";"MIDLAND WA 6056";"Parliament House";"PERTH  WA  6000";;"midland@mp.wa.gov.au"
-;"Ms";"R.";"Rita";"Saffioti";"MLA";"Member for West Swan";;"Ms Saffioti";;;"PO Box 2656";"MALAGA  WA  6944";"Unit 1, 23 Exhibition Drive";"MALAGA WA 6944";"Parliament House";"PERTH  WA  6000";;"westswan@mp.wa.gov.au"
-;"Mr";"A.J.";"Tony";"Simpson";"MLA";"Member for Darling Range";"Government Whip";"Mr Simpson";;;"PO Box 56";"BYFORD  WA  6122";"Suite 5, 
-837 South West Hwy";"BYFORD WA 6122";"Parliament House";"PERTH  WA  6000";;"sjoffice@mp.wa.gov.au"
-"Hon";"Mr";"T.G.";"Tom";"Stephens";"MLA";"Member for Pilbara";;"Mr Stephens";;;"PO Box 2667";"SOUTH HEDLAND  WA  6722";"Shop 26A, 
-South Hedland Shopping Centre";"SOUTH HEDLAND WA 6722";"Parliament House";"PERTH  WA  6000";;"tom.stephens@mp.wa.gov.au"
-;"Mr";"M.W.";"Michael";"Sutherland";"MLA";"Member for Mount Lawley";"Deputy Speaker";"Mr Sutherland";;;"Suite 2, 58 Walcott Street";"MOUNT LAWLEY  WA  6050";"Suite 2, 58 Walcott Street";"MOUNT LAWLEY WA 6050";"Parliament House";"PERTH  WA  6000";;"michael.sutherland@mp.wa.gov.au"
-;"Mr";"C.J.";"Chris";"Tallentire";"MLA";"Member for Gosnells";;"Mr Tallentire";;;"Unit 1, 314-316 Spencer Road";"THORNLIE WA  6108";"Unit 1, 314-316 Spencer Road";"THORNLIE WA 6108";"Parliament House";"PERTH  WA  6000";;"chris.tallentire@mp.wa.gov.au"
-;"Mr";"D.A.";"David";"Templeman";"MLA";"Member for Mandurah";"Opposition Whip";"Mr Templeman";;;"PO Box 1509";"MANDURAH  WA  6210";"4 Sutton Street";"MANDURAH WA 6210";"Parliament House";"PERTH  WA  6000";;"david.templeman@mp.wa.gov.au"
-;"Mr";"P.C.";"Peter";"Tinley";"MLA";"Member for Willagee";;"Mr Tinley";;;"PO Box 124";"HAMILTON HlLL  WA  6963";"Shop 13, Simms Road";"HAMILTON HlLL WA 6163";"Parliament House";"PERTH  WA  6000";;"willagee@mp.wa.gov.au"
-;"Mr";"A.J.";"Andrew";"Waddell";"MLA";"Member for Forrestfield";;"Mr Waddell";;;"PO Box 2269";"HIGH WYCOMBE  WA  6057";"Shops 7 & 8, High Wycombe Village Shopping Centre, 530 Kalamunda Road";"HIGH WYCOMBE WA 6057";"Parliament House";"PERTH  WA  6000";;"andrew.waddell@mp.wa.gov.au"
-"Hon";"Mr";"T.K.";"Terry";"Waldron";"MLA";"Member for Wagin";"Minister for Sport and Recreation; Racing and Gaming; Deputy Leader of the Parliamentary National Party (WA)";"Minister";"8th Floor, Dumas House
-2 Havelock Street";"WEST PERTH WA 6005";"PO Box 430";"NARROGIN  WA  6312";"Shop 3, 
-Narrogin Shopping Centre
-83 Federal Street";"NARROGIN WA 6312";"Parliament House";"PERTH  WA  6000";"Minister.Waldron@dpc.wa.gov.au";"terry.waldron@mp.wa.gov.au"
-;"Mr";"P.B.";"Peter";"Watson";"MLA";"Member for Albany";;"Mr Watson";;;"PO Box 5844";"ALBANY  WA  6332";"Suite 1,
-91-93 Aberdeen Street";"ALBANY WA 6330";"Parliament House";"PERTH  WA  6000";;"peter.watson@mp.wa.gov.au"
-;"Mr";"M.P.";"Martin";"Whitely";"MLA                                                 ";"Member for Bassendean";;"Mr Whitely";;;"6 Old Perth Road";"BASSENDEAN  WA  6054";"Unit 7, 488 Walter Road";"BAYSWATER  WA  6053";"Parliament House";"PERTH  WA  6000";;"martin.whitely@mp.wa.gov.au"
-"Hon";"Mr";"G.A.";"Grant";"Woodhams";"MLA";"Member for Moore";"Speaker of the Legislative Assembly";"Speaker";;;"PO Box 1487";"GERALDTON  WA  6531";"Unit 1, 
-5 Chapman Road";"GERALDTON WA 6530";"Parliament House";"PERTH  WA  6000";;"grant.woodhams@mp.wa.gov.au"
-;"Dr";"J.M.";"Janet";"Woollard";"MLA";"Member for Alfred Cove";;"Dr Woollard";;;"Suite 1, 30 Ardross";"APPLECROSS  WA  6153";"Suite 1, 30 Ardross";"APPLECROSS    WA    6153";"Parliament House";"PERTH  WA  6000";;"janet.woollard@mp.wa.gov.au"
-;"Mr";"B.S.";"Benjamin";"Wyatt";"MLA";"Member for Victoria Park";;"Mr Wyatt";;;"PO Box 4373";"VICTORIA PARK  WA  6949";"Shop 2, 896 Albany Hwy";"EAST VICTORIA PARK 6101";"Parliament House";"PERTH  WA  6000";;"victoriapark@mp.wa.gov.au"
+"Id";"Title";"First Name";"Second Name";"Job";"Email";"Alternative Email";"Electorate";"Party";"Portfolios";"Website";"Twitter";"Address Type";"Postal";"Address 1";"Address 2";"Suburb";"State";"Pcode";"Phone";"Tollfree";"Fax";"Address Type";"Postal";"Address 1";"Address 2";"Suburb";"State";"Pcode";"Phone";"Tollfree";"Fax";"Address Type";"Postal";"Address 1";"Address 2";"Suburb";"State";"Pcode";"Phone";"Tollfree";"Fax";;;;;;
+;"Mr";"Peter";"Abetz";;"peter.abetz@mp.wa.gov.au";;"Southern River";;;;;;;;;;;;;;;1;0;"Unit 4";"2 Furley Road";"Southern River";"WA";6110;;;;;;;;;;;;;;3;0;"Parliament House";;"Perth";6000
+;"Mr";"Frank";"Alban";;"frank.alban@mp.wa.gov.au";;"Swan Hills";;;;;;;;;;;;;;;1;0;"Unit 3";"28-32 Main Street";"Ellenbrook";"WA";6069;;;;;;;;;;;;;;3;0;"Parliament House";;"Perth";6000
+;"Ms";"Lisa";"Baker";;"lisa.baker@mp.wa.gov.au";;"Maylands";;;;;;;;;;;;;;;1;1;"PO Box 97";;"Inglewood";"WA";6932;;;;1;0;"946 Beaufort Street";;"Mt Lawley";"WA";6052;;;;3;0;"Parliament House";;"Perth";6000
+;"Mr";"Colin";"Barnett";"Premier; Minister for State Development";"cottesloe@mp.wa.gov.au";"wa-government@dpc.wa.gov.au";"Cottesloe";;;;;4;0;"24th Floor, Governor Stirling Tower";"197 St Georges Terrace";"Perth";"WA";6000;;;;1;0;"Suite 12";"589 Stirling Highway";"Cottesloe";"WA";6011;;;;;;;;;;;;;;3;0;"Parliament House";;"Perth";6000
+;"Mr";"Ian";"Blayney";;"geraldton@mp.wa.gov.au";;"Geraldton";;;;;;;;;;;;;;;1;0;"Shop 2";"5 Chapman Road";"Geraldton";"WA";6530;;;;;;;;;;;;;;3;0;"Parliament House";;"Perth";6000
+;"Mr";"John";"Bowler";;"john.bowler@mp.wa.gov.au";;"Kalgoorlie";;;;;;;;;;;;;;;1;1;"PO Box 10406";;"Kalgoorlie";"WA";6433;;;;1;0;"305 Hannan Street";;"Kalgoorlie";"WA";6430;;;;3;0;"Parliament House";;"Perth";6000
+;"Mr";"Ian";"Britza";;"ian.britza@mp.wa.gov.au";;"Morley";;;;;;;;;;;;;;;1;1;"Box 126, Centro Galleria Shopping Centre";;"Morley";"WA";6062;;;;1;0;"Suite 1, Centro Galleria Shopping Centre";"Collier Road";"Morley";;6062;;;;3;0;"Parliament House";;"Perth";6000
+;"Mr";"Troy";"Buswell";"Minister for Transport; Housing; Emergency Services";"troy.buswell@mp.wa.gov.au";;"Vasse";;;;;4;0;"10th Floor, Dumas House";"2 Havelock Street";"West Perth";"WA";6005;;;;1;1;"PO Box 516";;"Busselton";"WA";6280;;;;1;0;"16 Prince Street";;"Busselton";"WA";6280;;;;3;0;"Parliament House";;"Perth";6000
+;"Dr";"Tony";"Buti";;"armadale@mp.wa.gov.au";;"Armadale";;;;;;;;;;;;;;;1;0;"Unit 11";"2756 Albany Hwy";"Kelmscott";"WA";6111;;;;;;;;;;;;;;3;0;"Parliament House";;"Perth";6000
+;"Ms";"Adele";"Carles";;"adele.carles@mp.wa.gov.au";;"Fremantle";;;;;;;;;;;;;;;1;0;"Shop 1, Queensgate Centre";"William Street";"Fremantle";"WA";6160;;;;;;;;;;;;;;3;0;"Parliament House";;"Perth";6000
+;"Mr";"John";"Castrilli";"Minister for Local Government; Heritage; Citizenship and Multicultural Interests";"john.castrilli@mp.wa.gov.au";"Minister.Castrilli@dpc.wa.gov.au";"Bunbury";;;;;4;0;"8th Floor, Dumas House";"2 Havelock Street";"West Perth";"WA";6005;;;;1;1;"PO Box 2009";;"Bunbury";"WA";6230;;;;1;0;"4B Spencer Street";;"Bunbury";"WA";6320;;;;3;0;"Parliament House";;"Perth";6000
+;"Mr";"Vincent";"Catania";;"vincent.catania@mp.wa.gov.au";;"North West";;;;;;;;;;;;;;;1;1;"PO Box 1000";;"Carnarvon";"WA";6701;;;;1;0;"Shop 14, Carnavron Boulevard Shopping Centre";"Robinson Street";"Carnarvon";"WA";6701;;;;3;0;"Parliament House";;"Perth";6000
+;"Dr";"Elizabeth";"Constable";"Minister for Education";"elizabeth.constable@mp.wa.gov.au";"Minister.Constable@dpc.wa.gov.au";"Churchlands";;;;;4;0;"19th Floor, Governor Stirling Tower";"197 St Georges Terrace";"Perth";"WA";6000;;;;1;0;"Suite 4, Selby Square";"271 Selby Street";"Churchlands";"WA";6018;;;;;;;;;;;;;;3;0;"Parliament House";;"Perth";6000
+;"Mr";"Roger";"Cook";"Deputy Leader of the Opposition";"kwinana@mp.wa.gov.au";;"Kwinana";;;;;;;;;;;;;;;1;1;"PO Box 428";;"Kwinana";"WA";6966;;;;1;0;"3 Chisham Avenue";;"Kwinana";"WA";6167;;;;3;0;"Parliament House";;"Perth";6000
+;"Mr";"Murray";"Cowper";"Parliamentary Secretary to the Minsiter for Energy; Training and Workforce Development; Indigenous Affairs";"murray.cowper@mp.wa.gov.au";;"Murray-Wellington";;;;;;;;;;;;;;;1;1;"PO Box 480";;"Pinjarra";"WA";6208;;;;1;0;"Shop 1";"Pinjarra Junction Shopping Centre";"Pinjarra";"WA";6208;;;;3;0;"Parliament House";;"Perth";6000
+;"Mr";"John";"Day";"Minister for Planing; Culture and the Arts; Science and Innovation";"john.day@mp.wa.gov.au";"Minister.Day@dpc.wa.gov.au";"Kalamunda";;;;;4;0;"13th Floor, Dumas House";"2 Havelock Street";"West Perth";"WA";6005;;;;1;1;"PO Box 610";;"Kalamunda";"WA";6076;;;;1;0;"Unit 1";"14-16 Mead Street";"Kalamunda";"WA";6076;;;;3;0;"Parliament House";;"Perth";6000
+;"Mr";"Joe";"Francis";;"joseph.francis@mp.wa.gov.au";;"Jandakot";;;;;;;;;;;;;;;1;1;"PO Box 130 ";;"Bullcreek";"WA";6149;;;;1;0;"Suite 11";"Cnr Calley Drive and South Street";"Leeming";"WA";6149;;;;3;0;"Parliament House";;"Perth";6000
+;"Ms";"Janine";"Freeman";;"nollamara@mp.wa.gov.au";;"Nollamara";;;;;;;;;;;;;;;1;1;"PO Box 669";;"Mirrabooka";"WA";6941;;;;1;0;"Shop 4";"1 Chesterfield Road";"Mirrabooka";"WA";6061;;;;3;0;"Parliament House";;"Perth";6000
+;"Mr";"Brendon";"Grylls";"Minister for Regional Development; Lands; Minister Assisting the Minister for State Development; Leader of the Parliamentary National Party";"brendon.grylls@mp.wa.gov.au";"Minister.Grylls@dpc.wa.gov.au";"Central Wheatbelt";;;;;4;0;"14th Floor, Dumas House";"2 Havelock Street";"West Perth";"WA";6005;;;;1;1;"PO Box 66";;"Merredin";"WA";6415;;;;1;0;"The Old Town Hall";"Mitchell Street";"Merredin";"WA";6415;;;;3;0;"Parliament House";;"Perth";6000
+;"Dr";"Kim";"Hames";"Deputy Premier; Minister for Health; Tourism";"kim.hames@mp.wa.gov.au";"Minister.Hames@dpc.wa.gov.au";"Dawesville";;;;;4;0;"28th Floor, Governor Stirling Tower";"197 St Georges Terrace";"Perth";"WA";6000;;;;1;1;"PO Box 5551";;"Falcon";"WA";6210;;;;1;0;"Suite 2";"633 Old Coast Road";"Falcon";"WA";6210;;;;3;0;"Parliament House";;"Perth";6000
+;"Mrs";"Liza";"Harvey";"Parliamentary Secretary to the Minister for Finance; Commerce; Small Business";"liza.harvey@mp.wa.gov.au";;"Scarborough";;;;;;;;;;;;;;;1;0;"197 Scarborough Beach Road";;"Doubleview";"WA";6005;;;;;;;;;;;;;;3;0;"Parliament House";;"Perth";6000
+;"Mr";"John";"Hyde";;"john.hyde@mp.wa.gov.au";;"Perth";;;;;;;;;;;;;;;1;0;"446 William Street";;"Perth";"WA";6000;;;;;;;;;;;;;;3;0;"Parliament House";;"Perth";6000
+;"Mr";"Albert";"Jacob";" ";"albert.jacob@mp.wa.gov.au";;"Ocean Reef";;;;;;;;;;;;;;;1;1;"PO Box 47";;"Joondalup";"WA";6919;;;;1;0;"Shop 22, Currambine Marketplace";"Marmion Avenue";"Currambine";"WA";6028;;;;3;0;"Parliament House";;"Perth";6000
+;"Dr";"Graham";"Jacobs";;"graham.jacobs@mp.wa.gov.au";;"Eyre";;;;;;;;;;;;;;;1;1;"PO Box 1394";;"Esperance";"WA";6450;;;;1;0;"Fenwick House";"107 Dempster Street";"Esperance";"WA";6450;;;;3;0;"Parliament House";;"Perth";6000
+;"Mr";"Rob";"Johnson";"Minister for Police; Road Safety; Leader of the House";"rob.johnson@mp.wa.gov.au";"Minister.Johnson@dpc.wa.gov.au";"Hillarys";;;;;4;0;"20th Floor, Governor Stirling Tower";"197 St Georges Terrace";"Perth";"WA";6000;;;;1;0;"Suite 2, Endeavour House";"Cnr Endeavour Rd & Banks Ave";"Hillarys";"WA";6025;;;;;;;;;;;;;;3;0;"Parliament House";;"Perth";6000
+;"Mr";"Bill";"Johnston";;"cannington@mp.wa.gov.au";;"Cannington";;;;;;;;;;;;;;;1;1;"PO Box 1171";;"Cannington";"WA";6987;;;;1;0;"Unit 4";"10 Cecil Avenue";"Cannington";"WA";6107;;;;3;0;"Parliament House";;"Perth";6000
+;"Mr";"John";"Kobelke";;"john.kobelke@mp.wa.gov.au";;"Balcatta";;;;;;;;;;;;;;;1;1;"Locked Bag 5001";;"Osborne Park";"WA";6017;;;;1;0;"Suite 1";"136 Main Street";"Osborne Park";"WA";6917;;;;3;0;"Parliament House";;"Perth";6000
+;"Mr";"Tony";"Krsticevic";;"tony.krsticevic@mp.wa.gov.au";;"Carine";;;;;;;;;;;;;;;1;0;"Suite 6, Carine Glades Commerical Centre";"6 Davallia Road";"Duncraig";"WA";6023;;;;;;;;;;;;;;3;0;"Parliament House";;"Perth";6000
+;"Mr";"Fran";"Logan";;"fran.logan@mp.wa.gov.au";;"Cockburn";;;;;;;;;;;;;;;1;1;"PO Box 3483";;"Success";"WA";6964;;;;1;0;"Shop 30, Gateways Shopping";"Wentworth Avenue";"Success";"WA";6164;;;;3;0;"Parliament House";;"Perth";6000
+;"Mr";"Bill";"Marmion";"Minister for Environment; Water";"bill.marmion@mp.wa.gov.au";"Minister.Marmion@dpc.wa.gov.au";"Nedlands";;;;;4;0;"29th Floor, Allendale Square";"77 St Georges Terrace";"Perth";"WA";6000;;;;1;0;"Shop 1";"160 Hampden Road";"Nedlands";"WA";6009;;;;;;;;;;;;;;3;0;"Parliament House";;"Perth";6000
+;"Mr";"Mark";"McGowan";"Leader of the Opposition";"mark.mcgowan@mp.wa.gov.au";"leader@loop.wa.gov.au";"Rockingham";;;;;4;0;"Opposition Office";"Parliament House";"Perth";"WA";6000;;;;1;1;"PO Box 5324";;"Rockingham beach";"WA";6168;;;;1;0;"Shop 13, The Boardwalk";"7 Railway Terrace";"Rockingham";"WA";6168;;;;3;0;"Parliament House";;"Perth";6000
+;"Mr";"John";"McGrath";"Parliamentary Secretary to the Premier: Minister for State Development";"john.mcgrath@mp.wa.gov.au";;"South Perth";;;;;;;;;;;;;;;1;0;"Suite 8, The South Perth Enterprise Building";"219 Canning Highway";"South Perth";"WA";6151;;;;;;;;;;;;;;3;0;"Parliament House";;"Perth";6000
+;"Mrs";"Carol";"Martin";;"carol.martin@mp.wa.gov.au";;"Kimberley";;;;;;;;;;;;;;;1;1;"PO Box 1433";;"Broome";"WA";6725;;;;1;0;"19 Barker Street";;"Broome";"WA";6725;;;;3;0;"Parliament House";;"Perth";6000
+;"Mr";"Paul";"Miles";;"paul.miles@mp.wa.gov.au";;"Wanneroo";;;;;;;;;;;;;;;1;1;"PO Box 225";;"Wanneroo";"WA";6946;;;;1;0;"Wanneroo Central Shopping Precinct";"Rocca Way";"Wanneroo";"WA";6065;;;;3;0;"Parliament House";;"Perth";6000
+;"Ms";"Andrea";"Mitchell";;"andrea.mitchell@mp.wa.gov.au";;"Kingsley";;;;;;;;;;;;;;;1;1;"PO Box 464";;"Greenwood";"WA";6924;;;;1;0;"Unit 4, Woodvale Park Commercial Centre";"923 Whitfords Avenue";"Woodvale";"WA";6065;;;;3;0;"Parliament House";;"Perth";6000
+;"Mr";"Mick";"Murray";;"mick.murray@mp.wa.gov.au";;"Collie-Preston";;;;;;;;;;;;;;;1;0;"76 Forrest Street";;"Collie";"WA";6225;;;;;;;;;;;;;;3;0;"Parliament House";;"Perth";6000
+;"Dr";"Michael";"Nahan";;"michael.nahan@mp.wa.gov.au";;"Riverton";;;;;;;;;;;;;;;1;0;"Shop P05, Stockland Riverton";"Cnr of High Road & Willeri Drive";"Riverton";"WA";6148;;;;;;;;;;;;;;3;0;"Parliament House";;"Perth";6000
+;"Mr";"Tony";"O'Gorman";;"tony.ogorman@mp.wa.gov.au";;"Joondalup";;;;;;;;;;;;;;;1;1;"PO Box 1034";;"Joondalup";"WA";6919;;;;1;0;"Unit 2";"1 Wise Road";"Joondalup";"WA";6027;;;;3;0;"Parliament House";;"Perth";6000
+;"Mr";"Paul";"Papalia";;"paul.papalia@mp.wa.gov.au";;"Warnbro";;;;;;;;;;;;;;;1;1;"PO Box 8443";;"Warnbro";"WA";6169;;;;1;0;"Unit 10A";"2 Oasis Drive";"Secret Harbour";"WA";6173;;;;3;0;"Parliament House";;"Perth";6000
+;"Mr";"Christian";"Porter";"Treasurer; Attorney General";"christian.porter@mp.wa.gov.au";"Minister.Porter@dpc.wa.gov.au";"Bateman";;;;;4;0;"21st Floor, Governor Stirling Tower";"197 St Georges Terrace";"Perth";"WA";6000;;;;1;1;"PO Box 1641";;"Booragoon";"WA";6954;;;;1;0;"Riseley Corporate Centre, Suite 12";"135 Riseley Street";"Booragoon";"WA";6154;;;;3;0;"Parliament House";;"Perth";6000
+;"Mr";"John";"Quigley";;"john.quigley@mp.wa.gov.au";;"Mindarie";;;;;;;;;;;;;;;1;1;"PO Box 2024";;"Clarkson";"WA";6030;;;;1;0;"Shop 35, Ocean Keys Shopping Centre";"36 Ocean Keys Boulevard";"Clarkson";"WA";6030;;;;3;0;"Parliament House";;"Perth";6000
+;"Ms";"Margaret";"Quirk";;"girrawheen@mp.wa.gov.au";;"Girrawheen";;;;;;;;;;;;;;;1;1;"PO Box 6085";;"Girrawheen";"WA";6064;;;;1;0;"Shop 10, Newpark Shopping Centre";"Templeton Crescent";"Girrawheen";"WA";6064;;;;3;0;"Parliament House";;"Perth";6000
+;"Mr";"Terry";"Redman";"Minister for Agriculture and Food; Forestry; Corrective Services";"terry.redman@mp.wa.gov.au";"Minister.Redman@dpc.wa.gov.au";"Blackwood-Stirling";;;;;4;0;"11th Floor, Dumas House";"2 Havelock Street";"West Perth";"WA";6005;;;;1;1;"PO Box 61";;"Mt Barker";"WA";6324;;;;1;0;"2A Langton Road";;"Mt Barker";"WA";6324;;;;3;0;"Parliament House";;"Perth";6000
+;"Mr";"Eric";" Ripper";;"eric.ripper@mp.wa.gov.au";;"Belmont";;;;;;;;;;;;;;;1;0;"Unit 6";"268 Belmont Avenue";"Cloverdale";"WA";6105;;;;;;;;;;;;;;3;0;"Parliament House";;"Perth";6000
+;"Mrs";"Michelle";"Roberts";;"midland@mp.wa.gov.au";;"Midland";;;;;;;;;;;;;;;1;1;"PO Box 1792";;"Midland";"WA";6936;;;;1;0;"Shop 5";"50 Helena Street";"Midland";"WA";6056;;;;3;0;"Parliament House";;"Perth";6000
+;"Ms";"Rita";"Saffioti";;"westswan@mp.wa.gov.au";;"West Swan";;;;;;;;;;;;;;;1;1;"PO Box 2656";;"Malaga";"WA";6944;;;;1;0;"Unit 1";"23 Exhibition Drive";"Malaga";"WA";6944;;;;3;0;"Parliament House";;"Perth";6000
+;"Mr";"Tony";"Simpson";"Government Whip";"sjoffice@mp.wa.gov.au";;"Darling Range";;;;;;;;;;;;;;;1;1;"PO Box 56";;"Byford";"WA";6122;;;;1;0;"Suite 5";"837 South West Hwy";"Byford";"WA";6122;;;;3;0;"Parliament House";;"Perth";6000
+;"Mr";"Tom";"Stephens";;"tom.stephens@mp.wa.gov.au";;"Pilbara";;;;;;;;;;;;;;;1;1;"PO Box 2667";;"South Hedland";"WA";6722;;;;1;0;"Shop 26A";"South Hedland Shopping Centre";"South Hedland";"WA";6722;;;;3;0;"Parliament House";;"Perth";6000
+;"Mr";"Michael";"Sutherland";"Deputy Speaker";"michael.sutherland@mp.wa.gov.au";;"Mount Lawley";;;;;;;;;;;;;;;1;0;"Suite 2";"58 Walcott Street";"Mount Lawley";"WA";6050;;;;;;;;;;;;;;3;0;"Parliament House";;"Perth";6000
+;"Mr";"Chris";"Tallentire";;"chris.tallentire@mp.wa.gov.au";;"Gosnells";;;;;;;;;;;;;;;1;0;"Unit 1";"314-316 Spencer Road";"Thornlie";"WA";6108;;;;;;;;;;;;;;3;0;"Parliament House";;"Perth";6000
+;"Mr";"David";"Templeman";"Opposition Whip";"david.templeman@mp.wa.gov.au";;"Mandurah";;;;;;;;;;;;;;;1;1;"PO Box 1509";;"Mandurah";"WA";6210;;;;1;0;"4 Sutton Street";;"Mandurah";"WA";6210;;;;3;0;"Parliament House";;"Perth";6000
+;"Mr";"Peter";"Tinley";;"willagee@mp.wa.gov.au";;"Willagee";;;;;;;;;;;;;;;1;1;"PO Box 124";;"Hamilton Hlll";"WA";6963;;;;1;0;"Shop 13";"Simms Road";"Hamilton Hlll";"WA";6163;;;;3;0;"Parliament House";;"Perth";6000
+;"Mr";"Andrew";"Waddell";;"andrew.waddell@mp.wa.gov.au";;"Forrestfield";;;;;;;;;;;;;;;1;1;"PO Box 2269";;"High Wycombe";"WA";6057;;;;1;0;"Shops 7 & 8, High Wycombe Village Shopping Centre";"530 Kalamunda Road";"High Wycombe";"WA";6057;;;;3;0;"Parliament House";;"Perth";6000
+;"Mr";"Terry";"Waldron";"Minister for Sport and Recreation; Racing and Gaming; Deputy Leader of the Parliamentary National Party (WA)";"terry.waldron@mp.wa.gov.au";"Minister.Waldron@dpc.wa.gov.au";"Wagin";;;;;4;0;"8th Floor, Dumas House";"2 Havelock Street";"West Perth";"WA";6005;;;;1;1;"PO Box 430";;"Narrogin";"WA";6312;;;;1;0;"Shop 3, Narrogin Shopping Centre";"83 Federal Street";"Narrogin";"WA";6312;;;;3;0;"Parliament House";;"Perth";6000
+;"Mr";"Peter";"Watson";;"peter.watson@mp.wa.gov.au";;"Albany";;;;;;;;;;;;;;;1;1;"PO Box 5844";;"Albany";"WA";6332;;;;1;0;"Suite 1";"91-93 Aberdeen Street";"Albany";"WA";6330;;;;3;0;"Parliament House";;"Perth";6000
+;"Mr";"Martin";"Whitely";;"martin.whitely@mp.wa.gov.au";;"Bassendean";;;;;;;;;;;;;;;1;0;"6 Old Perth Road";;"Bassendean";"WA";6054;;;;2;0;"Unit 7";"488 Walter Road";"Bayswater";"WA";6053;;;;3;0;"Parliament House";;"Perth";6000
+;"Mr";"Grant";"Woodhams";"Speaker of the Legislative Assembly";"grant.woodhams@mp.wa.gov.au";;"Moore";;;;;;;;;;;;;;;1;1;"PO Box 1487";;"Geraldton";"WA";6531;;;;1;0;"Unit 1";"5 Chapman Road";"Geraldton";"WA";6530;;;;3;0;"Parliament House";;"Perth";6000
+;"Dr";"Janet";"Woollard";;"janet.woollard@mp.wa.gov.au";;"Alfred Cove";;;;;;;;;;;;;;;1;0;"Suite 1";"30 Ardross";"Applecross";"WA";6153;;;;;;;;;;;;;;3;0;"Parliament House";;"Perth";6000
+;"Mr";"Benjamin";"Wyatt";;"victoriapark@mp.wa.gov.au";;"Victoria Park";;;;;;;;;;;;;;;1;1;"PO Box 4373";;"Victoria Park";"WA";6949;;;;1;0;"Shop 2";"896 Albany Hwy";"East Victoria";"WA";6101;;;;3;0;"Parliament House";;"Perth";6000
