@@ -18,16 +18,15 @@
 				'foreignKey' => 'house_id'
 			));
 //		var $order = 'name';
-		function return_electorate($name, $state, $house){ // returns electorate ID - either of a new electorate or the existing one
+		function return_electorate($name, $house){ // returns electorate ID - either of a new electorate or the existing one
 			$electorate['Electorate']['name'] = $name;
-			$electorate['Electorate']['state'] = $state;
-			$electorate['Electorate']['house'] = $house;
-			if($electorate_exists = $this->find('first', array('conditions' => array('name' => $electorate['Electorate']['name'], 'state' => $electorate['Electorate']['state'])))){
+			$electorate['Electorate']['house_id'] = $house;
+			if($electorate_exists = $this->find('first', array('conditions' => array('Electorate.name' => $electorate['Electorate']['name'], 'Electorate.house_id' => $electorate['Electorate']['house_id'])))){
 				return $electorate_exists['Electorate']['id'];
 			}
 			else{
 				$this->create();
-				$this->set(array('name' => $name, 'house' => $house, 'state' => $state));
+				$this->set(array('name' => $name, 'house_id' => $house));
 				$this->save();
 				return $this->id;
 			}
