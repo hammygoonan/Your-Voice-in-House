@@ -1,23 +1,12 @@
 <?php
 	class Electorate extends AppModel {
 		var $name = 'Electorate';
-		var $hasMany = array(
-			'Members'
-		//	'Upper' => array(
-		//		'className' => 'ElectorateRelationship',
-		//		'foreignKey' => 'upper_id'
-		//	),
-		//	'Lower' => array(
-		//		'className' => 'ElectorateRelationship',
-		//		'foreignKey' => 'lower_id'
-		//	)
-		);
+		var $hasMany = array('Members');
 		var $hasAndBelongsToMany = array('Pcode');
 		var $belongsTo = array('House' => array(
 				'className' => 'House',
 				'foreignKey' => 'house_id'
 			));
-//		var $order = 'name';
 		function return_electorate($name, $house){ // returns electorate ID - either of a new electorate or the existing one
 			$electorate['Electorate']['name'] = $name;
 			$electorate['Electorate']['house_id'] = $house;

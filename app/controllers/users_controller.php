@@ -5,6 +5,7 @@
 		var $components = array('Auth', 'RequestHandler');
 		var $helpers = array('Html', 'Form', 'Session');
 		function index(){
+			$this->Auth->loginRedirect = array('controller' => 'users', 'action' => 'index');
 		}
 		function login(){
 		}
@@ -40,7 +41,7 @@
 						// add portfolos - easier to add them manually now
 						
 						if($line[8] !== ''){
-							$member['Portfolio']['Portfolio'] = explode(',', $line[8]);
+							$member['Portfolio']['Portfolio'] = explode(',', $line[9]);
 						}
 						
 						// unset member id so that a new record is created
@@ -83,7 +84,7 @@
 						$j++;
 					}
 				}
-				$this->Session->setFlash('<p>' . $j . ' lines executed');
+				$this->Session->setFlash($j . ' lines executed');
 			}
 			else{
 				$houses = $this->House->find('all');

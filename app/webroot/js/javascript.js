@@ -1,4 +1,4 @@
-var root = '/yvih2/';
+var root = '/yvih/';
 
 $(document).ready(function(){
 	// accordion bit
@@ -36,50 +36,50 @@ $(document).ready(function(){
 	
 	// member_autocomplete
 	
-	$('#MemberMember').autocomplete({		
-		source: function(request, response){
-			var term = request.term.split(',');
-			$.get(root + 'members/ajax_autocomplete/' + $.trim(term[term.length - 1]), function(data){
-				response($.map(data, function(item){
-					return{
-						label: item.Member.first_name + ' ' + item.Member.second_name + " (" + item.Electorate.name + ')',
-						value: item.Member.id
+	$.get(root + 'members/ajax_autocomplete/', function(data){
+		var results = $.map(data, function(item){
+			return{
+				label: item.Member.first_name + ' ' + item.Member.second_name + " (" + item.Electorate.name + ')',
+				value: item.Member.id
+			}
+		});
+		
+		$('#MemberMember').autocomplete({		
+			source: results,
+			select: function( event, ui ){
+				// update what is displayed in the text box
+				input_value.push(ui.item.label);
+				for(var i in input_value){
+					
+					if(i == 0){
+						var input_display = input_value[i];
 					}
-				}));
-			}, 'json');
+					else{
+						input_display = input_display + ', ' + input_value[i];
+					}
+				}
+				$('#MemberMember').val(input_display);
+				
+				//update what is displayed in the hidden field
+				
+				hidden_value.push(ui.item.value);
+				for(var i in hidden_value){
+					if(i == 0){
+						var input_hidden = hidden_value[i];
+					}
+					else{
+						input_hidden = input_hidden + ',' + hidden_value[i];
+					}
+				}
+				$('#MemberId').val(input_hidden);
+				return false;
 		},
-		select: function( event, ui ){
-			// update what is displayed in the text box
-			
-			input_value.push(ui.item.label);
-			for(var i in input_value){
-				if(i == 0){
-					var input_display = input_value[i];
-				}
-				else{
-					input_display = input_display + ', ' + input_value[i];
-				}
-			}
-			$('#MemberMember').val(input_display);
-			
-			//update what is displayed in the hidden field
-			
-			hidden_value.push(ui.item.value);
-			for(var i in hidden_value){
-				if(i == 0){
-					var input_hidden = hidden_value[i];
-				}
-				else{
-					input_hidden = input_hidden + ',' + hidden_value[i];
-				}
-			}
-			$('#MemberId').val(input_hidden);
-
-			return false;
-		},
-		dataType: 'json',
-		minLength: 2
+		dataType: 'json'
 	});
+		
+		
+	}, 'json');
+	
 	
 	//electorate Autocomplete
 	
