@@ -13,7 +13,6 @@
 		<ul>
 			<li>Party can be either the abbreviation or  the id</li>
 			<li>Postal address is boolean</li>
-			<li>
 		</ul>
 	</div>
 	<div class="clear"></div>

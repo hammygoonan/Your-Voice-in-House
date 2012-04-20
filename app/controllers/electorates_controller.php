@@ -1,6 +1,10 @@
 <?php
 	class ElectoratesController extends AppController{
+		var $helpers = array('Js');
 		var $name = 'Electorates';
-	//	var $scaffold;
+		function ajax_autocomplete($id = null){
+			$this->layout = 'json';
+			$this->set('electorates', $this->Electorate->find('all'));
+		}
 	}
 ?>

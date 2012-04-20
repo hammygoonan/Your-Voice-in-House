@@ -35,78 +35,76 @@ $(document).ready(function(){
 	var hidden_value = Array();;
 	
 	// member_autocomplete
-	
-	$('#MemberMember').autocomplete({		
-		source: function(request, response){
-			var term = request.term.split(',');
-			$.get(root + 'members/ajax_autocomplete/' + $.trim(term[term.length - 1]), function(data){
-				response($.map(data, function(item){
-					return{
-						label: item.Member.first_name + ' ' + item.Member.second_name + " (" + item.Electorate.name + ')',
-						value: item.Member.id
+	if($('#MemberMember').length > 0){ // if we are on the first page
+		$.get(root + 'members/ajax_autocomplete/', function(data){
+			var results = $.map(data, function(item){
+				return{
+					label: item.Member.first_name + ' ' + item.Member.second_name + " (" + item.Electorate.name + ')',
+					value: item.Member.id
+				}
+			});
+			
+			$('#MemberMember').autocomplete({		
+				source: results,
+				select: function( event, ui ){
+					// update what is displayed in the text box
+					input_value.push(ui.item.label);
+					for(var i in input_value){
+						
+						if(i == 0){
+							var input_display = input_value[i];
+						}
+						else{
+							input_display = input_display + ', ' + input_value[i];
+						}
 					}
-				}));
-			}, 'json');
-		},
-		select: function( event, ui ){
-			// update what is displayed in the text box
-			
-			input_value.push(ui.item.label);
-			for(var i in input_value){
-				if(i == 0){
-					var input_display = input_value[i];
-				}
-				else{
-					input_display = input_display + ', ' + input_value[i];
-				}
-			}
-			$('#MemberMember').val(input_display);
-			
-			//update what is displayed in the hidden field
-			
-			hidden_value.push(ui.item.value);
-			for(var i in hidden_value){
-				if(i == 0){
-					var input_hidden = hidden_value[i];
-				}
-				else{
-					input_hidden = input_hidden + ',' + hidden_value[i];
-				}
-			}
-			$('#MemberId').val(input_hidden);
-
-			return false;
-		},
-		dataType: 'json',
-		minLength: 2
-	});
+					$('#MemberMember').val(input_display);
+					
+					//update what is displayed in the hidden field
+					
+					hidden_value.push(ui.item.value);
+					for(var i in hidden_value){
+						if(i == 0){
+							var input_hidden = hidden_value[i];
+						}
+						else{
+							input_hidden = input_hidden + ',' + hidden_value[i];
+						}
+					}
+					$('#MemberId').val(input_hidden);
+					return false;
+			},
+			dataType: 'json'
+		});	
+		}, 'json');
+	}
+	
 	
 	//electorate Autocomplete
-	
-	$('#MemberElectorate').autocomplete({		
-		source: function(request, response){
-			$.get(root + 'members/electorate_autocomplete/' + request.term, function(data){
-				response($.map(data, function(item){
-					return{
-						label: item.Electorate.name + ' (' + item.House.name + ', ' + item.House.state + ')',
-						value: item.Electorate.id
-					}
-				}));
-			}, 'json');
-		},
-		select: function( event, ui ){
-			// update what is displayed in the text box
-			
-			$('#MemberElectorate').val(ui.item.label);
-			
-			//update what is displayed in the hidden field
-			$('#MemberElectorateId').val(ui.item.value);
-
-			return false;
-		},
-		dataType: 'json',
-		minLength: 2
-	});
+	if($('#MemberElectorate').length > 0){ // if we are on the first page
+		$.get(root + 'electorates/ajax_autocomplete/', function(data){
+			var electorates = $.map(data, function(item){
+				return{
+					label: item.Electorate.name + ' (' + item.House.name + ', ' + item.House.state + ')',
+					value: item.Electorate.id
+				}
+			});
+			$('#MemberElectorate').autocomplete({
+				source: electorates,
+				select: function( event, ui ){
+					// update what is displayed in the text box
+					
+					$('#MemberElectorate').val(ui.item.label);
+					
+					//update what is displayed in the hidden field
+					$('#MemberElectorateId').val(ui.item.value);
+		
+					return false;
+				},
+				dataType: 'json'
+				}, 'json');
+		});
+	}
 }); // end ready
 
 jQuery.validator.addMethod("multiemail", function(value, element) {

@@ -19,6 +19,19 @@
 				else{
 					$this->Session->setFlash('Sorry, something has gone arye. Your key was not generate. Please try again', 'default', array('class' => 'error'));
 				}
+				$message = "Hello,
+				
+				Thanks for signing up to a YVIH Api key.
+				
+				Your API key is: " . $this->data['Api']['key'] . "
+				
+				Please remember to let us know if you plan to do a large number of requests.
+				
+				All the best,
+				
+				The YVIH team";
+				
+				$this->_smtp_send($this->data, $message);
 				//send email
 			}
 		}
@@ -204,6 +217,23 @@
 				$string .= $characters[mt_rand(0, strlen($characters) - 1)];
 			}
 			return $string;
+		}
+		function _smtp_send($data, $message){
+			$this->Email->from    = 'Your Voice in House <info@yourvoiceinhouse.org.au>';
+			$this->Email->to      = $data['Api']['email'];
+			$this->Email->bcc      = array('hammy@spiresoftware.com.au');
+			$this->Email->subject = 'YVIH Api Key';
+			
+				/* SMTP Options */
+				
+			$this->Email->smtpOptions = array(
+				'port'=>'25',
+				'timeout'=>'30',
+				'host' => 'mail.yourvoiceinhouse.org.au',
+				'username'=>'no-reply+yourvoiceinhouse.org.au',
+				'password'=>'HJKFKT&HxHO6',
+			);
+			$this->Email->send($message);
 		}
 	}
 ?>

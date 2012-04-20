@@ -5,7 +5,7 @@
 		var $components = array('Auth', 'RequestHandler');
 		var $helpers = array('Html', 'Form', 'Session');
 		function index(){
-		
+			$this->Auth->loginRedirect = array('controller' => 'users', 'action' => 'index');
 		}
 		function login(){
 		}
@@ -14,6 +14,7 @@
 		}
 		function upload(){
 			if(!empty($this->data)){
+//				debug($this->data);
 				$csv = fopen($this->data['Member']['submittedfile']['tmp_name'], 'r');
 				$j = 0;
 				while(!feof($csv)){
@@ -27,20 +28,20 @@
 						}
 						
 						// see if Electorate exists. Create it if it doesn't, return the id if it does
-						
-						$member['Member']['electorate_id'] = $this->Electorate->return_electorate($line[6], $this->data['Electorate']['state'], $this->data['Electorate']['house']);
-						
+						$member['Member']['electorate_id'] = $this->Electorate->return_electorate($line[7], $this->data['User']['House']);
 						// see if Party exists. Create it if it doesn't, return the id if it does
 						
-						$member['Member']['party_id'] = $this->Party->return_party($line[7]);
+						$member['Member']['party_id'] = $this->Party->return_party($line[8]);
+						
+						// over ride all members in an electorate??
 						if($this->data['Member']['over_ride'] == 1){
-							$this->Member->deleteAll(array('electorate_id' =>$member['Member']['electorate_id'], 'second_name' => $member['Member']['second_name']));
+							$this->Member->deleteAll(array('electorate_id' => $member['Member']['electorate_id'], 'second_name' => $member['Member']['second_name']));
 						}
 						
-						// add portfolos
+						// add portfolos - easier to add them manually now
 						
 						if($line[8] !== ''){
-							$member['Portfolio']['Portfolio'] = explode(',', $line[8]);
+							$member['Portfolio']['Portfolio'] = explode(',', $line[9]);
 						}
 						
 						// unset member id so that a new record is created
@@ -52,8 +53,8 @@
 						$this->Member->save($member, array('validate' => false));
 						$id = $this->Member->id;
 						// add addresses
-						$k = 9;
-						while(is_string($line[$k])){
+						$k = 12;
+						while(isset($line[$k])){
 							if($line[$k] != ''){
 								$address['Address'] = array(
 									'member_id' => $id,
@@ -83,7 +84,15 @@
 						$j++;
 					}
 				}
-				$this->Session->setFlash('<p>' . $j . ' lines exicuted');
+				$this->Session->setFlash($j . ' lines executed');
+			}
+			else{
+				$houses = $this->House->find('all');
+				$house_array = array();
+				foreach($houses as $house){
+					$house_array[$house['House']['id']] = $house['House']['name'] . ' (' . $house['House']['state'] . ')';
+				}
+				$this->set('houses', $house_array);
 			}
 		}
 		function export(){
@@ -172,6 +181,9 @@
 				}
 			}
 			$this->redirect($this->referer());
+		}
+		function csv_template(){
+			$this->layout = 'csv';
 		}
 	}
 ?>

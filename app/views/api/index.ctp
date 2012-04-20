@@ -1,4 +1,10 @@
 <div class="grid_12">
+	<h1>Your Voice in House API</h1>
+	<p>We encourage you to hook into the YVIH dataset as you see fit. It quite straight forward for most people with some technical knowledge. Requests are made over HTTP using 'GET' data requests (ie passing variables over the URL). Please see the examples below</p>
+	<p>In order to use the API, you will need an API key which can be obtained from our <?php echo $this->Html->link('signup page', array('controller' => 'api', 'action' => 'signup')); ?>.</p>
+	<p>We ask that if you expect to run a large number of requests that you contact us via email at <a href="mailto:info@yourvoiceinhouse.org.au?subject=API">info@yourvoiceinhouse.org.au</a></p>
+	<p>Likewise, if you have any suggestions for improvements, please don't hesitate to contact us in the same email address.</p>
+
 	<h3>Variables:</h3>
 	<table>
 		<tr>
@@ -72,5 +78,7 @@
 		<li><?php echo $html->link('Houses', array('controller' => 'api', 'action' => 'house_ids')); ?></li>
 		<li><?php echo $html->link('Portfolios', array('controller' => 'api', 'action' => 'portfolio_ids')); ?></li>
 	</ul>
+	<h1>Site repository</h1>
+	<p>The Github repository for this site can be found at: <a href="https://github.com/goonanism/Your-Voice-in-House">https://github.com/goonanism/Your-Voice-in-House</a></p>
 </div>
 <div class="clear"></div>

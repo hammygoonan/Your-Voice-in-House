@@ -179,16 +179,6 @@
 				)
 			))));
 		}
-		function electorate_autocomplete($id = null){
-			$this->layout = 'json';
-//			$this->Electorate->recursive = 2;
-			$this->set('electorates', $this->Electorate->find('all', array('conditions' => array(
-				'OR' => array(
-					'Electorate.name LIKE' => '%' . $id . '%',
-					'House.name LIKE' => '%' . $id . '%'
-				)
-			))));
-		}
 		function edit($id = null){
 			$this->Member->recursive = 2;
 			if(!empty($this->data)){
