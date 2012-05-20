@@ -40,8 +40,8 @@
 						
 						// add portfolos - easier to add them manually now
 						
-						if($line[8] !== ''){
-							$member['Portfolio']['Portfolio'] = explode(',', $line[9]);
+						if($line[11] !== ''){
+							$member['Portfolio']['Portfolio'] = explode(',', $line[11]);
 						}
 						
 						// unset member id so that a new record is created
@@ -76,7 +76,7 @@
 								$k = $k + 10;
 							}
 						}
-						
+						debug($member);
 						// unset member to avoid duplication
 						
 						unset($member);

@@ -12,7 +12,7 @@
 			<br /><?= $member['Member']['alternative_email']; ?>
 		<?php endif; ?>
 		<?php if(!empty($member['Member']['twitter'])): ?>
-			<br /><a href="http://twitter/<?= $member['Member']['twitter']; ?>">@<?= $member['Member']['twitter']; ?></a>
+			<br /><a href="http://twitter.com/<?= $member['Member']['twitter']; ?>">@<?= $member['Member']['twitter']; ?></a>
 		<?php endif; ?>
 		<?php if(!empty($member['Member']['website'])): ?>
 			<br /><a href="<?= $member['Member']['website']; ?>"><?= $member['Member']['website']; ?></a>
