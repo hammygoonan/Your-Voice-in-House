@@ -1,7 +1,7 @@
 <?php
 	class MembersController extends AppController{
 		var $name = 'Members';
-		var $uses = array('Member', 'Electorate', 'House', 'Portfolio', 'Pcode', 'Party', 'Address', 'Correction');
+		var $uses = array('Member', 'Electorate', 'House', 'Portfolio', 'Party', 'Address', 'Correction');
 	//	var $scaffold;
 		var $helpers = array('Form', 'Html', 'Session', 'RecaptchaPlugin.Recaptcha', 'Js');
 		var $components = array('Email', 'RecaptchaPlugin.Recaptcha', 'Auth');

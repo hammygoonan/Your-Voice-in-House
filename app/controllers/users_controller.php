@@ -1,7 +1,7 @@
 <?php
 	class UsersController extends AppController{
 		var $name = 'Users';
-		var $uses = array('Member', 'Electorate', 'House', 'Portfolio', 'Pcode', 'Party', 'Address');
+		var $uses = array('Member', 'Electorate', 'House', 'Portfolio', 'Party', 'Address');
 		var $components = array('Auth', 'RequestHandler');
 		var $helpers = array('Html', 'Form', 'Session');
 		function index(){
