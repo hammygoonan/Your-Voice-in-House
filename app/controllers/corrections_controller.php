@@ -2,8 +2,9 @@
 	class CorrectionsController extends AppController{
 		var $name = "Corrections";
 		var $uses = array("Correction", "Member", "CorrectionType");
+		var $components = array('Auth');
 		var $helpers = array('Form');
-	//	var $scaffold;
+		var $scaffold;
 		function add_search(){
 			if($this->data){
 				$this->Correction->save($this->data);
@@ -25,6 +26,9 @@
 				$this->set('member_id', $id);
 			}
 		}
-		function thanks(){	
+		function thanks(){
+		}
+		function beforeFilter(){
+			$this->Auth->allow('add_search', 'add_result', 'thanks');
 		}
 	}
