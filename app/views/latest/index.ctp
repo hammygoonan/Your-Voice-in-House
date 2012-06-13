@@ -7,3 +7,4 @@
 		<a href="<?php echo $item['link']; ?>">Read more</a>
 	</div>
 <?php endforeach; ?>
+<div class="clear"></div>
