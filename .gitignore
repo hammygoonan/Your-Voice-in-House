@@ -2,3 +2,4 @@
 /app/tmp
 /todo.txt
 .DS_Store
+*.pyc
