@@ -1,4 +1,8 @@
-/app/config
-/app/tmp
-/todo.txt
+# Virtualenv
+.Python
+bin
+lib
+include
+
+# OS files
 .DS_Store
