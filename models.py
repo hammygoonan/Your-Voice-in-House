@@ -20,12 +20,13 @@ class Member(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     first_name = db.Column(db.String)
     second_name = db.Column(db.String)
-    role = db.Column(db.String)
+    role = db.Column(db.Text)
     electorate_id = db.Column(db.Integer, db.ForeignKey('electorates.id'))
     party_id = db.Column(db.Integer, db.ForeignKey('parties.id'))
 
     electorate = db.relationship('Electorate', backref=db.backref('electorates', lazy='dynamic'))
     party = db.relationship('Party', backref=db.backref('parties', lazy='dynamic'))
+    address = db.relationship('Address')
 
     def __init__(self, first_name, second_name, role, electorate, party):
         self.first_name = first_name
@@ -53,27 +54,34 @@ class Address(db.Model):
     suburb = db.Column(db.String)
     state = db.Column(db.String)
     postcode = db.Column(db.String)
-    primary = db.Column(db.Boolean)
     address_type_id = db.Column(db.Integer, db.ForeignKey('address_types.id'))
     member_id = db.Column(db.Integer, db.ForeignKey('members.id'))
+    primary = db.Column(db.Boolean)
 
     address_type = db.relationship('AddressType', backref=db.backref('address_types', lazy='dynamic'))
     member = db.relationship('Member', backref=db.backref('members', lazy='dynamic'))
 
-    def __init__(self, address_line1, address_line2, address_line3, suburb, state, postcode, primary, address_type, member):
+    def __init__(self, address_line1, address_line2, address_line3, suburb, state, postcode, address_type, member, primary):
         self.address_line1 = address_line1
         self.address_line2 = address_line2
         self.address_line3 = address_line3
         self.suburb = suburb
         self.state = state
         self.postcode = postcode
-        self.address_type_id = address_type_id
-        self.member_id = member_id
+        self.address_type = address_type
+        self.member = member
         self.primary = primary
 
 class AddressType(db.Model):
+    '''
+        1|Electoral Postal
+        2|Electoral Physical
+        3|Parliamentary Postal
+        4|Parliamentary Physical
+        5|Alternative
+    '''
     __tablename__ = 'address_types'
-    
+
     id = db.Column(db.Integer, primary_key=True)
     address_type = db.Column(db.String)
 
@@ -81,6 +89,9 @@ class AddressType(db.Model):
         self.type = address_type
 
 class Chamber(db.Model):
+    '''
+        1|House of Representatives|Fed
+    '''
     __tablename__ = "chambers"
 
     id = db.Column(db.Integer, primary_key=True)

@@ -8,13 +8,61 @@ import models
 with open('datasets/allsenstate.csv', 'rb') as csvfile:
     data = csv.DictReader(csvfile)
     for row in data:
-        electorate = models.Electorate(row['State'], 1)
-        party = models.Party(row['Political Party'])
+        electorate = models.Electorate.query.filter_by(name=row['State']).first()
+        chamber = models.Chamber.query.get(1)
+        if not electorate:
+            electorate = models.Electorate(row['State'], chamber)
+            db.session.add(electorate)
+
+        party = models.Party.query.filter_by(name=row['Political Party']).first()
+        if not party:
+            party = models.Party(row['Political Party'])
+            db.session.add(party)
+
         member = models.Member(row['Prefered Name'], row['Surname'], row['Parliamentary Titles'], electorate, party)
-        db.session.add(electorate)
-        db.session.add(party)
         db.session.add(member)
+
+        address_type = models.AddressType.query.get(2)
+        electoratal_address = models.Address(
+            row['Electorate AddressLine1'],
+            row['Electorate AddressLine2'],
+            None,
+            row['Electorate Suburb'],
+            row['Electorate State'],
+            row['Electorate Postcode'],
+            address_type,
+            member,
+            False
+        )
+        db.session.add(electoratal_address)
+
+        address_type = models.AddressType.query.get(1)
+        postal_address = models.Address(
+            row['Label Address'],
+            None,
+            None,
+            row['Label Suburb'],
+            row['Label State'],
+            row['Label Postcode'],
+            address_type,
+            member,
+            False
+        )
+
+        '''
+        db.session.add(postal_address)
         db.session.commit()
+
+            Electorate Fax
+            Electorate Telephone
+            Electorate Toll Free
+
+            Phone number and email addresses??
+        '''
+
+
+
+        # db.session.commit()
 
 
 # class Scraper(object):
