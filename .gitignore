@@ -3,6 +3,9 @@
 bin
 lib
 include
+datasets
+database.db
+
 *.pyc
 
 # OS files
