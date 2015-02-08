@@ -17,6 +17,7 @@ class Electorate(db.Model):
 
     def serialise(self):
         data = {
+            'id' : self.id,
             'name' : self.name,
             'state' : self.chamber.state,
             'house' : self.chamber.house,
@@ -24,6 +25,7 @@ class Electorate(db.Model):
         }
         for member in self.members:
             data['members'].append({
+                'id' : member.id,
                 'first_name' : member.first_name,
                 'second_name' : member.second_name,
                 'role' : member.role,
@@ -63,7 +65,7 @@ class Member(db.Model):
             'second_name' : self.second_name,
             'role' : self.role,
             'email' : self.email,
-            'electorate' : { 'name' : self.electorate.name, 'state' : self.electorate.chamber.state, 'house' : self.electorate.chamber.house },
+            'electorate' : { 'id' : self.electorate.id, 'name' : self.electorate.name, 'state' : self.electorate.chamber.state, 'house' : self.electorate.chamber.house },
             'party' : { 'name' : self.party.name },
             'addresses' : [],
             'phone_numbers' : [],
@@ -189,10 +191,25 @@ class Chamber(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     state = db.Column(db.String)
     house = db.Column(db.String)
+    electorates = db.relationship('Electorate')
 
     def __init__(self, state, house):
         self.state = state
         self.house = house
+
+    def serialise(self):
+        data = {
+            'id' : self.id,
+            'state' : self.state,
+            'house' : self.house,
+            'electorates' : []
+        }
+        for electorate in self.electorates:
+            data['electorates'].append({
+                'id' : electorate.id,
+                'name' : electorate.name,
+            })
+        return data
 
 class Tags(db.Model):
     __tablename__ = "tags"

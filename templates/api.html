@@ -1,30 +1,114 @@
 {% extends "base.html" %}
 {% block content %}
-    <h1>Your Voice in House API</h1>
+    <h1>Your Voice in House API <small>- PaaS (Politicians as a Service)</small></h1>
+
     <p>This site is designed to be as easy to used for a human as it is for a computer.</p>
     <p>If you request this page and ask for text/html you will receive a human readable version - that's what you're looking at right now. However if you request the page and tell the server you are accepting json (application/json to be precise) you will receive the page in json format.</p>
     <p>This is true for almost any page or search you can do on the site.</p>
-    <p>All arguments are send as GET requests</p>
+    <p>All arguments are send as GET requests (at this stage the data cannot be modified by the API)</p>
     <h2>/members</h2>
+    <p>Returns a list of members that match the query.</p>
     <p>Full url: http://yourvoiceinhouse.org.au/members</p>
     <h3>Parameters</h3>
-    <ul>
-        <li>id</li>
-        <li>first_name</li>
-        <li>second_name</li>
-        <li>role</li>
-    </ul>
+    <table class="table table-striped">
+        <tr>
+            <th>Field</th>
+            <th>Description</th>
+        </tr>
+        <tr>
+            <td>id</td>
+            <td>Integer. The member of parliament's ID</td>
+        </tr>
+        <tr>
+            <td>first_name</td>
+            <td>String. Member's first name</td>
+        </tr>
+        <tr>
+            <td>second_name</td>
+            <td>String. Member's second name</td>
+        </tr>
+        <tr>
+            <td>role</td>
+            <td>String. Member's parliamentary role, ie Minister for...</td>
+        </tr>
+    </table>
     <h3>Examples</h3>
+    <p><code>curl -H accept:application/json http://127.0.0.1:5000/members?second_name=Smith</code></p>
+    <p><strong>Returns</strong></p>
+    <pre><samp>
+        {"members": [{
+                "id": 76,
+                "first_name": "Dean",
+                "second_name": "Smith"
+                "role": "",
+                "email": "senator.smith@aph.gov.au",
+                "addresses": [{
+                    ...
+                }],
+                "electorate": {
+                    "house": "Senate",
+                    "name": "WA",
+                    "state": "Fed"
+                },
+                ...
+            },
+            {
+                "id": 202,
+                "first_name": "Tony",
+                "second_name": "Smith"
+                "role": "",
+                "email": "",
+                "addresses": [{
+                    ...
+                }],
+                "electorate": {
+                    "house": "House of Representatives",
+                    "name": "Casey",
+                    "state": "Fed"
+                },
+                ...
+            }]
+        }
+
+    </samp></pre>
+
     <h2>/electorates</h2>
     <p>This query will return all electorates that match the search and basic information about their associated Members.<p>
-    <p>Full url: http://yourvoiceinhouse.org.au/electorates</p>
+    <p><code>Full url: http://yourvoiceinhouse.org.au/electorates</code></p>
     <h3>Parameters</h3>
-    <ul>
-        <li>id</li>
-        <li>name</li>
-        <li>house</li>
-        <li>state</li>
-    </ul>
+    <table class="table table-striped">
+        <tr>
+            <th>Field</th>
+            <th>Description</th>
+        </tr>
+        <tr>
+            <td>id</td>
+            <td>Integer. Id of the Electorate.</td>
+        </tr>
+        <tr>
+            <td>name</td>
+            <td>String. Electorate Name.</td>
+        </tr>
+    </table>
     <h2>/chambers</h2>
-    <p>Full url: http://yourvoiceinhouse.org.au/chambers</p>
+    <p><code>Full url: http://yourvoiceinhouse.org.au/chambers</code></p>
+    <p>This query will return a list of all electorates associated with a particular house of parliament. It is handy for getting a list of electorates for your state.</p>
+    <table class="table table-striped">
+        <tr>
+            <th>Field</th>
+            <th>Description</th>
+        </tr>
+        <tr>
+            <td>id</td>
+            <td>Integer. Id of the Chamber.</td>
+        </tr>
+        <tr>
+            <td>state</td>
+            <td>String. Chamber state.</td>
+        </tr>
+        <tr>
+            <td>name</td>
+            <td>String. Chamber name.</td>
+        </tr>
+    </table>
 {% endblock %}

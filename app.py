@@ -20,9 +20,7 @@ def members():
         members = models.Member.query.filter_by( **query )
     else:
         members = models.Member.query.all()
-    # query = {'name' : 'Melbourne'}
-    # members = models.Member.query.join(models.Electorate).filter_by( **query )
-    if request.accept_mimetypes.accept_json:
+    if request_wants_json():
         results = []
         for member in members:
             results.append(member.serialise())
@@ -32,12 +30,27 @@ def members():
 
 @app.route('/electorates', methods=['GET'])
 def electorates():
+    # add query
+    # add template
+    # add if json
     electorates = models.Electorate.query.all()
     results = []
     for electorate in electorates:
         results.append( electorate.serialise() )
     return jsonify({'electorates' : results})
 
+@app.route('/chambers', methods=['GET'])
+def chambers():
+    chambers = models.Chamber.query.all()
+    results = []
+    for chamber in chambers:
+        results.append( chamber.serialise() )
+    return jsonify({'chamber' : results})
+
+def request_wants_json():
+    # taken from http://flask.pocoo.org/snippets/45/
+    best = request.accept_mimetypes.best_match(['application/json', 'text/html'])
+    return best == 'application/json' and request.accept_mimetypes[best] > request.accept_mimetypes['text/html']
 
 if __name__ == "__main__":
     app.run()
