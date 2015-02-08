@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block content %}
+    <h1>Members</h1>
+    <ul>
+        {% for member in members %}
+            <li>
+                <p>
+                    {{ member.first_name }} {{ member.second_name }}<br />
+                    <strong>{{ member.electorate.name }}</strong> - {{ member.electorate.chamber.house }} ({{ member.electorate.chamber.state }})<br />
+                    {% if member.role: %}
+                        {{ member.role }}<br />
+                    {% endif %}
+                <p>
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock %}

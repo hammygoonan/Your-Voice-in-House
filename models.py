@@ -15,6 +15,22 @@ class Electorate(db.Model):
         self.name = name
         self.chamber = chamber
 
+    def serialise(self):
+        data = {
+            'name' : self.name,
+            'state' : self.chamber.state,
+            'house' : self.chamber.house,
+            'members' : []
+        }
+        for member in self.members:
+            data['members'].append({
+                'first_name' : member.first_name,
+                'second_name' : member.second_name,
+                'role' : member.role,
+                'party' : member.party.name
+            })
+        return data
+
 class Member(db.Model):
     __tablename__ = "members"
 

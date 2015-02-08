@@ -82,10 +82,10 @@ def fed_csvs():
     with open('datasets/SurnameRepsCSV.csv', 'rb') as csvfile:
         data = csv.DictReader(csvfile)
         for row in data:
-            electorate = models.Electorate.query.filter_by(name=row['State']).first()
+            electorate = models.Electorate.query.filter_by(name=row['Electorate']).first()
             chamber = models.Chamber.query.get(1)
             if not electorate:
-                electorate = models.Electorate(row['State'], chamber)
+                electorate = models.Electorate(row['Electorate'], chamber)
                 db.session.add(electorate)
 
             party = models.Party.query.filter_by(name=row['Political Party']).first()

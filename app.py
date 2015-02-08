@@ -1,5 +1,5 @@
 #!/usr/bin/python
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, render_template
 from flask.ext.sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
@@ -10,10 +10,8 @@ db = SQLAlchemy(app)
 import models
 
 @app.route("/")
-def hello():
-    member = models.Member.query.all()
-    print member
-    return "Hello World!"
+def api():
+    return render_template('api.html')
 
 @app.route('/members', methods=['GET'])
 def members():
@@ -22,14 +20,23 @@ def members():
         members = models.Member.query.filter_by( **query )
     else:
         members = models.Member.query.all()
-    results = []
-    for member in members:
-        results.append(member.serialise())
-    return jsonify({'members' : results})
+    # query = {'name' : 'Melbourne'}
+    # members = models.Member.query.join(models.Electorate).filter_by( **query )
+    if request.accept_mimetypes.accept_json:
+        results = []
+        for member in members:
+            results.append(member.serialise())
+        return jsonify({'members' : results})
+    else:
+        return render_template('members.html', members=members)
 
-@app.route('/member')
-def member():
-    pass
+@app.route('/electorates', methods=['GET'])
+def electorates():
+    electorates = models.Electorate.query.all()
+    results = []
+    for electorate in electorates:
+        results.append( electorate.serialise() )
+    return jsonify({'electorates' : results})
 
 
 if __name__ == "__main__":

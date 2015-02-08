@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block content %}
+    <h1>Your Voice in House API</h1>
+    <p>This site is designed to be as easy to used for a human as it is for a computer.</p>
+    <p>If you request this page and ask for text/html you will receive a human readable version - that's what you're looking at right now. However if you request the page and tell the server you are accepting json (application/json to be precise) you will receive the page in json format.</p>
+    <p>This is true for almost any page or search you can do on the site.</p>
+    <p>All arguments are send as GET requests</p>
+    <h2>/members</h2>
+    <p>Full url: http://yourvoiceinhouse.org.au/members</p>
+    <h3>Parameters</h3>
+    <ul>
+        <li>id</li>
+        <li>first_name</li>
+        <li>second_name</li>
+        <li>role</li>
+    </ul>
+    <h3>Examples</h3>
+    <h2>/electorates</h2>
+    <p>This query will return all electorates that match the search and basic information about their associated Members.<p>
+    <p>Full url: http://yourvoiceinhouse.org.au/electorates</p>
+    <h3>Parameters</h3>
+    <ul>
+        <li>id</li>
+        <li>name</li>
+        <li>house</li>
+        <li>state</li>
+    </ul>
+    <h2>/chambers</h2>
+    <p>Full url: http://yourvoiceinhouse.org.au/chambers</p>
+{% endblock %}
