@@ -13,10 +13,11 @@ import models
 def api():
     return render_template('api.html')
 
-@app.route('/members', methods=['GET'])
-def members():
-    if request.args:
-        query = request.args.to_dict()
+@app.route('/members/<path:conditions>', methods=['GET'])
+def members( conditions=None ):
+    if conditions != None:
+        conditions = conditions.split('/')
+        query = dict(zip(conditions[0::2], conditions[1::2]))
         members = models.Member.query.filter_by( **query )
     else:
         members = models.Member.query.all()
@@ -28,8 +29,8 @@ def members():
     else:
         return render_template('members.html', members=members)
 
-@app.route('/electorates', methods=['GET'])
-def electorates():
+@app.route('/electorates/<path:conditions>', methods=['GET'])
+def electorates( conditions=None ):
     # add query
     # add template
     # add if json

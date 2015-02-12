@@ -1,17 +1,32 @@
 {% extends "base.html" %}
 {% block content %}
     <h1>Members</h1>
-    <ul>
+    <section>
         {% for member in members %}
-            <li>
+            {% if loop.index % 2 == 1 %}
+                <div class="row">
+            {% endif %}
+            <article class="col-md-6 col-s-12">
                 <p>
                     {{ member.first_name }} {{ member.second_name }}<br />
                     <strong>{{ member.electorate.name }}</strong> - {{ member.electorate.chamber.house }} ({{ member.electorate.chamber.state }})<br />
                     {% if member.role: %}
                         {{ member.role }}<br />
                     {% endif %}
-                <p>
-            </li>
+                </p>
+                {% for address in member.addresses %}
+                    <address>
+                        {{ address.address_line1 }}<br />
+                        {% if address.address_line2: %}{{ address.address_line2 }}<br />{% endif %}
+                        {% if address.address_line3: %}{{ address.address_line3 }}<br />{% endif %}
+                        {{ address.suburb }} {{ address.state }} {{ address.postcode }}
+                    </address>
+                {% endfor %}
+            </article>
+            {% if loop.index % 2 == 0 %}
+                </div>
+                <hr />
+            {% endif %}
         {% endfor %}
-    </ul>
+    </div>
 {% endblock %}
