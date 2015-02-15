@@ -1,13 +1,15 @@
-from flask import redirect, render_template, request, url_for, Blueprint
-from yvih import db   # pragma: no cover
+from flask import redirect, jsonify, render_template, request, url_for, Blueprint
+from yvih import db
 from yvih.models import Member
 
 members_blueprint = Blueprint(
-    'members', __name__,
-    template_folder='templates'
+    'members',
+    __name__,
+    template_folder='templates',
+    url_prefix='/members'
 )
-
-@members_blueprint.route('/', methods=['GET'])
+@members_blueprint.route('/')
+@members_blueprint.route('/<path:conditions>')
 def members( conditions=None ):
     # @todo: add conditions
     if conditions != None:

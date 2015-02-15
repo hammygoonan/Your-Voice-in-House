@@ -14,10 +14,9 @@ from yvih.chambers.views import chambers_blueprint
 
 # register our blueprints
 app.register_blueprint(home_blueprint)
-app.register_blueprint(members_blueprint, url_prefix='/members')
-app.register_blueprint(electorates_blueprint, url_prefix='/electorates')
-app.register_blueprint(chambers_blueprint, url_prefix='/chmabers')
-
+app.register_blueprint(members_blueprint)
+app.register_blueprint(electorates_blueprint)
+app.register_blueprint(chambers_blueprint)
 
 def request_wants_json():
     # taken from http://flask.pocoo.org/snippets/45/
