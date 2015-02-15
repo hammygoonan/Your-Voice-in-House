@@ -18,6 +18,7 @@ def members( conditions=None ):
     if conditions != None:
         conditions = conditions.split('/')
         query = dict(zip(conditions[0::2], conditions[1::2]))
+        # @todo validate query
         members = models.Member.query.filter_by( **query )
     else:
         members = models.Member.query.all()
