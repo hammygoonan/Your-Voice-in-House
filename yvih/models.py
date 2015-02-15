@@ -1,5 +1,5 @@
 #!/usr/bin/python
-from app import db
+from yvih import db
 
 class Electorate(db.Model):
     __tablename__ = "electorates"
