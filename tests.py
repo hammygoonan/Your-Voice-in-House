@@ -20,6 +20,8 @@ class YvihTestCase(unittest.TestCase):
         rv = self.app.get('/')
         assert 'Your Voice in House API' in rv.data
 
+
+
     # def test_members_displays_content(self):
     #     rv = self.app.get('/members/')
     #     assert 'Members' in rv.data
