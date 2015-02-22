@@ -92,6 +92,9 @@ class Member(db.Model):
                 'link' : link.link,
                 'type' : link.type,
             })
+        data['links'].append({
+            'self' : '/members/id/' + str(data['id'])
+        })
         return data
 
 class Party(db.Model):
