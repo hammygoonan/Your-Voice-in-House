@@ -1,6 +1,7 @@
 import os
 import json
 import unittest
+from urllib import quote
 from yvih import app
 from flask import Flask
 from flask.ext.testing import TestCase
@@ -40,6 +41,8 @@ class YvihTestCase(TestCase):
     def test_member_fields(self):
         response = self.client.get('/members/id/1')
         self.assert200(response)
+        response = self.client.get('/members/id/non-numeric')
+        self.assert400(response)
         response = self.client.get('/members/first_name/Kate')
         self.assert200(response)
         response = self.client.get('/members/second_name/Smith')
@@ -49,29 +52,37 @@ class YvihTestCase(TestCase):
         response = self.client.get('/members/id/999999')
         self.assert404(response)
         response = self.client.get('/members/test/thing')
-        self.assert404(response)
-        # multiple parameters
-        # id not an int
-        pass
+        self.assert400(response)
+        response = self.client.get('/members/first_name/Tony/role/immigration')
+        self.assert200(response)
+        url = quote('/members/role/The Nationals in the Senate')
+        response = self.client.get(url)
+        self.assert200(response)
+
     def test_member_fields_json(self):
         headers = [('Accept', 'application/json')]
+        response = self.client.get('/members/id/1', headers=headers)
+        self.assert200(response)
+        response = self.client.get('/members/id/non-numeric', headers=headers)
+        self.assert400(response)
+        response = self.client.get('/members/first_name/Kate', headers=headers)
+        self.assert200(response)
+        response = self.client.get('/members/second_name/Smith', headers=headers)
+        self.assert200(response)
+        response = self.client.get('/members/first_name/Smith', headers=headers)
+        self.assert404(response)
         response = self.client.get('/members/id/999999', headers=headers)
         self.assert404(response)
         response = self.client.get('/members/test/thing', headers=headers)
-        self.assert404(response)
-
-
-
-
-    # member id non-numeric returns 404
-    # member id non-numeric json
-    # 404 if no results
-
-    # member first_name
-    # member second_name
-    # member role
-
-
+        self.assert400(response)
+        response = self.client.get('/members/first_name/Tony/role/immigration', headers=headers)
+        self.assert200(response)
+        url = quote('/members/role/The Nationals in the Senate')
+        response = self.client.get(url)
+        self.assert200(response)
+        response = self.client.get('/members/id/1/id/2', headers=headers)
+        self.assert200(response)
+        self.assertTrue(len(response.json['members']) == 2)
 
 
 if __name__ == '__main__':
