@@ -1,4 +1,3 @@
-#!/usr/bin/python
 from flask import Flask, jsonify, request, render_template
 from flask.ext.sqlalchemy import SQLAlchemy
 

@@ -7,17 +7,17 @@ The hope is to have an API that can be plugged into as well as providing a power
 
 To Do
 -----
-[ ] More data!
-[ ] Scrapers to check currency of data
-[ ] Postcodes
-[ ] Tags
-[ ] Photos
-[ ] Search functionality
-[ ] Export functionality
-[ ] UI
-[ ] Documentation
+- [ ] More data!
+- [ ] Scrapers to check currency of data
+- [ ] Postcodes
+- [ ] Tags
+- [ ] Photos
+- [ ] Search functionality
+- [ ] Export functionality
+- [ ] UI
+- [ ] Documentation
 
-[ ] Add links to responses (link:)
-[ ] Options method
-[ ] Account for cases
-[ ] search roles
+- [x] Add links to responses (link:)
+- [x] Options method
+- [x] Account for cases
+- [x] search roles

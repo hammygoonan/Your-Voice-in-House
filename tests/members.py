@@ -1,24 +1,7 @@
-import os
-import json
-import unittest
 from urllib import quote
-from yvih import app
-from flask import Flask
-from flask.ext.testing import TestCase
-import tempfile
+from base import BaseTestCase
 
-class YvihTestCase(TestCase):
-
-    def create_app(self):
-        app.config['TESTING'] = True
-        self.maxDiff = None
-        return app
-
-    def setUp(self):
-        pass
-
-    def tearDown(self):
-        pass
+class MembersTestCase(BaseTestCase):
 
     def test_home_displays_api(self):
         response = self.client.get('/')
