@@ -1,6 +1,7 @@
 import unittest
 import os
 import coverage
+from data import federal
 from flask.ext.script import Manager
 from yvih import app, db
 
@@ -30,6 +31,12 @@ def cov():
     covdir = os.path.join(basedir, 'coverage')
     cov.html_report(directory=covdir)
     cov.erase()
+
+@manager.command
+def data():
+    '''Run data updates'''
+    data = federal.FederalData()
+    data.senate_csvs()
 
 
 if __name__ == '__main__':

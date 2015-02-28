@@ -1,13 +1,19 @@
 #!/usr/bin/python
 import requests
+from yvih import models, db
+from base import BaseData
 from bs4 import BeautifulSoup
 import csv
-from app import db
-import models
 
-def fed_csvs():
-    with open('datasets/allsenstate.csv', 'rb') as csvfile:
-        data = csv.DictReader(csvfile)
+
+class FederalData(BaseData):
+    def __init__(self):
+        super(FederalData, self).__init__()
+        self.sen_csv = 'http://www.aph.gov.au/~/media/03%20Senators%20and%20Members/Address%20Labels%20and%20CSV%20files/allsenel.csv'
+
+    def senate_csvs(self):
+        csvfile = requests.get(self.sen_csv, stream=True)
+        data = csv.DictReader(csvfile.raw)
         for row in data:
             electorate = models.Electorate.query.filter_by(name=row['State']).first()
             chamber = models.Chamber.query.get(2)
@@ -79,54 +85,55 @@ def fed_csvs():
             twitter
             facebook
         '''
-    with open('datasets/SurnameRepsCSV.csv', 'rb') as csvfile:
-        data = csv.DictReader(csvfile)
-        for row in data:
-            electorate = models.Electorate.query.filter_by(name=row['Electorate']).first()
-            chamber = models.Chamber.query.get(1)
-            if not electorate:
-                electorate = models.Electorate(row['Electorate'], chamber)
-                db.session.add(electorate)
+    def hor_csv(self):
+        with open('datasets/SurnameRepsCSV.csv', 'rb') as csvfile:
+            data = csv.DictReader(csvfile)
+            for row in data:
+                electorate = models.Electorate.query.filter_by(name=row['Electorate']).first()
+                chamber = models.Chamber.query.get(1)
+                if not electorate:
+                    electorate = models.Electorate(row['Electorate'], chamber)
+                    db.session.add(electorate)
 
-            party = models.Party.query.filter_by(name=row['Political Party']).first()
-            if not party:
-                party = models.Party(row['Political Party'])
-                db.session.add(party)
-            if row['Preferred Name']:
-                first_name = row['Preferred Name']
-            else:
-                first_name = row['First Name']
+                party = models.Party.query.filter_by(name=row['Political Party']).first()
+                if not party:
+                    party = models.Party(row['Political Party'])
+                    db.session.add(party)
+                if row['Preferred Name']:
+                    first_name = row['Preferred Name']
+                else:
+                    first_name = row['First Name']
 
-            member = models.Member(first_name, row['Surname'], row['Parliamentary Titles'], None, electorate, party)
-            db.session.add(member)
+                member = models.Member(first_name, row['Surname'], row['Parliamentary Titles'], None, electorate, party)
+                db.session.add(member)
 
-            address_type = models.AddressType.query.get(2)
-            electoratal_address = models.Address(
-                row['Electorate Office Postal Address'],
-                None,
-                None,
-                row['Electorate Office Postal Suburb'],
-                row['Electorate Office Postal State'],
-                row['Electorate Office Postal PostCode'],
-                address_type,
-                member,
-                False
-            )
-            db.session.add(postal_address)
-            if row['Electorate Office Fax']:
-                db.session.add(models.PhoneNumber( row['Electorate Office Fax'], 'electoral fax', member ))
-            if row['Electorate Office Phone']:
-                db.session.add(models.PhoneNumber( row['Electorate Office Phone'], 'electoral phone', member ))
+                address_type = models.AddressType.query.get(2)
+                electoratal_address = models.Address(
+                    row['Electorate Office Postal Address'],
+                    None,
+                    None,
+                    row['Electorate Office Postal Suburb'],
+                    row['Electorate Office Postal State'],
+                    row['Electorate Office Postal PostCode'],
+                    address_type,
+                    member,
+                    False
+                )
+                db.session.add(postal_address)
+                if row['Electorate Office Fax']:
+                    db.session.add(models.PhoneNumber( row['Electorate Office Fax'], 'electoral fax', member ))
+                if row['Electorate Office Phone']:
+                    db.session.add(models.PhoneNumber( row['Electorate Office Phone'], 'electoral phone', member ))
 
-            db.session.commit()
+                db.session.commit()
 
-        '''
-        Need to get:
-            email Address
-            website
-            twitter
-            facebook
-        '''
+            '''
+            Need to get:
+                email Address
+                website
+                twitter
+                facebook
+            '''
 
 
 # class Scraper(object):
