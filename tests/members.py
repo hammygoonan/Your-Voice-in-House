@@ -10,6 +10,10 @@ class MembersTestCase(BaseTestCase):
     def test_non_get_method(self):
         response = self.client.post('/')
         self.assert405(response)
+        headers = [('Accept', 'application/json')]
+        response = self.client.get('/', headers=headers)
+        self.assert405(response)
+        self.assertIsInstance(response.json, dict)
 
     def test_member_html(self):
         response = self.client.get('/members/')

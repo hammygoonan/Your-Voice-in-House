@@ -5,6 +5,7 @@ lib
 include
 datasets
 database.db
+coverage
 
 *.pyc
 
