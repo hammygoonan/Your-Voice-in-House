@@ -17,7 +17,7 @@
         </tr>
         <tr>
             <td>id</td>
-            <td>Integer. The member of parliament's ID</td>
+            <td>Integer. The member of parliament's ID.</td>
         </tr>
         <tr>
             <td>first_name</td>
@@ -32,6 +32,8 @@
             <td>String. Member's parliamentary role, ie Minister for...</td>
         </tr>
     </table>
+    <p><strong>NB:</strong> for all fields it is possible to use a comma separaed list. ie <code>http://yourvoiceinhouse.org.au/members/second_name/smith,brown</code></p>
+    <p><strong>NB:</strong> all parameters are case insesitive and you may use any combilation of fields. The search is done using an 'or' query. In other words, a seach on a role of 'Prime Minister' and a seond_name of 'Smith' will return all memebers of parliament with a second name of Smith and all members with 'Prime Minister' as part of their role.</p>
     <h3>Examples</h3>
     <p><code>curl -H accept:application/json http://yourvoiceinhouse.org.au/members/second_name/Smith</code></p>
     <p><strong>Returns</strong></p>

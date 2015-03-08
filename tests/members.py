@@ -3,18 +3,6 @@ from base import BaseTestCase
 
 class MembersTestCase(BaseTestCase):
 
-    def test_home_displays_api(self):
-        response = self.client.get('/')
-        self.assertIn('Your Voice in House API', response.data)
-
-    def test_non_get_method(self):
-        response = self.client.post('/')
-        self.assert405(response)
-        headers = [('Accept', 'application/json')]
-        response = self.client.get('/', headers=headers)
-        self.assert405(response)
-        self.assertIsInstance(response.json, dict)
-
     def test_member_html(self):
         response = self.client.get('/members/')
         self.assertIn('Members', response.data)
@@ -67,7 +55,7 @@ class MembersTestCase(BaseTestCase):
         url = quote('/members/role/The Nationals in the Senate')
         response = self.client.get(url)
         self.assert200(response)
-        response = self.client.get('/members/id/1/id/2', headers=headers)
+        response = self.client.get('/members/id/1,2', headers=headers)
         self.assert200(response)
         self.assertTrue(len(response.json['members']) == 2)
 

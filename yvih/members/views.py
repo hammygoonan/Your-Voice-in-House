@@ -13,7 +13,6 @@ members_blueprint = Blueprint(
 @members_blueprint.route('/')
 @members_blueprint.route('/<path:conditions>')
 def members( conditions=None ):
-
     # if there are parameiters
     if conditions != None:
 
@@ -29,9 +28,10 @@ def members( conditions=None ):
         filters = []
         for conditions in query:
             if conditions[0] == 'id':
-                filters.append(Member.id.is_(conditions[1]))
+                filters.append(Member.id.in_(conditions[1].split(',')))
             else:
-                filters.append(Member.__dict__[conditions[0]].ilike('%' + conditions[1] + '%'))
+                for term in conditions[1].split(','):
+                    filters.append(Member.__dict__[conditions[0]].ilike('%' + term + '%'))
         members = Member.query.filter( or_(*filters) )
         if members.count() == 0:
             abort(404)
@@ -63,8 +63,12 @@ def peramiter_accepted(query):
     for conditions in query:
         if conditions[0] not in accepted:
             return False
-        if accepted[conditions[0]] == int and conditions[1].isdigit():
-            continue
+        if accepted[conditions[0]] == int and not conditions[1].isdigit():
+            for member_id in conditions[1].split(','):
+                if not member_id.isdigit():
+                    return False
+            continue # if it's an id and it has passed this test, there is no need to pass the next test
         if not isinstance(conditions[1], accepted[conditions[0]]):
-            return False
+            if not conditions[0] == 'id':
+                return False
     return True

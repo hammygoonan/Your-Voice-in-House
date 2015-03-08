@@ -4,7 +4,7 @@ import os
 class BaseData(object):
     '''Base class for building database'''
     def __init__(self):
-        if not os.path.isfile('database.db'):
+        if not os.path.isfile('/yvih/database.db'):
             db.create_all()
         self.address_types = ['Electoral Postal', 'Electoral Physical', 'Parliamentary Postal', 'Parliamentary Physical', 'Alternative']
         self.chambers = [
@@ -40,3 +40,5 @@ class BaseData(object):
             if not chamber_data:
                 db.session.add( models.Chamber( chamber['state'], chamber['house']) )
         db.session.commit()
+    def create_parties( self ):
+        pass

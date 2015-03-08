@@ -2,6 +2,7 @@ from flask import Flask, jsonify, request, render_template
 from flask.ext.sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
+app.debug = True
 #app.debug = True
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
 db = SQLAlchemy(app)

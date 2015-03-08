@@ -5,6 +5,10 @@ home_blueprint = Blueprint(
     template_folder='templates'
 )
 
-@home_blueprint.route("/")
+@home_blueprint.route("/api")
 def api():
     return render_template('api.html')
+
+@home_blueprint.route("/")
+def home():
+    return render_template('home.html')
