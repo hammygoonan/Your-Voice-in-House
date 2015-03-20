@@ -24,21 +24,42 @@ class BaseData(object):
             {'state' : 'WA', 'house' : 'Legislative Assembly'},
             {'state' : 'WA', 'house' : 'Legislative Council'}
         ]
-        self.create_address_types()
-        self.create_chambers()
+        self.createAddressTypes()
+        self.createChambers()
+        self.createParties()
 
-    def create_address_types( self ):
+    def createAddressTypes( self ):
         for address_type in self.address_types:
             atype = models.AddressType.query.filter_by( address_type=address_type ).first()
             if not atype:
                 db.session.add( models.AddressType( address_type ) )
         db.session.commit()
 
-    def create_chambers( self ):
+    def createChambers( self ):
         for chamber in self.chambers:
             chamber_data = models.Chamber.query.filter_by( state=chamber['state'], house=chamber['house'] ).first()
             if not chamber_data:
                 db.session.add( models.Chamber( chamber['state'], chamber['house']) )
         db.session.commit()
-    def create_parties( self ):
-        pass
+    def createParties( self ):
+        parties = [
+            { 'name' : 'Australian Labor Party', 'alias' : [ 'ALP' ]},
+            { 'name' : 'Liberal Party', 'alias' : ['LP', 'Canberra Liberals']},
+            { 'name' : 'Australian Greens', 'alias' : ['AG', 'ACT Greens']},
+            { 'name' : 'National Party', 'alias' : ['Nats']},
+            { 'name' : 'Country Liberal Party', 'alias' : ['CLP']},
+            { 'name' : "Katter's Australian Party", 'alias' : ['AUS']},
+            { 'name' : 'Independent', 'alias' : ['Ind.']},
+            { 'name' : 'Palmer United Party', 'alias' : ['PUP']},
+            { 'name' : 'Family First', 'alias' : ['FFP']},
+            { 'name' : 'Liberal Democratic Party', 'alias' : ['LDP']},
+            { 'name' : 'Australian Motoring Enthusiasts Party', 'alias' : ['AMEP']},
+        ]
+        for party in parties:
+            db.session.add( models.Party( party['name'], ','.join( party['alias'] ) ) )
+        db.session.commit()
+    def getParty( self, party_name ):
+        parties = models.Party.query.all()
+        for party in parties:
+            if party_name == party.name or party_name in party.alias.split(','):
+                return party

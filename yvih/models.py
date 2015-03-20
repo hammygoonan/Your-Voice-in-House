@@ -104,9 +104,11 @@ class Party(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String)
+    alias = db.Column(db.Text)
 
-    def __init__(self, name):
+    def __init__(self, name, alias):
         self.name = name
+        self.alias = alias
 
 class Address(db.Model):
     __tablename__ = "addresses"

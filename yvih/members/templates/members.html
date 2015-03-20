@@ -11,6 +11,7 @@
                 <p>
                     <h3>{{ member.first_name }} {{ member.second_name }}</h3>
                     <strong>{{ member.electorate.name }}</strong> - {{ member.electorate.chamber.house }} ({{ member.electorate.chamber.state }})<br />
+                    {{ member.party.name }}<br />
                     {% if member.role: %}
                         {{ member.role }}<br />
                     {% endif %}

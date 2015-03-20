@@ -1,7 +1,7 @@
 import unittest
 import os
 import coverage
-from data import federal
+from data import base, federal
 from flask.ext.script import Manager
 from yvih import app, db, models
 
@@ -36,13 +36,7 @@ def cov():
 def data():
     '''Run data updates'''
     data = federal.FederalData()
-    data.senate_csvs()
-    #data.hor_csvs()
-    # data = federal.FederalData()
-    # members = models.Member.query.all()
-    # for member in members:
-    #     data.scrape_senate(member)
-
-
+    # data.senate_csvs()
+    data.hor_csvs()
 if __name__ == '__main__':
     manager.run()

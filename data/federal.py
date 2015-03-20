@@ -24,10 +24,7 @@ class FederalData(BaseData):
                 electorate = models.Electorate(row['State'], chamber)
                 db.session.add(electorate)
 
-            party = models.Party.query.filter_by(name=row['Political Party']).first()
-            if not party:
-                party = models.Party(row['Political Party'])
-                db.session.add(party)
+            party = self.getParty(row['Political Party'])
 
             email = 'senator.' + row['Surname'].lower().replace("'", '') + '@aph.gov.au'
             member = models.Member(row['Prefered Name'], row['Surname'], row['Parliamentary Titles'], email, electorate, party, None)
@@ -94,10 +91,8 @@ class FederalData(BaseData):
                 electorate = models.Electorate(row['Electorate'], chamber)
                 db.session.add(electorate)
 
-            party = models.Party.query.filter_by(name=row['Political Party']).first()
-            if not party:
-                party = models.Party(row['Political Party'])
-                db.session.add(party)
+            party = self.getParty(row['Political Party'])
+            
             if row['Preferred Name']:
                 first_name = row['Preferred Name']
             else:
