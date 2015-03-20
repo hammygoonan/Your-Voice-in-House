@@ -43,20 +43,22 @@ class Member(db.Model):
     email = db.Column(db.String)
     electorate_id = db.Column(db.Integer, db.ForeignKey('electorates.id'))
     party_id = db.Column(db.Integer, db.ForeignKey('parties.id'))
-
     electorate = db.relationship('Electorate', backref=db.backref('electorates', lazy='dynamic'))
     party = db.relationship('Party', backref=db.backref('parties', lazy='dynamic'))
+    photo = db.Column(db.Text)
+
     addresses = db.relationship('Address')
     phone_numbers = db.relationship('PhoneNumber')
     links = db.relationship('Link')
 
-    def __init__(self, first_name, second_name, role, email, electorate, party):
+    def __init__(self, first_name, second_name, role, email, electorate, party, photo):
         self.first_name = first_name
         self.second_name = second_name
         self.role = role
         self.email = email
         self.electorate = electorate
         self.party = party
+        self.photo = photo
 
     def serialise(self):
         data = {

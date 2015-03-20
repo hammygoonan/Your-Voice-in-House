@@ -7,11 +7,15 @@
                 <div class="row">
             {% endif %}
             <article class="col-md-6 col-s-12">
+                <img src="{{ url_for('static', filename='member_photos/') }}{{member.photo}}" />
                 <p>
-                    {{ member.first_name }} {{ member.second_name }}<br />
+                    <h3>{{ member.first_name }} {{ member.second_name }}</h3>
                     <strong>{{ member.electorate.name }}</strong> - {{ member.electorate.chamber.house }} ({{ member.electorate.chamber.state }})<br />
                     {% if member.role: %}
                         {{ member.role }}<br />
+                    {% endif %}
+                    {% if member.email %}
+                        <a href="mailto:{{member.email}}">{{member.email}}</a>
                     {% endif %}
                 </p>
                 {% for address in member.addresses %}
@@ -22,6 +26,11 @@
                         {{ address.suburb }} {{ address.state }} {{ address.postcode }}
                     </address>
                 {% endfor %}
+                <ul>
+                    {% for link in member.links %}
+                        <li><a href="{{link.link}}">{{link.type}}</a></li>
+                    {% endfor %}
+                </ul>
             </article>
             {% if loop.index % 2 == 0 %}
                 </div>

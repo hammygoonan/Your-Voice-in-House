@@ -6,8 +6,11 @@ include
 datasets
 database.db
 coverage
+member_photos
 
 *.pyc
+*.csv
+*.db
 
 # OS files
 .DS_Store

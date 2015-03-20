@@ -13,7 +13,7 @@ members_blueprint = Blueprint(
 @members_blueprint.route('/')
 @members_blueprint.route('/<path:conditions>')
 def members( conditions=None ):
-    # if there are parameiters
+    # if there are parameter
     if conditions != None:
 
         # get query and turn it into a dictionary
@@ -21,7 +21,7 @@ def members( conditions=None ):
         query = zip(conditions[0::2], conditions[1::2])
 
         # check that all fields are valid
-        if not peramiter_accepted(query):
+        if not parameter_accepted(query):
             abort(400)
 
         # build query
@@ -53,7 +53,7 @@ def members( conditions=None ):
     else:
         return render_template('members.html', members=members)
 
-def peramiter_accepted(query):
+def parameter_accepted(query):
     accepted = {
         'id' : int,
         'first_name' : unicode,

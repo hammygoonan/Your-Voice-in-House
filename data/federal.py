@@ -1,5 +1,7 @@
 #!/usr/bin/python
 import requests
+import base64
+from urllib import quote
 from yvih import models, db
 from base import BaseData
 from bs4 import BeautifulSoup
@@ -28,7 +30,7 @@ class FederalData(BaseData):
                 db.session.add(party)
 
             email = 'senator.' + row['Surname'].lower().replace("'", '') + '@aph.gov.au'
-            member = models.Member(row['Prefered Name'], row['Surname'], row['Parliamentary Titles'], email, electorate, party)
+            member = models.Member(row['Prefered Name'], row['Surname'], row['Parliamentary Titles'], email, electorate, party, None)
             db.session.add(member)
 
             address_type = models.AddressType.query.get(2)
@@ -78,32 +80,13 @@ class FederalData(BaseData):
                 db.session.add(models.PhoneNumber( row['Electorate Toll Free'], 'electoral tollfree', member ))
 
             db.session.commit()
-            #scrape_senate(member)
-
-        '''
-        Need to get:
-            email Address
-            website
-            twitter
-            facebook
-        '''
-    def scrape_senate(self, member):
-        search_page = requests.get('http://www.aph.gov.au/Senator_' + member.second_name.replace(' ', '_'))
-        if search_page.status_code != 200:
-            print member.second_name
-        # search_page = requests.get('http://www.aph.gov.au/Senator_' + member.last_name).content
-        # soup = BeautifulSoup(search_page)
-        # content = soup.find_all(class_='search-filter-results-thumbnails')[0]
-        # links = []
-        # for li in content.find_all('li'):
-        #     links.append({li.a.text : li.a['href']})
-        #
-        # print links
-
+            self.scrape_senate(member, 'sen')
 
     def hor_csvs(self):
-        csvfile = requests.get(self.hor_csv, stream=True)
-        data = csv.DictReader(csvfile.raw)
+        #csvfile = requests.get(self.hor_csv, stream=True)
+        #data = csv.DictReader(csvfile.raw)
+        file = open('SurnameRepsCSV.csv')
+        data = csv.DictReader(file)
         for row in data:
             electorate = models.Electorate.query.filter_by(name=row['Electorate']).first()
             chamber = models.Chamber.query.get(1)
@@ -120,7 +103,7 @@ class FederalData(BaseData):
             else:
                 first_name = row['First Name']
 
-            member = models.Member(first_name, row['Surname'], row['Parliamentary Titles'], None, electorate, party)
+            member = models.Member(first_name, row['Surname'], row['Parliamentary Titles'], None, electorate, party, None)
             db.session.add(member)
 
             address_type = models.AddressType.query.get(2)
@@ -135,62 +118,64 @@ class FederalData(BaseData):
                 member,
                 False
             )
-            db.session.add(postal_address)
+            db.session.add(electoratal_address)
             if row['Electorate Office Fax']:
                 db.session.add(models.PhoneNumber( row['Electorate Office Fax'], 'electoral fax', member ))
             if row['Electorate Office Phone']:
                 db.session.add(models.PhoneNumber( row['Electorate Office Phone'], 'electoral phone', member ))
 
             db.session.commit()
+            self.scrape_senate(member, 'mem')
 
+    def scrape_senate(self, member, house):
         '''
-        Need to get:
-            email Address
-            website
-            twitter
-            facebook
+            house can be either 'sen' or 'mem'
         '''
+        # search for member
+        query_string = quote(member.first_name + '+' + member.second_name)
+        page = requests.get("http://www.aph.gov.au/Senators_and_Members/Parliamentarian_Search_Results?expand=1&q=" + query_string + "&" + house + "=1&par=-1&gen=0&ps=10").content
+        soup = BeautifulSoup(page)
 
+        # find link to member page in first search result
+        ul = soup.find('ul', 'search-filter-results')
+        member_url = ul.find('a')['href']
+        member_page = requests.get("http://www.aph.gov.au/" + member_url).content
 
-# class Scraper(object):
-#     def __init__(self, url):
-#         self.url = url
-#         self.member_links = []
-#        self.members = []
-    # def getFederalMembers(self, query):
-    #     page = requests.get(self.url).content
-    #     soup = BeautifulSoup(page)
-    #     for x in soup.find_all('p', "title"):
-    #         link = x.find_all('a')
-    #         if len(link) > 0 :
-    #             self.member_links.append(link[0]['href'])
-    #
-    #     next_page = soup.find_all('a', attrs={'title' : 'Next page'})
-    #     if len(next_page) > 0:
-    #         getFederalMembers(next_page[0]['href'])
-    #
-    # def getMemberDetails(self, url):
-    #     page = requests.get(url).content
-    #     soup = BeautifulSoup(page)
-    #     member = {}
-    #     name = soup.h1.text.replace('Senator', '').replace('the Hon', '').replace('QC', '').strip().split(' ')
-    #     member['first_name'] = name[0]
-    #     member['second_name'] = name[1]
-    #     member['electorate'] = soup.h2.text.replace('Senator for ', '').strip()
-    #     summary = soup.find(id="member-summary")
-    #     member['position'] = ''
-    #     for position in summary.find('dl').find_all('dd')[:-2]:
-    #         member['position'] += position.text + "\n"
-    #     member['party'] = summary.find('dl').find_all('dd')[-2].text
-    #     member['electorate'] = summary.find('dl').find_all('dd')[-1].text
-    #     # print summary.find(text='Positions').next()
-    #     print member
+        # go to member page
+        soup = BeautifulSoup(member_page)
 
+        # get image and save as base64 string
+        thumbnail = soup.find('p', 'thumbnail')
+        if thumbnail:
+            image = thumbnail.find('img')
+            imgfile = requests.get(image['src'])
+            filename = member.first_name + '_' + member.second_name + '.jpg'
+            with open('yvih/static/member_photos/' + filename, 'wb') as photo:
+                photo.write(imgfile.content)
+            member.photo = filename
 
+        # get all the links in the second div with a class of 'box'
+        box = soup.find_all('div', 'box')[1]
+        links = box.find_all('a')
 
-# scraper = Scraper('http://www.aph.gov.au/Senators_and_Members/Parliamentarian_Search_Results?q=&sen=1&par=-1&gen=0&ps=0')
-# scraper.getMemberDetails('http://www.aph.gov.au/Senators_and_Members/Parliamentarian?MPID=008W7')
-#
-#
-# url = "http://www.aph.gov.au/Senators_and_Members/Parliamentarian_Search_Results"
-# queries = ["?q=&sen=1&par=-1&gen=0&ps=0", "?q=&mem=1&par=-1&gen=0&ps=0"]
+        # tidy up the links
+        for link in links:
+            if link['href'].find('mailto:') == 0:
+                member.email = link['href'].replace('mailto:', '')
+                db.session.add(member)
+            else:
+                if link.text != 'Contact form':
+                    if link.text == 'Twitter':
+                        link_type = 'twitter'
+                    elif link.text == 'Facebook':
+                        link_type = 'facebook'
+                    else:
+                        link_type = 'website'
+                    if link['href'][0] == '/':
+                        href = "http://www.aph.gov.au" + link['href']
+                    else:
+                        href = link['href']
+                    new_link = models.Link(href, link_type, member)
+                    db.session.add(new_link)
+        db.session.commit()
+        print member.first_name + ' ' + member.second_name
