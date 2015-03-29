@@ -6,7 +6,15 @@ class BaseData(object):
     def __init__(self):
         if not os.path.isfile('/yvih/database.db'):
             db.create_all()
-        self.address_types = ['Electoral Postal', 'Electoral Physical', 'Parliamentary Postal', 'Parliamentary Physical', 'Alternative']
+        self.address_types = [
+            'Electoral Postal',
+            'Electoral Physical',
+            'Parliamentary Postal',
+            'Parliamentary Physical',
+            'Alternative',
+            'Ministerial Postal',
+            'Ministerial Physical'
+        ]
         self.chambers = [
             {'state' : 'Fed', 'house' : 'House of Representatives'},
             {'state' : 'Fed', 'house' : 'Senate'},
@@ -43,13 +51,14 @@ class BaseData(object):
         db.session.commit()
     def createParties( self ):
         parties = [
-            { 'name' : 'Australian Labor Party', 'alias' : [ 'ALP' ]},
+            { 'name' : 'Australian Labor Party', 'alias' : [ 'ALP', 'Australian Labor Party (ALP)' ]},
             { 'name' : 'Liberal Party', 'alias' : ['LP', 'Canberra Liberals']},
             { 'name' : 'Australian Greens', 'alias' : ['AG', 'ACT Greens']},
             { 'name' : 'National Party', 'alias' : ['Nats']},
+            { 'name' : 'Liberal National Party', 'alias' : ['Nats', 'Liberal National Party (LNP)', 'LNP']},
             { 'name' : 'Country Liberal Party', 'alias' : ['CLP']},
-            { 'name' : "Katter's Australian Party", 'alias' : ['AUS']},
-            { 'name' : 'Independent', 'alias' : ['Ind.']},
+            { 'name' : "Katter's Australian Party", 'alias' : ['AUS', "Katter's Australian Party (KAP)", 'KAP']},
+            { 'name' : 'Independent', 'alias' : ['Ind.', 'Independent (IND)', 'IND']},
             { 'name' : 'Palmer United Party', 'alias' : ['PUP']},
             { 'name' : 'Family First', 'alias' : ['FFP']},
             { 'name' : 'Liberal Democratic Party', 'alias' : ['LDP']},

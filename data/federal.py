@@ -1,6 +1,5 @@
 #!/usr/bin/python
 import requests
-import base64
 from urllib import quote
 from yvih import models, db
 from base import BaseData
@@ -14,7 +13,7 @@ class FederalData(BaseData):
         self.sen_csv = 'http://www.aph.gov.au/~/media/03%20Senators%20and%20Members/Address%20Labels%20and%20CSV%20files/allsenel.csv'
         self.hor_csv = 'http://www.aph.gov.au/~/media/03%20Senators%20and%20Members/Address%20Labels%20and%20CSV%20files/SurnameRepsCSV.csv'
 
-    def senate_csvs(self):
+    def senateCsvs(self):
         csvfile = requests.get(self.sen_csv, stream=True)
         data = csv.DictReader(csvfile.raw)
         for row in data:
@@ -26,9 +25,11 @@ class FederalData(BaseData):
 
             party = self.getParty(row['Political Party'])
 
-            email = 'senator.' + row['Surname'].lower().replace("'", '') + '@aph.gov.au'
-            member = models.Member(row['Prefered Name'], row['Surname'], row['Parliamentary Titles'], email, electorate, party, None)
+            member = models.Member(row['Prefered Name'], row['Surname'], row['Parliamentary Titles'], electorate, party, None)
             db.session.add(member)
+
+            email = models.Email('senator.' + row['Surname'].lower().replace("'", '') + '@aph.gov.au', member)
+            db.session.add(email)
 
             address_type = models.AddressType.query.get(2)
             electoratal_address = models.Address(
@@ -77,9 +78,9 @@ class FederalData(BaseData):
                 db.session.add(models.PhoneNumber( row['Electorate Toll Free'], 'electoral tollfree', member ))
 
             db.session.commit()
-            self.scrape_senate(member, 'sen')
+            self.scrapePage(member, 'sen')
 
-    def hor_csvs(self):
+    def horCsvs(self):
         #csvfile = requests.get(self.hor_csv, stream=True)
         #data = csv.DictReader(csvfile.raw)
         file = open('SurnameRepsCSV.csv')
@@ -92,7 +93,7 @@ class FederalData(BaseData):
                 db.session.add(electorate)
 
             party = self.getParty(row['Political Party'])
-            
+
             if row['Preferred Name']:
                 first_name = row['Preferred Name']
             else:
@@ -120,9 +121,9 @@ class FederalData(BaseData):
                 db.session.add(models.PhoneNumber( row['Electorate Office Phone'], 'electoral phone', member ))
 
             db.session.commit()
-            self.scrape_senate(member, 'mem')
+            self.scrapePage(member, 'mem')
 
-    def scrape_senate(self, member, house):
+    def scrapePage(self, member, house):
         '''
             house can be either 'sen' or 'mem'
         '''
@@ -156,8 +157,8 @@ class FederalData(BaseData):
         # tidy up the links
         for link in links:
             if link['href'].find('mailto:') == 0:
-                member.email = link['href'].replace('mailto:', '')
-                db.session.add(member)
+                email = models.Email(link['href'].replace('mailto:', ''), member)
+                db.session.add(email)
             else:
                 if link.text != 'Contact form':
                     if link.text == 'Twitter':
@@ -173,4 +174,3 @@ class FederalData(BaseData):
                     new_link = models.Link(href, link_type, member)
                     db.session.add(new_link)
         db.session.commit()
-        print member.first_name + ' ' + member.second_name

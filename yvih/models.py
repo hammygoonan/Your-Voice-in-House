@@ -47,15 +47,15 @@ class Member(db.Model):
     party = db.relationship('Party', backref=db.backref('parties', lazy='dynamic'))
     photo = db.Column(db.Text)
 
+    email = db.relationship('Email')
     addresses = db.relationship('Address')
     phone_numbers = db.relationship('PhoneNumber')
     links = db.relationship('Link')
 
-    def __init__(self, first_name, second_name, role, email, electorate, party, photo):
+    def __init__(self, first_name, second_name, role, electorate, party, photo):
         self.first_name = first_name
         self.second_name = second_name
         self.role = role
-        self.email = email
         self.electorate = electorate
         self.party = party
         self.photo = photo
@@ -109,6 +109,18 @@ class Party(db.Model):
     def __init__(self, name, alias):
         self.name = name
         self.alias = alias
+
+class Email(db.Model):
+    __tablename__ = "emails"
+
+    id = db.Column(db.Integer, primary_key=True)
+    email = db.Column(db.String)
+    member_id = db.Column(db.Integer, db.ForeignKey('members.id'))
+    member = db.relationship('Member')
+
+    def __init__(self, email, member):
+        self.email = email
+        self.member = member
 
 class Address(db.Model):
     __tablename__ = "addresses"

@@ -15,10 +15,15 @@
                     {% if member.role: %}
                         {{ member.role }}<br />
                     {% endif %}
-                    {% if member.email %}
-                        <a href="mailto:{{member.email}}">{{member.email}}</a>
-                    {% endif %}
                 </p>
+                {% if member.email %}
+                    <p>Email addresses:</p>
+                    <ul>
+                        {% for email in member.email %}
+                            <li><a href="mailto:{{email.email}}">{{email.email}}</a></li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
                 {% for address in member.addresses %}
                     <address>
                         {{ address.address_line1 }}<br />
