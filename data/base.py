@@ -51,7 +51,7 @@ class BaseData(object):
         db.session.commit()
     def createParties( self ):
         parties = [
-            { 'name' : 'Australian Labor Party', 'alias' : [ 'ALP', 'Australian Labor Party (ALP)' ]},
+            { 'name' : 'Australian Labor Party', 'alias' : [ 'ALP', 'Australian Labor  (ALP)' ]},
             { 'name' : 'Liberal Party', 'alias' : ['LP', 'Canberra Liberals']},
             { 'name' : 'Australian Greens', 'alias' : ['AG', 'ACT Greens']},
             { 'name' : 'National Party', 'alias' : ['Nats']},
@@ -72,3 +72,19 @@ class BaseData(object):
         for party in parties:
             if party_name == party.name or party_name in party.alias.split(','):
                 return party
+
+    def getElectorate(self, name, chamber_id=None):
+        '''
+            returns either a preexisting electorate or a newly created member object.
+        '''
+        electorate = models.Electorate.query.filter_by(name=name).first()
+        if electorate:
+            return electorate
+        else:
+            if not chamber_id:
+                raise ValueError('Chamber ID not provided')
+            chamber = models.Chamber.query.get(chamber_id)
+            electorate = models.Electorate(name, chamber)
+            db.session.add(electorate)
+            db.session.commit()
+            return electorate

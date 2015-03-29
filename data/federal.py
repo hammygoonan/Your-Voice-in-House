@@ -17,11 +17,7 @@ class FederalData(BaseData):
         csvfile = requests.get(self.sen_csv, stream=True)
         data = csv.DictReader(csvfile.raw)
         for row in data:
-            electorate = models.Electorate.query.filter_by(name=row['State']).first()
-            chamber = models.Chamber.query.get(2)
-            if not electorate:
-                electorate = models.Electorate(row['State'], chamber)
-                db.session.add(electorate)
+            electorate = self.getElectorate(row['State'], 2)
 
             party = self.getParty(row['Political Party'])
 
@@ -86,11 +82,7 @@ class FederalData(BaseData):
         file = open('SurnameRepsCSV.csv')
         data = csv.DictReader(file)
         for row in data:
-            electorate = models.Electorate.query.filter_by(name=row['Electorate']).first()
-            chamber = models.Chamber.query.get(1)
-            if not electorate:
-                electorate = models.Electorate(row['Electorate'], chamber)
-                db.session.add(electorate)
+            electorate = self.getElectorate(row['Electorate'], 1)
 
             party = self.getParty(row['Political Party'])
 
@@ -99,7 +91,7 @@ class FederalData(BaseData):
             else:
                 first_name = row['First Name']
 
-            member = models.Member(first_name, row['Surname'], row['Parliamentary Titles'], None, electorate, party, None)
+            member = models.Member(first_name, row['Surname'], row['Parliamentary Titles'], electorate, party, None)
             db.session.add(member)
 
             address_type = models.AddressType.query.get(2)

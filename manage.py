@@ -36,9 +36,9 @@ def cov():
 def data():
     '''Run data updates'''
     data = federal.FederalData()
-    data.senateCsvs()
-    data.horCsvs()
-    # data = qld.QldData()
-    # data.qldData()
+    # data.senateCsvs()
+    # data.horCsvs()
+    data = qld.QldData()
+    data.memberPage('https://www.parliament.qld.gov.au/members/current/list/MemberDetails?ID=890183913')
 if __name__ == '__main__':
     manager.run()
