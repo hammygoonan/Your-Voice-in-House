@@ -1,7 +1,7 @@
 import unittest
 import os
 import coverage
-from data import base, federal, act, qld
+from data import base, federal, qld
 from flask.ext.script import Manager
 from yvih import app, db, models
 
@@ -36,9 +36,9 @@ def cov():
 def data():
     '''Run data updates'''
     data = federal.FederalData()
-    # data.senateCsvs()
+    data.senateCsvs()
     # data.horCsvs()
-    data = qld.QldData()
-    data.memberPage('https://www.parliament.qld.gov.au/members/current/list/MemberDetails?ID=890183913')
+    # data = qld.QldData()
+    # data.memberPage('https://www.parliament.qld.gov.au/members/current/list/MemberDetails?ID=890183913')
 if __name__ == '__main__':
     manager.run()

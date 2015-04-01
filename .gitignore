@@ -1,6 +1,7 @@
 # Virtualenv
 .Python
 bin
+env
 lib
 include
 datasets

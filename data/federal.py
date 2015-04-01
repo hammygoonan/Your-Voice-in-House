@@ -136,11 +136,8 @@ class FederalData(BaseData):
         thumbnail = soup.find('p', 'thumbnail')
         if thumbnail:
             image = thumbnail.find('img')
-            imgfile = requests.get(image['src'])
-            filename = member.first_name + '_' + member.second_name + '.jpg'
-            with open('yvih/static/member_photos/' + filename, 'wb') as photo:
-                photo.write(imgfile.content)
-            member.photo = filename
+            photo = self.saveImg(image['src'], member.first_name + '_' + member.second_name + '.jpg', 'fed')
+            member.photo = photo
 
         # get all the links in the second div with a class of 'box'
         box = soup.find_all('div', 'box')[1]

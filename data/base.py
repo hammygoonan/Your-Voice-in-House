@@ -1,5 +1,7 @@
+#!/usr/bin/python
 from yvih import app, models, db
 import os
+import requests
 
 class BaseData(object):
     '''Base class for building database'''
@@ -88,3 +90,21 @@ class BaseData(object):
             db.session.add(electorate)
             db.session.commit()
             return electorate
+
+    def saveImg(self, src, filename, dir = ""):
+        '''
+            saves a file and returns the file page relateive to yvih/static/member_photos
+
+            @param string - src, path to image to download
+            @param string - filename, what to call the file
+            @param string - dir, directory with no preceeding or trailing slash
+        '''
+        imgfile = requests.get(src)
+        static = 'yvih/static/member_photos/'
+        if not dir[-1] == '/':
+            directory = dir + '/'
+        if not os.path.isdir(static + directory):
+            os.makedirs(static + directory)
+        with open(static + directory + filename, 'wb') as photo:
+            photo.write(imgfile.content)
+        return directory + filename
