@@ -9,7 +9,6 @@ import csv
 
 class FederalData(BaseData):
     def __init__(self):
-        super(FederalData, self).__init__()
         self.sen_csv = 'http://www.aph.gov.au/~/media/03%20Senators%20and%20Members/Address%20Labels%20and%20CSV%20files/allsenel.csv'
         self.hor_csv = 'http://www.aph.gov.au/~/media/03%20Senators%20and%20Members/Address%20Labels%20and%20CSV%20files/SurnameRepsCSV.csv'
 

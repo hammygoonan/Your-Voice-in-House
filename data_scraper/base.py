@@ -53,7 +53,7 @@ class BaseData(object):
         db.session.commit()
     def createParties( self ):
         parties = [
-            { 'name' : 'Australian Labor Party', 'alias' : [ 'ALP', 'Australian Labor  (ALP)' ]},
+            { 'name' : 'Australian Labor Party', 'alias' : [ 'ALP', 'Australian Labor Party (ALP)' ]},
             { 'name' : 'Liberal Party', 'alias' : ['LP', 'Canberra Liberals']},
             { 'name' : 'Australian Greens', 'alias' : ['AG', 'ACT Greens']},
             { 'name' : 'National Party', 'alias' : ['Nats']},
@@ -69,6 +69,7 @@ class BaseData(object):
         for party in parties:
             db.session.add( models.Party( party['name'], ','.join( party['alias'] ) ) )
         db.session.commit()
+
     def getParty( self, party_name ):
         parties = models.Party.query.all()
         for party in parties:

@@ -1,7 +1,7 @@
 import unittest
 import os
 import coverage
-from data import base, federal, qld
+from data_scraper import base, federal, qld
 from flask.ext.script import Manager
 from yvih import app, db, models
 
@@ -33,12 +33,22 @@ def cov():
     cov.erase()
 
 @manager.command
-def data():
+def scrape_data():
     '''Run data updates'''
-    data = federal.FederalData()
-    data.senateCsvs()
-    # data.horCsvs()
-    # data = qld.QldData()
-    # data.memberPage('https://www.parliament.qld.gov.au/members/current/list/MemberDetails?ID=890183913')
+    base_data = base.BaseData()
+    # federal_data = federal.FederalData()
+    # federal_data.senateCsvs()
+    # federal_data.horCsvs()
+    qld_data = qld.QldData()
+    qld_data.qldData()
+    # member_pages = ['https://www.parliament.qld.gov.au/members/current/list/MemberDetails?ID=1051370424', 'https://www.parliament.qld.gov.au/members/current/list/MemberDetails?ID=890183913']
+    # for member_page in member_pages:
+    #     qld_data.memberPage(member_page)
+
+@manager.command
+def check_data():
+    ''' Check for data changes. The idea being that this script can run on a cron to check if there have been any major changes to datasets. '''
+    pass
+
 if __name__ == '__main__':
     manager.run()

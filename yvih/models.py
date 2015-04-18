@@ -152,7 +152,7 @@ class Address(db.Model):
 
 class PhoneNumber(db.Model):
     '''
-        Phone number types: parliamentary, electoral, tollfree, fax, electoral fax, parliamentary fax
+        Phone number types: parliamentary, electoral, tollfree, fax, electoral fax, parliamentary fax, ministerial phone, ministerial fax
     '''
     __tablename__ = "phone_numbers"
 
