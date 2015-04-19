@@ -12,9 +12,45 @@ class FederalData(BaseData):
         self.sen_csv = 'http://www.aph.gov.au/~/media/03%20Senators%20and%20Members/Address%20Labels%20and%20CSV%20files/allsenel.csv'
         self.hor_csv = 'http://www.aph.gov.au/~/media/03%20Senators%20and%20Members/Address%20Labels%20and%20CSV%20files/SurnameRepsCSV.csv'
 
-    def senateCsvs(self):
-        csvfile = requests.get(self.sen_csv, stream=True)
-        data = csv.DictReader(csvfile.raw)
+    def updateSenate(self):
+        data = self.getCsvData(self.sen_csv)
+        for row in data:
+            member = models.Member.query.join(models.Electorate)\
+                        .filter(models.Electorate.chamber_id == 2)\
+                        .filter(models.Member.second_name == row['Surname'])\
+                        .filter(models.Member.first_name == row['Prefered Name'])\
+                        .first()
+            if member == None:
+                issue = '%s %s was found in Senate csv but not in database.' % (row['Prefered Name'], row['Surname'])
+                db.session.add(
+                    models.Data('cron', 'cron@yourvoiceinhouse.org.au', issue, None)
+                )
+                continue
+
+            # check party
+            if self.getParty(row['Political Party']) != member.party:
+                issue = '%s %s seems to have changed political party.' % (row['Prefered Name'], row['Surname'])
+                db.session.add(
+                    models.Data('cron', 'cron@yourvoiceinhouse.org.au', issue, member.id)
+                )
+
+            # check electorate
+            if self.getElectorate(row['State']) != member.electorate:
+                issue = '%s %s seems to have changed electorate.' % (row['Prefered Name'], row['Surname'])
+                db.session.add(
+                    models.Data('cron', 'cron@yourvoiceinhouse.org.au', issue, member.id)
+                )
+
+            # Addresses
+            # Phone Numbers
+            # Images
+            # Links
+            # Email
+
+
+        db.session.commit()
+    def generateSenate(self):
+        data = self.getCsvData(self.sen_csv)
         for row in data:
             electorate = self.getElectorate(row['State'], 2)
 
@@ -120,11 +156,21 @@ class FederalData(BaseData):
         '''
         # search for member
         query_string = quote(member.first_name + '+' + member.second_name)
+
+        # @todo check response code
         page = requests.get("http://www.aph.gov.au/Senators_and_Members/Parliamentarian_Search_Results?expand=1&q=" + query_string + "&" + house + "=1&par=-1&gen=0&ps=10").content
         soup = BeautifulSoup(page)
 
         # find link to member page in first search result
+
         ul = soup.find('ul', 'search-filter-results')
+        if ul == None:
+            issue = '%s %s was found found in CSV file but not in a serach of the APH website.' % (row['Prefered Name'], row['Surname'])
+            db.session.add(
+                models.Data('cron', 'cron@yourvoiceinhouse.org.au', issue, None)
+            )
+            return None
+
         member_url = ul.find('a')['href']
         member_page = requests.get("http://www.aph.gov.au/" + member_url).content
 
@@ -162,3 +208,8 @@ class FederalData(BaseData):
                     new_link = models.Link(href, link_type, member)
                     db.session.add(new_link)
         db.session.commit()
+
+    def getCsvData(self, file):
+        ''' Returns dictionary of CSV Data '''
+        csvfile = requests.get(file, stream=True)
+        return csv.DictReader(csvfile.raw)

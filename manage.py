@@ -36,11 +36,11 @@ def cov():
 def scrape_data():
     '''Run data updates'''
     base_data = base.BaseData()
-    # federal_data = federal.FederalData()
-    # federal_data.senateCsvs()
+    federal_data = federal.FederalData()
+    federal_data.generateSenate()
     # federal_data.horCsvs()
-    qld_data = qld.QldData()
-    qld_data.qldData()
+    # qld_data = qld.QldData()
+    # qld_data.qldData()
     # member_pages = ['https://www.parliament.qld.gov.au/members/current/list/MemberDetails?ID=1051370424', 'https://www.parliament.qld.gov.au/members/current/list/MemberDetails?ID=890183913']
     # for member_page in member_pages:
     #     qld_data.memberPage(member_page)
@@ -48,7 +48,8 @@ def scrape_data():
 @manager.command
 def check_data():
     ''' Check for data changes. The idea being that this script can run on a cron to check if there have been any major changes to datasets. '''
-    pass
+    federal_data = federal.FederalData()
+    federal_data.updateSenate()
 
 if __name__ == '__main__':
     manager.run()

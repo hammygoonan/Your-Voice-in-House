@@ -244,8 +244,14 @@ class Data(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String)
-    data = db.Column(db.Text)
+    email = db.Column(db.String)
+    issue = db.Column(db.Text)
+    member_id = db.Column(db.Integer, db.ForeignKey('members.id'))
+    status = db.Column(db.Integer)
 
-    def __init__(self, name, data):
+    def __init__(self, name, email, issue, member_id, status = 0):
         self.name = name
-        self.data = data
+        self.email = email
+        self.issue = issue
+        self.member_id = member_id
+        self.status = status
