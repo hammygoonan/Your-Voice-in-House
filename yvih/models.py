@@ -260,17 +260,14 @@ class Data(db.Model):
         self.status = status
 
 def data_listener(mapper, connection, target):
-    ## untested
-    sender = 'test@test.com'
-    receivers = ['test@test.com']
-    message = """From: From Person <cron@yourvoiceinhouse.org.au>
-    To: To Person <hammy@spiresoftware.com.au>
+    ''' send email to alert that new issue has been raised '''
+    message = """From: From Person <test@test.com>
+    To: To Person <test@test.com>
     Subject: A new issue has been generated
 
-    A new issue has been generated
+    %s
     """
-
-    smtpObj = smtplib.SMTP('localhost')
-    smtpObj.sendmail(sender, receivers, message)
+    message = message % (target.issue)
+    # @todo: send email from here
 
 event.listen(Data, 'after_insert', data_listener)

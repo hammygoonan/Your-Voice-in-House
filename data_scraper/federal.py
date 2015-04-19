@@ -28,7 +28,6 @@ class FederalData(BaseData):
                 db.session.add(
                     models.Data('cron', 'cron@yourvoiceinhouse.org.au', issue, None)
                 )
-                print issue
                 continue
 
             # check party
@@ -37,7 +36,6 @@ class FederalData(BaseData):
                 db.session.add(
                     models.Data('cron', 'cron@yourvoiceinhouse.org.au', issue, member.id)
                 )
-                print issue
 
             # check electorate
             if self.getElectorate(row['State']) != member.electorate:
@@ -45,7 +43,6 @@ class FederalData(BaseData):
                 db.session.add(
                     models.Data('cron', 'cron@yourvoiceinhouse.org.au', issue, member.id)
                 )
-                print issue
 
             for address in member.addresses:
                 if address.address_type_id == 2:
@@ -56,7 +53,6 @@ class FederalData(BaseData):
                         db.session.add(
                             models.Data('cron', 'cron@yourvoiceinhouse.org.au', issue, member.id)
                         )
-                        print issue
                 elif address.address_type_id == 1:
                     current = [address.address_line1, address.suburb, address.state, address.postcode]
                     updated = [row['Label Address'], row['Label Suburb'], row['Label State'], row['Label Postcode']]
@@ -65,7 +61,6 @@ class FederalData(BaseData):
                         db.session.add(
                             models.Data('cron', 'cron@yourvoiceinhouse.org.au', issue, member.id)
                         )
-                        print issue
 
 
             # Phone Numbers
