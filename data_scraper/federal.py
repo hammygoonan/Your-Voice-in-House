@@ -13,6 +13,9 @@ class FederalData(BaseData):
         self.hor_csv = 'http://www.aph.gov.au/~/media/03%20Senators%20and%20Members/Address%20Labels%20and%20CSV%20files/SurnameRepsCSV.csv'
 
     def updateSenate(self):
+        '''
+            Loop through all senators and check that their details are still correct.
+        '''
         data = self.getCsvData(self.sen_csv)
         for row in data:
             member = models.Member.query.join(models.Electorate)\
@@ -25,6 +28,7 @@ class FederalData(BaseData):
                 db.session.add(
                     models.Data('cron', 'cron@yourvoiceinhouse.org.au', issue, None)
                 )
+                print issue
                 continue
 
             # check party
@@ -33,6 +37,7 @@ class FederalData(BaseData):
                 db.session.add(
                     models.Data('cron', 'cron@yourvoiceinhouse.org.au', issue, member.id)
                 )
+                print issue
 
             # check electorate
             if self.getElectorate(row['State']) != member.electorate:
@@ -40,15 +45,35 @@ class FederalData(BaseData):
                 db.session.add(
                     models.Data('cron', 'cron@yourvoiceinhouse.org.au', issue, member.id)
                 )
+                print issue
 
-            # Addresses
+            for address in member.addresses:
+                if address.address_type_id == 2:
+                    current = [address.address_line1, address.address_line2, address.suburb, address.state, address.postcode]
+                    updated = [row['Electorate AddressLine1'], row['Electorate AddressLine2'], row['Electorate Suburb'], row['Electorate State'], row['Electorate Postcode']]
+                    if cmp(current, updated) != 0:
+                        issue = '%s %s seems to have had an address change.' % (row['Prefered Name'], row['Surname'])
+                        db.session.add(
+                            models.Data('cron', 'cron@yourvoiceinhouse.org.au', issue, member.id)
+                        )
+                        print issue
+                elif address.address_type_id == 1:
+                    current = [address.address_line1, address.suburb, address.state, address.postcode]
+                    updated = [row['Label Address'], row['Label Suburb'], row['Label State'], row['Label Postcode']]
+                    if cmp(current, updated) != 0:
+                        issue = '%s %s seems to have had an address change.' % (row['Prefered Name'], row['Surname'])
+                        db.session.add(
+                            models.Data('cron', 'cron@yourvoiceinhouse.org.au', issue, member.id)
+                        )
+                        print issue
+
+
             # Phone Numbers
-            # Images
             # Links
             # Email
 
-
         db.session.commit()
+
     def generateSenate(self):
         data = self.getCsvData(self.sen_csv)
         for row in data:
@@ -165,7 +190,7 @@ class FederalData(BaseData):
 
         ul = soup.find('ul', 'search-filter-results')
         if ul == None:
-            issue = '%s %s was found found in CSV file but not in a serach of the APH website.' % (row['Prefered Name'], row['Surname'])
+            issue = '%s %s was found found in CSV file but not in a serach of the APH website.' % (member.first_name, member.second_name)
             db.session.add(
                 models.Data('cron', 'cron@yourvoiceinhouse.org.au', issue, None)
             )

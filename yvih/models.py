@@ -1,5 +1,8 @@
 #!/usr/bin/python
 from yvih import db
+from sqlalchemy import event
+from sqlalchemy.orm import mapper
+import smtplib
 
 class Electorate(db.Model):
     __tablename__ = "electorates"
@@ -255,3 +258,19 @@ class Data(db.Model):
         self.issue = issue
         self.member_id = member_id
         self.status = status
+
+def data_listener(mapper, connection, target):
+    ## untested
+    sender = 'test@test.com'
+    receivers = ['test@test.com']
+    message = """From: From Person <cron@yourvoiceinhouse.org.au>
+    To: To Person <hammy@spiresoftware.com.au>
+    Subject: A new issue has been generated
+
+    A new issue has been generated
+    """
+
+    smtpObj = smtplib.SMTP('localhost')
+    smtpObj.sendmail(sender, receivers, message)
+
+event.listen(Data, 'after_insert', data_listener)
