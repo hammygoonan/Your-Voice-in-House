@@ -7,6 +7,9 @@ from yvih import app, db, models
 
 manager = Manager(app)
 
+app.config['DEBUG'] = True
+app.config['PRESERVE_CONTEXT_ON_EXCEPTION'] = False
+
 @manager.command
 def test():
     """Runs the unit tests without coverage."""

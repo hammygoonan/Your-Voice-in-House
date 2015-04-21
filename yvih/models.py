@@ -69,9 +69,9 @@ class Member(db.Model):
             'first_name' : self.first_name,
             'second_name' : self.second_name,
             'role' : self.role,
-            'email' : self.email,
             'electorate' : { 'id' : self.electorate.id, 'name' : self.electorate.name, 'state' : self.electorate.chamber.state, 'house' : self.electorate.chamber.house },
             'party' : { 'name' : self.party.name },
+            'email' : [],
             'addresses' : [],
             'phone_numbers' : [],
             'links' : []
@@ -86,6 +86,10 @@ class Member(db.Model):
                 'state' : address.state,
                 'postcode' : address.postcode,
                 'address_type' : address.address_type.address_type
+            })
+        for email in self.email:
+            data['email'].append({
+                'email' : email.email
             })
         for phone_number in self.phone_numbers:
             data['phone_numbers'].append({
