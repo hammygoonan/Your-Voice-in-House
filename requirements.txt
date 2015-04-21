@@ -4,10 +4,9 @@ Flask-Script==2.0.5
 Flask-Testing==0.4.2
 Jinja2==2.7.3
 MarkupSafe==0.23
-SQLAlchemy==0.9.8
-Werkzeug==0.9.6
+SQLAlchemy==1.0.0
+Werkzeug==0.10.4
 beautifulsoup4==4.3.2
 coverage==3.7.1
 itsdangerous==0.24
-requests==2.5.1
-wsgiref==0.1.2
+requests==2.6.0

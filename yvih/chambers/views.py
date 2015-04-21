@@ -1,3 +1,6 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
 from flask import redirect, jsonify, render_template, request, url_for, Blueprint
 from yvih import db
 from yvih.models import Chamber

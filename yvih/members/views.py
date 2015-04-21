@@ -1,3 +1,6 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
 from flask import redirect, jsonify, render_template, request, url_for, Blueprint, abort
 from yvih import db, request_wants_json
 from yvih.models import Member
@@ -18,7 +21,7 @@ def members( conditions=None ):
 
         # get query and turn it into a dictionary
         conditions = conditions.split('/')
-        query = zip(conditions[0::2], conditions[1::2])
+        query = list(zip(conditions[0::2], conditions[1::2]))
 
         # check that all fields are valid
         if not parameter_accepted(query):
@@ -56,9 +59,9 @@ def members( conditions=None ):
 def parameter_accepted(query):
     accepted = {
         'id' : int,
-        'first_name' : unicode,
-        'second_name' : unicode,
-        'role' : unicode
+        'first_name' : str,
+        'second_name' : str,
+        'role' : str
     }
     for conditions in query:
         if conditions[0] not in accepted:

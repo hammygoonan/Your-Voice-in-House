@@ -1,7 +1,7 @@
-from yvih import app
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
 
-app.config['DEBUG'] = True
-app.config['PRESERVE_CONTEXT_ON_EXCEPTION'] = False
+from yvih import app
 
 if __name__ == '__main__':
     app.run()

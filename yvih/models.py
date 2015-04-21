@@ -1,4 +1,6 @@
-#!/usr/bin/python
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
 from yvih import db
 from sqlalchemy import event
 from sqlalchemy.orm import mapper

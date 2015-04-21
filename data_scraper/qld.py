@@ -1,10 +1,12 @@
-#!/usr/bin/python
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
 import requests
 import base64
 import re
-from urllib import quote
+from urllib.parse import quote
 from yvih import models, db
-from base import BaseData
+from .base import BaseData
 from bs4 import BeautifulSoup
 import csv
 
@@ -67,7 +69,7 @@ class QldData(BaseData):
                 db.session.add(new_link)
 
         # phone numbers
-        numbers = re.findall(ur'[A-Za-z\:\ ]{5,7}\([0-9]*\)\ [0-9]*\ [0-9]*', bio.text)
+        numbers = re.findall(r'[A-Za-z\:\ ]{5,7}\([0-9]*\)\ [0-9]*\ [0-9]*', bio.text)
         for i, number in enumerate(numbers):
             split_number = number.split(': ')
             if (i > 1 and split_number[0] != 'Fax') or (i > 2):
@@ -84,11 +86,11 @@ class QldData(BaseData):
             if len(contents) == 0:
                 continue
             # get rid of header and any tag elements
-            contents = [content for content in contents[1:] if isinstance(content, unicode)]
+            contents = [content for content in contents[1:] if isinstance(content, str)]
             address_line1 = contents[0]
             address_line2 = contents[1] if len(contents) > 2 else None
             suburb = contents[-1].split(' ')[0]
-            postcode = re.findall(ur'[0-9]{4}', contents[-1])
+            postcode = re.findall(r'[0-9]{4}', contents[-1])
             postcode = postcode[0] if len(postcode) > 0 else None
             if i > 0:
                 address_type = models.AddressType.query.get(6)
@@ -103,11 +105,11 @@ class QldData(BaseData):
             if len(contents) == 0:
                 continue
             # get rid of header and any tag elements
-            contents = [content for content in contents[1:] if isinstance(content, unicode)]
+            contents = [content for content in contents[1:] if isinstance(content, str)]
             address_line1 = contents[0]
             address_line2 = contents[1] if len(contents) > 2 else None
             suburb = contents[-1].split(' ')[0]
-            postcode = re.findall(ur'[0-9]{4}', contents[-1])
+            postcode = re.findall(r'[0-9]{4}', contents[-1])
             postcode = postcode[0] if len(postcode) > 0 else None
             if i > 0:
                 address_type = models.AddressType.query.get(6)

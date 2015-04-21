@@ -1,10 +1,13 @@
-from base import BaseTestCase
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+from tests.base import BaseTestCase
 
 class HomeTestCase(BaseTestCase):
     def test_home_displays_api(self):
         response = self.client.get('/')
-        self.assertIn('Your Voice in House', response.data)
-        self.assertIn('Search', response.data)
+        self.assertIn('Your Voice in House', response.data.decode('utf-8'))
+        self.assertIn('Search', response.data.decode('utf-8'))
 
     def test_non_get_method(self):
         response = self.client.post('/')

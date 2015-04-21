@@ -1,8 +1,10 @@
-#!/usr/bin/python
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
 import requests
-from urllib import quote
+from urllib.parse import quote
 from yvih import models, db
-from base import BaseData
+from .base import BaseData
 from bs4 import BeautifulSoup
 import csv
 

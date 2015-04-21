@@ -1,3 +1,6 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
 from flask import redirect, render_template, request, url_for, Blueprint
 
 home_blueprint = Blueprint(

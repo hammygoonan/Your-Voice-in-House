@@ -1,11 +1,14 @@
-from urllib import quote
-from base import BaseTestCase
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+from urllib.parse import quote
+from tests.base import BaseTestCase
 
 class MembersTestCase(BaseTestCase):
 
     def test_member_html(self):
         response = self.client.get('/members/')
-        self.assertIn('Members', response.data)
+        self.assertIn('Members', response.data.decode('utf-8'))
 
     def test_member_json(self):
         headers = [('Accept', 'application/json')]

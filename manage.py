@@ -1,3 +1,6 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
 import unittest
 import os
 import coverage
@@ -28,7 +31,7 @@ def cov():
     unittest.TextTestRunner(verbosity=2).run(tests)
     cov.stop()
     cov.save()
-    print 'Coverage Summary:'
+    print('Coverage Summary:')
     cov.report()
     basedir = os.path.abspath(os.path.dirname(__file__))
     covdir = os.path.join(basedir, 'coverage')
