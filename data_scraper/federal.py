@@ -6,6 +6,7 @@ from urllib.parse import quote
 from yvih import models, db
 from .base import BaseData
 from bs4 import BeautifulSoup
+from io import StringIO
 import csv
 
 
@@ -234,4 +235,4 @@ class FederalData(BaseData):
     def getCsvData(self, file):
         ''' Returns dictionary of CSV Data '''
         csvfile = requests.get(file, stream=True)
-        return csv.DictReader(csvfile.raw)
+        return csv.DictReader(StringIO(csvfile.text))

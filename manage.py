@@ -44,12 +44,9 @@ def scrape_data():
     base_data = base.BaseData()
     federal_data = federal.FederalData()
     federal_data.generateSenate()
-    # federal_data.horCsvs()
-    # qld_data = qld.QldData()
-    # qld_data.qldData()
-    # member_pages = ['https://www.parliament.qld.gov.au/members/current/list/MemberDetails?ID=1051370424', 'https://www.parliament.qld.gov.au/members/current/list/MemberDetails?ID=890183913']
-    # for member_page in member_pages:
-    #     qld_data.memberPage(member_page)
+    federal_data.horCsvs()
+    qld_data = qld.QldData()
+    qld_data.qldData()
 
 @manager.command
 def check_data():
