@@ -3,8 +3,7 @@
 
 from yvih import db
 from sqlalchemy import event
-from sqlalchemy.orm import mapper
-import smtplib
+
 
 class Electorate(db.Model):
     __tablename__ = "electorates"
@@ -14,7 +13,9 @@ class Electorate(db.Model):
     chamber_id = db.Column(db.Integer, db.ForeignKey('chambers.id'))
     members = db.relationship('Member')
 
-    chamber = db.relationship('Chamber', backref=db.backref('chambers', lazy='dynamic'))
+    chamber = db.relationship(
+        'Chamber', backref=db.backref('chambers', lazy='dynamic')
+    )
 
     def __init__(self, name, chamber):
         self.name = name
@@ -22,21 +23,22 @@ class Electorate(db.Model):
 
     def serialise(self):
         data = {
-            'id' : self.id,
-            'name' : self.name,
-            'state' : self.chamber.state,
-            'house' : self.chamber.house,
-            'members' : []
+            'id': self.id,
+            'name': self.name,
+            'state': self.chamber.state,
+            'house': self.chamber.house,
+            'members': []
         }
         for member in self.members:
             data['members'].append({
-                'id' : member.id,
-                'first_name' : member.first_name,
-                'second_name' : member.second_name,
-                'role' : member.role,
-                'party' : member.party.name
+                'id': member.id,
+                'first_name': member.first_name,
+                'second_name': member.second_name,
+                'role': member.role,
+                'party': member.party.name
             })
         return data
+
 
 class Member(db.Model):
     __tablename__ = "members"
@@ -48,8 +50,12 @@ class Member(db.Model):
     email = db.Column(db.String)
     electorate_id = db.Column(db.Integer, db.ForeignKey('electorates.id'))
     party_id = db.Column(db.Integer, db.ForeignKey('parties.id'))
-    electorate = db.relationship('Electorate', backref=db.backref('electorates', lazy='dynamic'))
-    party = db.relationship('Party', backref=db.backref('parties', lazy='dynamic'))
+    electorate = db.relationship('Electorate', backref=db.backref(
+        'electorates', lazy='dynamic')
+    )
+    party = db.relationship('Party', backref=db.backref(
+        'parties', lazy='dynamic')
+    )
     photo = db.Column(db.Text)
 
     email = db.relationship('Email')
@@ -57,7 +63,8 @@ class Member(db.Model):
     phone_numbers = db.relationship('PhoneNumber')
     links = db.relationship('Link')
 
-    def __init__(self, first_name, second_name, role, electorate, party, photo):
+    def __init__(self, first_name, second_name, role, electorate, party,
+                 photo):
         self.first_name = first_name
         self.second_name = second_name
         self.role = role
@@ -67,46 +74,52 @@ class Member(db.Model):
 
     def serialise(self):
         data = {
-            'id' : self.id,
-            'first_name' : self.first_name,
-            'second_name' : self.second_name,
-            'role' : self.role,
-            'electorate' : { 'id' : self.electorate.id, 'name' : self.electorate.name, 'state' : self.electorate.chamber.state, 'house' : self.electorate.chamber.house },
-            'party' : { 'name' : self.party.name },
-            'email' : [],
-            'addresses' : [],
-            'phone_numbers' : [],
-            'links' : []
+            'id': self.id,
+            'first_name': self.first_name,
+            'second_name': self.second_name,
+            'role': self.role,
+            'electorate': {
+                'id': self.electorate.id,
+                'name': self.electorate.name,
+                'state': self.electorate.chamber.state,
+                'house': self.electorate.chamber.house
+            },
+            'party': {'name': self.party.name},
+            'email': [],
+            'addresses': [],
+            'phone_numbers': [],
+            'links': []
 
         }
         for address in self.addresses:
             data['addresses'].append({
-                'address_line1' : address.address_line1,
-                'address_line2' : address.address_line2,
-                'address_line3' : address.address_line3,
-                'suburb' : address.suburb,
-                'state' : address.state,
-                'postcode' : address.postcode,
-                'address_type' : address.address_type.address_type
+                'address_line1': address.address_line1,
+                'address_line2': address.address_line2,
+                'address_line3': address.address_line3,
+                'suburb': address.suburb,
+                'state': address.state,
+                'postcode': address.postcode,
+                'address_type': address.address_type.address_type
             })
         for email in self.email:
             data['email'].append({
-                'email' : email.email
+                'email': email.email
             })
         for phone_number in self.phone_numbers:
             data['phone_numbers'].append({
-                'number' : phone_number.number,
-                'type' : phone_number.type
+                'number': phone_number.number,
+                'type': phone_number.type
             })
         for link in self.links:
             data['links'].append({
-                'link' : link.link,
-                'type' : link.type,
+                'link': link.link,
+                'type': link.type,
             })
         data['links'].append({
-            'self' : '/members/id/' + str(data['id'])
+            'self': '/members/id/' + str(data['id'])
         })
         return data
+
 
 class Party(db.Model):
     __tablename__ = "parties"
@@ -119,6 +132,7 @@ class Party(db.Model):
         self.name = name
         self.alias = alias
 
+
 class Email(db.Model):
     __tablename__ = "emails"
 
@@ -130,6 +144,7 @@ class Email(db.Model):
     def __init__(self, email, member):
         self.email = email
         self.member = member
+
 
 class Address(db.Model):
     __tablename__ = "addresses"
@@ -145,10 +160,15 @@ class Address(db.Model):
     member_id = db.Column(db.Integer, db.ForeignKey('members.id'))
     primary = db.Column(db.Boolean)
 
-    address_type = db.relationship('AddressType', backref=db.backref('address_types', lazy='dynamic'))
-    member = db.relationship('Member', backref=db.backref('members', lazy='dynamic'))
+    address_type = db.relationship(
+        'AddressType', backref=db.backref('address_types', lazy='dynamic')
+    )
+    member = db.relationship(
+        'Member', backref=db.backref('members', lazy='dynamic')
+    )
 
-    def __init__(self, address_line1, address_line2, address_line3, suburb, state, postcode, address_type, member, primary):
+    def __init__(self, address_line1, address_line2, address_line3, suburb,
+                 state, postcode, address_type, member, primary):
         self.address_line1 = address_line1
         self.address_line2 = address_line2
         self.address_line3 = address_line3
@@ -159,9 +179,10 @@ class Address(db.Model):
         self.member = member
         self.primary = primary
 
+
 class PhoneNumber(db.Model):
-    """
-        Phone number types: parliamentary, electoral, tollfree, fax, electoral fax, parliamentary fax, ministerial phone, ministerial fax
+    """Phone number types: parliamentary, electoral, tollfree, fax, electoral
+    fax, parliamentary fax, ministerial phone, ministerial fax
     """
     __tablename__ = "phone_numbers"
 
@@ -176,10 +197,9 @@ class PhoneNumber(db.Model):
         self.type = type
         self.member = member
 
+
 class Link(db.Model):
-    """
-        Link types: website, wikipedia, twitter
-    """
+    """Link types: website, wikipedia, twitter"""
     __tablename__ = "links"
 
     id = db.Column(db.Integer, primary_key=True)
@@ -193,13 +213,13 @@ class Link(db.Model):
         self.type = type
         self.member = member
 
+
 class AddressType(db.Model):
-    """
-        1|Electoral Postal
-        2|Electoral Physical
-        3|Parliamentary Postal
-        4|Parliamentary Physical
-        5|Alternative
+    """1|Electoral Postal
+    2|Electoral Physical
+    3|Parliamentary Postal
+    4|Parliamentary Physical
+    5|Alternative
     """
     __tablename__ = 'address_types'
 
@@ -209,10 +229,10 @@ class AddressType(db.Model):
     def __init__(self, address_type):
         self.address_type = address_type
 
+
 class Chamber(db.Model):
-    """
-        1|House of Representatives|Fed
-        2|Senate|Fed
+    """1|House of Representatives|Fed
+    2|Senate|Fed
     """
     __tablename__ = "chambers"
 
@@ -227,17 +247,18 @@ class Chamber(db.Model):
 
     def serialise(self):
         data = {
-            'id' : self.id,
-            'state' : self.state,
-            'house' : self.house,
-            'electorates' : []
+            'id': self.id,
+            'state': self.state,
+            'house': self.house,
+            'electorates': []
         }
         for electorate in self.electorates:
             data['electorates'].append({
-                'id' : electorate.id,
-                'name' : electorate.name,
+                'id': electorate.id,
+                'name': electorate.name,
             })
         return data
+
 
 class Tags(db.Model):
     __tablename__ = "tags"
@@ -247,6 +268,7 @@ class Tags(db.Model):
 
     def __init__(self, name):
         self.name = name
+
 
 class Data(db.Model):
     __tablename__ = 'data'
@@ -258,15 +280,16 @@ class Data(db.Model):
     member_id = db.Column(db.Integer, db.ForeignKey('members.id'))
     status = db.Column(db.Integer)
 
-    def __init__(self, name, email, issue, member_id, status = 0):
+    def __init__(self, name, email, issue, member_id, status=0):
         self.name = name
         self.email = email
         self.issue = issue
         self.member_id = member_id
         self.status = status
 
+
 def data_listener(mapper, connection, target):
-    """ send email to alert that new issue has been raised """
+    """Send email to alert that new issue has been raised"""
     message = """From: From Person <test@test.com>
     To: To Person <test@test.com>
     Subject: A new issue has been generated

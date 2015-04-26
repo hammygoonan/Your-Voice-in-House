@@ -1,8 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from flask import redirect, jsonify, render_template, request, url_for, Blueprint
-from yvih import db
+from flask import jsonify, Blueprint
 from yvih.models import Chamber
 
 chambers_blueprint = Blueprint(
@@ -12,11 +11,12 @@ chambers_blueprint = Blueprint(
     url_prefix='/chambers'
 )
 
+
 @chambers_blueprint.route('/')
 @chambers_blueprint.route('/<path:conditions>')
 def chambers():
     chambers = Chamber.query.all()
     results = []
     for chamber in chambers:
-        results.append( chamber.serialise() )
-    return jsonify({'chamber' : results})
+        results.append(chamber.serialise())
+    return jsonify({'chamber': results})

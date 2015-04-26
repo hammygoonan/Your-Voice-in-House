@@ -1,8 +1,8 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from flask import redirect, jsonify, render_template, request, url_for, Blueprint, abort
-from yvih import db, request_wants_json
+from flask import jsonify, render_template, Blueprint, abort
+from yvih import request_wants_json
 from yvih.models import Member
 from sqlalchemy.sql.expression import or_
 
@@ -13,11 +13,12 @@ members_blueprint = Blueprint(
     url_prefix='/members'
 )
 
+
 @members_blueprint.route('/')
 @members_blueprint.route('/<path:conditions>')
-def members( conditions=None ):
+def members(conditions=None):
     # if there are parameter
-    if conditions != None:
+    if conditions is not None:
 
         # get query and turn it into a dictionary
         conditions = conditions.split('/')
@@ -34,8 +35,10 @@ def members( conditions=None ):
                 filters.append(Member.id.in_(conditions[1].split(',')))
             else:
                 for term in conditions[1].split(','):
-                    filters.append(Member.__dict__[conditions[0]].ilike('%' + term + '%'))
-        members = Member.query.filter( or_(*filters) )
+                    filters.append(
+                        Member.__dict__[conditions[0]].ilike('%' + term + '%')
+                    )
+        members = Member.query.filter(or_(*filters))
         if members.count() == 0:
             abort(404)
 
@@ -52,16 +55,17 @@ def members( conditions=None ):
         results = []
         for member in members:
             results.append(member.serialise())
-        return jsonify({'members' : results})
+        return jsonify({'members': results})
     else:
         return render_template('members.html', members=members)
 
+
 def parameter_accepted(query):
     accepted = {
-        'id' : int,
-        'first_name' : str,
-        'second_name' : str,
-        'role' : str
+        'id': int,
+        'first_name': str,
+        'second_name': str,
+        'role': str
     }
     for conditions in query:
         if conditions[0] not in accepted:
@@ -70,7 +74,9 @@ def parameter_accepted(query):
             for member_id in conditions[1].split(','):
                 if not member_id.isdigit():
                     return False
-            continue # if it's an id and it has passed this test, there is no need to pass the next test
+            """if it's an id and it has passed this test, there is no need to
+            pass the next test"""
+            continue
         if not isinstance(conditions[1], accepted[conditions[0]]):
             if not conditions[0] == 'id':
                 return False
