@@ -3,6 +3,7 @@
 
 from tests.base import BaseTestCase
 
+
 class HomeTestCase(BaseTestCase):
     def test_home_displays_api(self):
         response = self.client.get('/')
@@ -16,7 +17,3 @@ class HomeTestCase(BaseTestCase):
         response = self.client.post('/', headers=headers)
         self.assert405(response)
         self.assertIsInstance(response.json, dict)
-
-
-if __name__ == '__main__':
-    unittest.main()

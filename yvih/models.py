@@ -160,9 +160,9 @@ class Address(db.Model):
         self.primary = primary
 
 class PhoneNumber(db.Model):
-    '''
+    """
         Phone number types: parliamentary, electoral, tollfree, fax, electoral fax, parliamentary fax, ministerial phone, ministerial fax
-    '''
+    """
     __tablename__ = "phone_numbers"
 
     id = db.Column(db.Integer, primary_key=True)
@@ -177,9 +177,9 @@ class PhoneNumber(db.Model):
         self.member = member
 
 class Link(db.Model):
-    '''
+    """
         Link types: website, wikipedia, twitter
-    '''
+    """
     __tablename__ = "links"
 
     id = db.Column(db.Integer, primary_key=True)
@@ -194,13 +194,13 @@ class Link(db.Model):
         self.member = member
 
 class AddressType(db.Model):
-    '''
+    """
         1|Electoral Postal
         2|Electoral Physical
         3|Parliamentary Postal
         4|Parliamentary Physical
         5|Alternative
-    '''
+    """
     __tablename__ = 'address_types'
 
     id = db.Column(db.Integer, primary_key=True)
@@ -210,10 +210,10 @@ class AddressType(db.Model):
         self.address_type = address_type
 
 class Chamber(db.Model):
-    '''
+    """
         1|House of Representatives|Fed
         2|Senate|Fed
-    '''
+    """
     __tablename__ = "chambers"
 
     id = db.Column(db.Integer, primary_key=True)
@@ -266,7 +266,7 @@ class Data(db.Model):
         self.status = status
 
 def data_listener(mapper, connection, target):
-    ''' send email to alert that new issue has been raised '''
+    """ send email to alert that new issue has been raised """
     message = """From: From Person <test@test.com>
     To: To Person <test@test.com>
     Subject: A new issue has been generated

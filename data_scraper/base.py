@@ -7,11 +7,17 @@ import requests
 
 
 class BaseData(object):
-    '''Base class for building database'''
+    """Base class for building database"""
     def __init__(self):
         if not os.path.isfile('/yvih/database.db'):
             db.create_all()
-        self.address_types = [
+        self.createAddressTypes()
+        self.createChambers()
+        self.createParties()
+
+    def createAddressTypes(self):
+        """Generates all AddressTypes in the database"""
+        address_types = [
             'Electoral Postal',
             'Electoral Physical',
             'Parliamentary Postal',
@@ -20,7 +26,16 @@ class BaseData(object):
             'Ministerial Postal',
             'Ministerial Physical'
         ]
-        self.chambers = [
+        for address_type in address_types:
+            atype = models.AddressType.query.\
+                filter_by(address_type=address_type).first()
+            if not atype:
+                db.session.add(models.AddressType(address_type))
+        db.session.commit()
+
+    def createChambers(self):
+        """Generates all Chambers in the database"""
+        chambers = chambers = [
             {'state': 'Fed', 'house': 'House of Representatives'},
             {'state': 'Fed', 'house': 'Senate'},
             {'state': 'ACT', 'house': 'Legislative Assembly'},
@@ -37,20 +52,7 @@ class BaseData(object):
             {'state': 'WA', 'house': 'Legislative Assembly'},
             {'state': 'WA', 'house': 'Legislative Council'}
         ]
-        self.createAddressTypes()
-        self.createChambers()
-        self.createParties()
-
-    def createAddressTypes(self):
-        for address_type in self.address_types:
-            atype = models.AddressType.query.\
-                filter_by(address_type=address_type).first()
-            if not atype:
-                db.session.add(models.AddressType(address_type))
-        db.session.commit()
-
-    def createChambers(self):
-        for chamber in self.chambers:
+        for chamber in chambers:
             chamber_data = models.Chamber.query.\
                 filter_by(state=chamber['state'], house=chamber['house'])\
                 .first()
@@ -60,6 +62,7 @@ class BaseData(object):
         db.session.commit()
 
     def createParties(self):
+        """ Creates a list of parties with aliases in the database"""
         parties = [
             {'name': 'Australian Labor Party', 'alias':
                 ['ALP', 'Australian Labor Party (ALP)']},
@@ -90,6 +93,7 @@ class BaseData(object):
         db.session.commit()
 
     def getParty(self, party_name):
+        """Takes party name or alias and returns Party object."""
         parties = models.Party.query.all()
         for party in parties:
             if(
@@ -99,10 +103,9 @@ class BaseData(object):
                 return party
 
     def getElectorate(self, name, chamber_id=None):
-        '''
-            returns either a preexisting electorate
-            or a newly created member object.
-        '''
+        """Returns either a preexisting electorate or a newly created electorate
+        object.
+        """
         electorate = models.Electorate.query.filter_by(name=name).first()
         if electorate:
             return electorate
@@ -116,14 +119,12 @@ class BaseData(object):
             return electorate
 
     def saveImg(self, src, filename, dir=""):
-        '''
-            saves a file and returns the file page relateive to
-            yvih/static/member_photos
-
-            @param string - src, path to image to download
-            @param string - filename, what to call the file
-            @param string - dir, directory with no preceeding or trailing slash
-        '''
+        """saves a file and returns the file page relateive to
+        yvih/static/member_photos
+        src, string - path to image to download
+        filename, string - what to call the file
+        dir, string - directory with no preceeding or trailing slash
+        """
         imgfile = requests.get(src)
         static = 'yvih/static/member_photos/'
         if not dir[-1] == '/':

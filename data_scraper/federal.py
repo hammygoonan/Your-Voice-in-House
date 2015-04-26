@@ -21,8 +21,8 @@ class FederalData(BaseData):
                         'SurnameRepsCSV.csv')
 
     def updateSenate(self):
-        '''Loop through all senators and check that their details are still
-        correct.'''
+        """Loop through all senators and check that their details are still
+        correct."""
         data = self.getCsvData(self.sen_csv)
         for row in data:
             member = models.Member.query.join(models.Electorate)\
@@ -196,7 +196,7 @@ class FederalData(BaseData):
             self.scrapePage(member, 'sen')
 
     def horCsvs(self):
-        ''' process Hose of Representatives csv file'''
+        """ process Hose of Representatives csv file"""
         # csvfile = requests.get(self.hor_csv, stream=True)
         # data = csv.DictReader(csvfile.raw)
         file = open('SurnameRepsCSV.csv')
@@ -248,9 +248,9 @@ class FederalData(BaseData):
             self.scrapePage(member, 'mem')
 
     def scrapePage(self, member, house):
-        '''
+        """
             house can be either 'sen' or 'mem'
-        '''
+        """
         # search for member
         query_string = quote(member.first_name + '+' + member.second_name)
 
@@ -320,6 +320,6 @@ class FederalData(BaseData):
         db.session.commit()
 
     def getCsvData(self, file):
-        ''' Returns dictionary of CSV Data '''
+        """ Returns dictionary of CSV Data """
         csvfile = requests.get(file, stream=True)
         return csv.DictReader(StringIO(csvfile.text))

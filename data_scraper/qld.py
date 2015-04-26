@@ -15,8 +15,8 @@ class QldData(BaseData):
             'members/current/list')
 
     def qldData(self):
-        '''Loop through list of members on Website and get individual page
-        links for each'''
+        """Loop through list of members on Website and get individual page
+        links for each"""
         page = requests.get(self.list_url).content
         soup = BeautifulSoup(page)
         for thumbnail in soup.find_all('div', 'right-thumbnail'):
@@ -24,7 +24,7 @@ class QldData(BaseData):
             self.memberPage('https://www.parliament.qld.gov.au' + link['href'])
 
     def memberPage(self, link):
-        '''Main processor'''
+        """Main processor"""
         page = requests.get(link).content
         soup = BeautifulSoup(page, "html5lib")
         name = self.getName(soup)
@@ -68,8 +68,8 @@ class QldData(BaseData):
         db.session.commit()
 
     def getName(self, soup):
-        '''find page h1 and processes to return dictionary of member first_name
-        and second_name'''
+        """find page h1 and processes to return dictionary of member first_name
+        and second_name"""
         name = soup.find('h1')
         name = name.text.strip().split(' ')
         # remove all the titles and 'non-name' items
@@ -88,9 +88,9 @@ class QldData(BaseData):
         return {'first_name': first_name, 'second_name': second_name}
 
     def processLinks(self, data, member):
-        '''takes the member detail div, loops through all the links and saves
+        """takes the member detail div, loops through all the links and saves
         them as either emails or links. The links are added to the session for
-        saving but not actually saved.'''
+        saving but not actually saved."""
         for link in data.find_all('a'):
             if link['href'].find('mailto:') > -1:
                 email = models.Email(
@@ -102,9 +102,9 @@ class QldData(BaseData):
                 db.session.add(new_link)
 
     def getPhoneNumbers(self, data, member):
-        '''take member page data and uses regular expressions to save all phone
+        """take member page data and uses regular expressions to save all phone
         numbers on the page. The phone numbers are added to the session for
-        saving but not actually saved.'''
+        saving but not actually saved."""
         numbers = re.findall(
             r'[A-Za-z\:\ ]{5,7}\([0-9]*\)\ [0-9]*\ [0-9]*', data.text
         )
@@ -122,10 +122,10 @@ class QldData(BaseData):
             )
 
     def getAddresses(self, data, member):
-        '''takes member page data, finds the two divs containing addresses,
+        """takes member page data, finds the two divs containing addresses,
         passes that data to processAddresses() and then saves the result. The
         addresses are added to the session for saving but not actually
-        saved.'''
+        saved."""
         for div in ['eoAddress', 'eoPostal']:
             address = self.__processAddresses(data, div)
             if address:
@@ -139,7 +139,7 @@ class QldData(BaseData):
                 )
 
     def __processAddresses(self, data, div):
-        '''processes data in div and returns dictionary of address details'''
+        """processes data in div and returns dictionary of address details"""
         for i, address in enumerate(data.find_all('div', div)):
             contents = address.contents
             if len(contents) == 0:

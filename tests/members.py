@@ -4,8 +4,10 @@
 from urllib.parse import quote
 from tests.base import BaseTestCase
 
-class MembersTestCase(BaseTestCase):
 
+class MembersTestCase(BaseTestCase):
+    """Member test case tests functionality of member pages.
+    """
     def test_member_html(self):
         response = self.client.get('/members/')
         self.assertIn('Members', response.data.decode('utf-8'))
@@ -45,15 +47,24 @@ class MembersTestCase(BaseTestCase):
         self.assert400(response)
         response = self.client.get('/members/first_name/Eric', headers=headers)
         self.assert200(response)
-        response = self.client.get('/members/second_name/Abetz', headers=headers)
+        response = self.client.get(
+            '/members/second_name/Abetz',
+            headers=headers
+        )
         self.assert200(response)
-        response = self.client.get('/members/first_name/Abetz', headers=headers)
+        response = self.client.get(
+            '/members/first_name/Abetz',
+            headers=headers
+        )
         self.assert404(response)
         response = self.client.get('/members/id/999999', headers=headers)
         self.assert404(response)
         response = self.client.get('/members/test/thing', headers=headers)
         self.assert400(response)
-        response = self.client.get('/members/first_name/Tony/role/immigration', headers=headers)
+        response = self.client.get(
+            '/members/first_name/Tony/role/immigration',
+            headers=headers
+        )
         self.assert200(response)
         url = quote('/members/role/The Nationals in the Senate')
         response = self.client.get(url)
@@ -61,7 +72,3 @@ class MembersTestCase(BaseTestCase):
         response = self.client.get('/members/id/1,2', headers=headers)
         self.assert200(response)
         self.assertTrue(len(response.json['members']) == 2)
-
-
-if __name__ == '__main__':
-    unittest.main()

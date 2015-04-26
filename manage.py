@@ -41,7 +41,7 @@ def cov():
 
 @manager.command
 def scrape_data():
-    '''Run data updates'''
+    """Run data updates"""
     base.BaseData()
     federal_data = federal.FederalData()
     federal_data.generateSenate()
@@ -52,8 +52,8 @@ def scrape_data():
 
 @manager.command
 def check_data():
-    '''Check for data changes. The idea being that this script can run on a
-    cron to check if there have been any major changes to datasets.'''
+    """Check for data changes. The idea being that this script can run on a
+    cron to check if there have been any major changes to datasets."""
     federal_data = federal.FederalData()
     federal_data.updateSenate()
 
