@@ -1,9 +1,10 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from yvih import app, models, db
+from yvih import models, db
 import os
 import requests
+
 
 class BaseData(object):
     '''Base class for building database'''
@@ -20,67 +21,87 @@ class BaseData(object):
             'Ministerial Physical'
         ]
         self.chambers = [
-            {'state' : 'Fed', 'house' : 'House of Representatives'},
-            {'state' : 'Fed', 'house' : 'Senate'},
-            {'state' : 'ACT', 'house' : 'Legislative Assembly'},
-            {'state' : 'NSW', 'house' : 'Legislative Assembly'},
-            {'state' : 'NSW', 'house' : 'Legislative Council'},
-            {'state' : 'NT', 'house' : 'Legislative Assembly'},
-            {'state' : 'Qld', 'house' : 'Legislative Assembly'},
-            {'state' : 'SA', 'house' : 'Legislative Assembly'},
-            {'state' : 'SA', 'house' : 'House of Assembly'},
-            {'state' : 'Tas', 'house' : 'Legislative Council'},
-            {'state' : 'Tas', 'house' : 'House of Assembly'},
-            {'state' : 'Vic', 'house' : 'Legislative Council'},
-            {'state' : 'Vic', 'house' : 'Legislative Assembly'},
-            {'state' : 'WA', 'house' : 'Legislative Assembly'},
-            {'state' : 'WA', 'house' : 'Legislative Council'}
+            {'state': 'Fed', 'house': 'House of Representatives'},
+            {'state': 'Fed', 'house': 'Senate'},
+            {'state': 'ACT', 'house': 'Legislative Assembly'},
+            {'state': 'NSW', 'house': 'Legislative Assembly'},
+            {'state': 'NSW', 'house': 'Legislative Council'},
+            {'state': 'NT', 'house': 'Legislative Assembly'},
+            {'state': 'Qld', 'house': 'Legislative Assembly'},
+            {'state': 'SA', 'house': 'Legislative Assembly'},
+            {'state': 'SA', 'house': 'House of Assembly'},
+            {'state': 'Tas', 'house': 'Legislative Council'},
+            {'state': 'Tas', 'house': 'House of Assembly'},
+            {'state': 'Vic', 'house': 'Legislative Council'},
+            {'state': 'Vic', 'house': 'Legislative Assembly'},
+            {'state': 'WA', 'house': 'Legislative Assembly'},
+            {'state': 'WA', 'house': 'Legislative Council'}
         ]
         self.createAddressTypes()
         self.createChambers()
         self.createParties()
 
-    def createAddressTypes( self ):
+    def createAddressTypes(self):
         for address_type in self.address_types:
-            atype = models.AddressType.query.filter_by( address_type=address_type ).first()
+            atype = models.AddressType.query.\
+                filter_by(address_type=address_type).first()
             if not atype:
-                db.session.add( models.AddressType( address_type ) )
+                db.session.add(models.AddressType(address_type))
         db.session.commit()
 
-    def createChambers( self ):
+    def createChambers(self):
         for chamber in self.chambers:
-            chamber_data = models.Chamber.query.filter_by( state=chamber['state'], house=chamber['house'] ).first()
+            chamber_data = models.Chamber.query.\
+                filter_by(state=chamber['state'], house=chamber['house'])\
+                .first()
             if not chamber_data:
-                db.session.add( models.Chamber( chamber['state'], chamber['house']) )
+                chamber = models.Chamber(chamber['state'], chamber['house'])
+                db.session.add(chamber)
         db.session.commit()
-    def createParties( self ):
+
+    def createParties(self):
         parties = [
-            { 'name' : 'Australian Labor Party', 'alias' : [ 'ALP', 'Australian Labor Party (ALP)' ]},
-            { 'name' : 'Liberal Party', 'alias' : ['LP', 'Canberra Liberals']},
-            { 'name' : 'Australian Greens', 'alias' : ['AG', 'ACT Greens']},
-            { 'name' : 'National Party', 'alias' : ['Nats']},
-            { 'name' : 'Liberal National Party', 'alias' : ['Nats', 'Liberal National Party (LNP)', 'LNP']},
-            { 'name' : 'Country Liberal Party', 'alias' : ['CLP']},
-            { 'name' : "Katter's Australian Party", 'alias' : ['AUS', "Katter's Australian Party (KAP)", 'KAP']},
-            { 'name' : 'Independent', 'alias' : ['Ind.', 'Independent (IND)', 'IND']},
-            { 'name' : 'Palmer United Party', 'alias' : ['PUP']},
-            { 'name' : 'Family First', 'alias' : ['FFP']},
-            { 'name' : 'Liberal Democratic Party', 'alias' : ['LDP']},
-            { 'name' : 'Australian Motoring Enthusiasts Party', 'alias' : ['AMEP']},
+            {'name': 'Australian Labor Party', 'alias':
+                ['ALP', 'Australian Labor Party (ALP)']},
+            {'name': 'Liberal Party', 'alias':
+                ['LP', 'Canberra Liberals']},
+            {'name': 'Australian Greens', 'alias': ['AG', 'ACT Greens']},
+            {'name': 'National Party', 'alias': ['Nats']},
+            {'name': 'Liberal National Party', 'alias':
+                ['Nats', 'Liberal National Party (LNP)', 'LNP']},
+            {'name': 'Country Liberal Party', 'alias':
+                ['CLP']},
+            {'name': "Katter's Australian Party", 'alias':
+                ['AUS', "Katter's Australian Party (KAP)", 'KAP']},
+            {'name': 'Independent', 'alias':
+                ['Ind.', 'Independent (IND)', 'IND']},
+            {'name': 'Palmer United Party', 'alias':
+                ['PUP']},
+            {'name': 'Family First', 'alias':
+                ['FFP']},
+            {'name': 'Liberal Democratic Party', 'alias':
+                ['LDP']},
+            {'name': 'Australian Motoring Enthusiasts Party', 'alias':
+                ['AMEP']},
         ]
         for party in parties:
-            db.session.add( models.Party( party['name'], ','.join( party['alias'] ) ) )
+            party = models.Party(party['name'], ','.join(party['alias']))
+            db.session.add(party)
         db.session.commit()
 
-    def getParty( self, party_name ):
+    def getParty(self, party_name):
         parties = models.Party.query.all()
         for party in parties:
-            if party_name == party.name or party_name in party.alias.split(','):
+            if(
+                party_name == party.name or
+                party_name in party.alias.split(',')
+            ):
                 return party
 
     def getElectorate(self, name, chamber_id=None):
         '''
-            returns either a preexisting electorate or a newly created member object.
+            returns either a preexisting electorate
+            or a newly created member object.
         '''
         electorate = models.Electorate.query.filter_by(name=name).first()
         if electorate:
@@ -94,9 +115,10 @@ class BaseData(object):
             db.session.commit()
             return electorate
 
-    def saveImg(self, src, filename, dir = ""):
+    def saveImg(self, src, filename, dir=""):
         '''
-            saves a file and returns the file page relateive to yvih/static/member_photos
+            saves a file and returns the file page relateive to
+            yvih/static/member_photos
 
             @param string - src, path to image to download
             @param string - filename, what to call the file

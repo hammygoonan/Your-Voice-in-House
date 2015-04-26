@@ -2,12 +2,8 @@
 # -*- coding: utf-8 -*-
 
 import requests
-import base64
-from urllib.parse import quote
-from yvih import models, db
 from .base import BaseData
 from bs4 import BeautifulSoup
-import csv
 
 
 class ActData(BaseData):
@@ -18,5 +14,3 @@ class ActData(BaseData):
     def actData(self):
         page = requests.get(self.list_url).content
         soup = BeautifulSoup(page)
-        # table = soup.find('table', 'tablesorter')
-        # print table

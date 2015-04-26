@@ -38,19 +38,22 @@ def cov():
     cov.html_report(directory=covdir)
     cov.erase()
 
+
 @manager.command
 def scrape_data():
     '''Run data updates'''
-    base_data = base.BaseData()
+    base.BaseData()
     federal_data = federal.FederalData()
     federal_data.generateSenate()
     federal_data.horCsvs()
     qld_data = qld.QldData()
     qld_data.qldData()
 
+
 @manager.command
 def check_data():
-    ''' Check for data changes. The idea being that this script can run on a cron to check if there have been any major changes to datasets. '''
+    '''Check for data changes. The idea being that this script can run on a
+    cron to check if there have been any major changes to datasets.'''
     federal_data = federal.FederalData()
     federal_data.updateSenate()
 

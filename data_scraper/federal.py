@@ -12,59 +12,103 @@ import csv
 
 class FederalData(BaseData):
     def __init__(self):
-        self.sen_csv = 'http://www.aph.gov.au/~/media/03%20Senators%20and%20Members/Address%20Labels%20and%20CSV%20files/allsenel.csv'
-        self.hor_csv = 'http://www.aph.gov.au/~/media/03%20Senators%20and%20Members/Address%20Labels%20and%20CSV%20files/SurnameRepsCSV.csv'
+        self.sen_csv = ('http://www.aph.gov.au/~/media/'
+                        '03%20Senators%20and%20Members/'
+                        'Address%20Labels%20and%20CSV%20files/allsenel.csv')
+        self.hor_csv = ('http://www.aph.gov.au/~/media/'
+                        '03%20Senators%20and%20Members/'
+                        'Address%20Labels%20and%20CSV%20files/'
+                        'SurnameRepsCSV.csv')
 
     def updateSenate(self):
-        '''
-            Loop through all senators and check that their details are still correct.
-        '''
+        '''Loop through all senators and check that their details are still
+        correct.'''
         data = self.getCsvData(self.sen_csv)
         for row in data:
             member = models.Member.query.join(models.Electorate)\
-                        .filter(models.Electorate.chamber_id == 2)\
-                        .filter(models.Member.second_name == row['Surname'])\
-                        .filter(models.Member.first_name == row['Prefered Name'])\
-                        .first()
-            if member == None:
-                issue = '%s %s was found in Senate csv but not in database.' % (row['Prefered Name'], row['Surname'])
+                .filter(models.Electorate.chamber_id == 2)\
+                .filter(models.Member.second_name == row['Surname'])\
+                .filter(models.Member.first_name == row['Prefered Name'])\
+                .first()
+            if member is None:
+                issue = '{} {} was found in Senate csv but not in database.'\
+                    .format(row['Prefered Name'], row['Surname'])
                 db.session.add(
-                    models.Data('cron', 'cron@yourvoiceinhouse.org.au', issue, None)
+                    models.Data(
+                        'cron', 'cron@yourvoiceinhouse.org.au', issue, None
+                    )
                 )
                 continue
 
             # check party
             if self.getParty(row['Political Party']) != member.party:
-                issue = '%s %s seems to have changed political party.' % (row['Prefered Name'], row['Surname'])
+                issue = '{} {} seems to have changed political party.'\
+                    .format(row['Prefered Name'], row['Surname'])
                 db.session.add(
-                    models.Data('cron', 'cron@yourvoiceinhouse.org.au', issue, member.id)
+                    models.Data(
+                        'cron', 'cron@yourvoiceinhouse.org.au',
+                        issue, member.id
+                    )
                 )
 
             # check electorate
             if self.getElectorate(row['State']) != member.electorate:
-                issue = '%s %s seems to have changed electorate.' % (row['Prefered Name'], row['Surname'])
+                issue = '{} {} seems to have changed electorate.'.format(
+                    (row['Prefered Name'], row['Surname'])
+                )
                 db.session.add(
-                    models.Data('cron', 'cron@yourvoiceinhouse.org.au', issue, member.id)
+                    models.Data(
+                        'cron', 'cron@yourvoiceinhouse.org.au',
+                        issue, member.id
+                    )
                 )
 
             for address in member.addresses:
                 if address.address_type_id == 2:
-                    current = [address.address_line1, address.address_line2, address.suburb, address.state, address.postcode]
-                    updated = [row['Electorate AddressLine1'], row['Electorate AddressLine2'], row['Electorate Suburb'], row['Electorate State'], row['Electorate Postcode']]
+                    current = [
+                        address.address_line1,
+                        address.address_line2,
+                        address.suburb,
+                        address.state,
+                        address.postcode
+                    ]
+                    updated = [
+                        row['Electorate AddressLine1'],
+                        row['Electorate AddressLine2'],
+                        row['Electorate Suburb'],
+                        row['Electorate State'],
+                        row['Electorate Postcode']
+                    ]
                     if cmp(current, updated) != 0:
-                        issue = '%s %s seems to have had an address change.' % (row['Prefered Name'], row['Surname'])
+                        issue = '{} {} seems to have had an address change.'\
+                            .format((row['Prefered Name'], row['Surname']))
                         db.session.add(
-                            models.Data('cron', 'cron@yourvoiceinhouse.org.au', issue, member.id)
+                            models.Data(
+                                'cron', 'cron@yourvoiceinhouse.org.au',
+                                issue, member.id
+                            )
                         )
                 elif address.address_type_id == 1:
-                    current = [address.address_line1, address.suburb, address.state, address.postcode]
-                    updated = [row['Label Address'], row['Label Suburb'], row['Label State'], row['Label Postcode']]
+                    current = [
+                        address.address_line1,
+                        address.suburb,
+                        address.state,
+                        address.postcode
+                    ]
+                    updated = [
+                        row['Label Address'],
+                        row['Label Suburb'],
+                        row['Label State'],
+                        row['Label Postcode']
+                    ]
                     if cmp(current, updated) != 0:
-                        issue = '%s %s seems to have had an address change.' % (row['Prefered Name'], row['Surname'])
+                        issue = '{} {} seems to have had an address change.'.\
+                            format((row['Prefered Name'], row['Surname']))
                         db.session.add(
-                            models.Data('cron', 'cron@yourvoiceinhouse.org.au', issue, member.id)
-                        )
-
+                            models.Data(
+                                'cron', 'cron@yourvoiceinhouse.org.au',
+                                issue, member.id)
+                            )
 
             # Phone Numbers
             # Links
@@ -79,10 +123,21 @@ class FederalData(BaseData):
 
             party = self.getParty(row['Political Party'])
 
-            member = models.Member(row['Prefered Name'], row['Surname'], row['Parliamentary Titles'], electorate, party, None)
+            member = models.Member(
+                row['Prefered Name'],
+                row['Surname'],
+                row['Parliamentary Titles'],
+                electorate,
+                party,
+                None
+            )
             db.session.add(member)
 
-            email = models.Email('senator.' + row['Surname'].lower().replace("'", '') + '@aph.gov.au', member)
+            email = models.Email(
+                'senator.' +
+                row['Surname'].lower().replace("'", '') +
+                '@aph.gov.au', member
+            )
             db.session.add(email)
 
             address_type = models.AddressType.query.get(2)
@@ -125,18 +180,25 @@ class FederalData(BaseData):
             )
             db.session.add(postal_address)
             if row['Electorate Fax']:
-                db.session.add(models.PhoneNumber( row['Electorate Fax'], 'electoral fax', member ))
+                db.session.add(models.PhoneNumber(
+                    row['Electorate Fax'], 'electoral fax', member)
+                )
             if row['Electorate Telephone']:
-                db.session.add(models.PhoneNumber( row['Electorate Telephone'], 'electoral phone', member ))
+                db.session.add(models.PhoneNumber(
+                    row['Electorate Telephone'], 'electoral phone', member)
+                )
             if row['Electorate Toll Free']:
-                db.session.add(models.PhoneNumber( row['Electorate Toll Free'], 'electoral tollfree', member ))
+                db.session.add(models.PhoneNumber(
+                    row['Electorate Toll Free'], 'electoral tollfree', member)
+                )
 
             db.session.commit()
             self.scrapePage(member, 'sen')
 
     def horCsvs(self):
-        #csvfile = requests.get(self.hor_csv, stream=True)
-        #data = csv.DictReader(csvfile.raw)
+        ''' process Hose of Representatives csv file'''
+        # csvfile = requests.get(self.hor_csv, stream=True)
+        # data = csv.DictReader(csvfile.raw)
         file = open('SurnameRepsCSV.csv')
         data = csv.DictReader(file)
         for row in data:
@@ -149,7 +211,13 @@ class FederalData(BaseData):
             else:
                 first_name = row['First Name']
 
-            member = models.Member(first_name, row['Surname'], row['Parliamentary Titles'], electorate, party, None)
+            member = models.Member(
+                first_name, row['Surname'],
+                row['Parliamentary Titles'],
+                electorate,
+                party,
+                None
+            )
             db.session.add(member)
 
             address_type = models.AddressType.query.get(2)
@@ -166,9 +234,15 @@ class FederalData(BaseData):
             )
             db.session.add(electoratal_address)
             if row['Electorate Office Fax']:
-                db.session.add(models.PhoneNumber( row['Electorate Office Fax'], 'electoral fax', member ))
+                db.session.add(models.PhoneNumber(
+                    row['Electorate Office Fax'],
+                    'electoral fax',
+                    member)
+                )
             if row['Electorate Office Phone']:
-                db.session.add(models.PhoneNumber( row['Electorate Office Phone'], 'electoral phone', member ))
+                db.session.add(models.PhoneNumber(
+                    row['Electorate Office Phone'], 'electoral phone', member)
+                )
 
             db.session.commit()
             self.scrapePage(member, 'mem')
@@ -181,21 +255,30 @@ class FederalData(BaseData):
         query_string = quote(member.first_name + '+' + member.second_name)
 
         # @todo check response code
-        page = requests.get("http://www.aph.gov.au/Senators_and_Members/Parliamentarian_Search_Results?expand=1&q=" + query_string + "&" + house + "=1&par=-1&gen=0&ps=10").content
+        page = requests.get(
+            "http://www.aph.gov.au/Senators_and_Members/"
+            "Parliamentarian_Search_Results?expand=1&q="
+            + query_string + "&" +
+            house + "=1&par=-1&gen=0&ps=10").content
         soup = BeautifulSoup(page)
 
         # find link to member page in first search result
 
         ul = soup.find('ul', 'search-filter-results')
-        if ul == None:
-            issue = '%s %s was found found in CSV file but not in a serach of the APH website.' % (member.first_name, member.second_name)
+        if ul is None:
+            issue = (
+                '{} {} was found found in CSV file but not in a serach of the'
+                'APH website.'.format(member.first_name, member.second_name)
+            )
             db.session.add(
-                models.Data('cron', 'cron@yourvoiceinhouse.org.au', issue, None)
+                models.Data(
+                    'cron', 'cron@yourvoiceinhouse.org.au', issue, None)
             )
             return None
 
         member_url = ul.find('a')['href']
-        member_page = requests.get("http://www.aph.gov.au/" + member_url).content
+        member_page = requests.get(
+            "http://www.aph.gov.au/" + member_url).content
 
         # go to member page
         soup = BeautifulSoup(member_page)
@@ -204,7 +287,10 @@ class FederalData(BaseData):
         thumbnail = soup.find('p', 'thumbnail')
         if thumbnail:
             image = thumbnail.find('img')
-            photo = self.saveImg(image['src'], member.first_name + '_' + member.second_name + '.jpg', 'fed')
+            photo = self.saveImg(
+                image['src'],
+                member.first_name + '_' + member.second_name + '.jpg', 'fed'
+            )
             member.photo = photo
 
         # get all the links in the second div with a class of 'box'
@@ -214,7 +300,8 @@ class FederalData(BaseData):
         # tidy up the links
         for link in links:
             if link['href'].find('mailto:') == 0:
-                email = models.Email(link['href'].replace('mailto:', ''), member)
+                email = models.Email(
+                    link['href'].replace('mailto:', ''), member)
                 db.session.add(email)
             else:
                 if link.text != 'Contact form':
