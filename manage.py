@@ -4,7 +4,7 @@
 import unittest
 import os
 import coverage
-from data_scraper import base, act, federal, qld, nsw, nt
+from data_scraper import base, act, federal, qld, nsw, nt, sa
 from flask.ext.script import Manager
 from yvih import app
 
@@ -44,18 +44,20 @@ def cov():
 @manager.command
 def scrape_data():
     """Run data updates"""
-    base.BaseData()
-    federal_data = federal.FederalData()
-    federal_data.generateSenate()
-    federal_data.horCsvs()
-    qld_data = qld.QldData()
-    qld_data.qldData()
-    act_data = act.ActData()
-    act_data.actData()
-    nsw_data = nsw.NswData()
-    nsw_data.nswData()
-    nt_data = nt.NtData()
-    nt_data.ntData()
+    # base.BaseData()
+    # federal_data = federal.FederalData()
+    # federal_data.generateSenate()
+    # federal_data.horCsvs()
+    # qld_data = qld.QldData()
+    # qld_data.qldData()
+    # act_data = act.ActData()
+    # act_data.actData()
+    # nsw_data = nsw.NswData()
+    # nsw_data.nswData()
+    # nt_data = nt.NtData()
+    # nt_data.ntData()
+    sa_data = sa.SaData()
+    sa_data.saData()
 
 
 @manager.command
