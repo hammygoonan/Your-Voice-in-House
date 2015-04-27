@@ -65,11 +65,13 @@ class BaseData(object):
         """ Creates a list of parties with aliases in the database"""
         parties = [
             {'name': 'Australian Labor Party', 'alias':
-                ['ALP', 'Australian Labor Party (ALP)']},
+                ['ALP', 'Australian Labor Party (ALP)',
+                 'Australian Labor Party']},
             {'name': 'Liberal Party', 'alias':
                 ['LP', 'Canberra Liberals']},
-            {'name': 'Australian Greens', 'alias': ['AG', 'ACT Greens']},
-            {'name': 'National Party', 'alias': ['Nats']},
+            {'name': 'Australian Greens', 'alias':
+                ['AG', 'ACT Greens', 'The Greens']},
+            {'name': 'National Party', 'alias': ['Nats', 'The Nationals']},
             {'name': 'Liberal National Party', 'alias':
                 ['Nats', 'Liberal National Party (LNP)', 'LNP']},
             {'name': 'Country Liberal Party', 'alias':
@@ -86,6 +88,9 @@ class BaseData(object):
                 ['LDP']},
             {'name': 'Australian Motoring Enthusiasts Party', 'alias':
                 ['AMEP']},
+            {'name': 'Shooters and Fishers Party', 'alias': []},
+            {'name': 'Christian Democratic Party (Fred Nile Group)',
+             'alias': []}
         ]
         for party in parties:
             party = models.Party(party['name'], ','.join(party['alias']))
