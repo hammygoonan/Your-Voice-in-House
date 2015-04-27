@@ -13,7 +13,7 @@
                     <strong>{{ member.electorate.name }}</strong> - {{ member.electorate.chamber.house }} ({{ member.electorate.chamber.state }})<br />
                     {{ member.party.name }}<br />
                     {% if member.role: %}
-                        {{ member.role }}<br />
+                        {{ member.role|replace('\n','<br />\n')|safe }}<br />
                     {% endif %}
                 </p>
                 {% if member.email %}

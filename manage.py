@@ -4,20 +4,22 @@
 import unittest
 import os
 import coverage
-from data_scraper import base, federal, qld
+from data_scraper import base, act, federal, qld
 from flask.ext.script import Manager
-from yvih import app, db, models
+from yvih import app
 
 manager = Manager(app)
 
 app.config['DEBUG'] = True
 app.config['PRESERVE_CONTEXT_ON_EXCEPTION'] = False
 
+
 @manager.command
 def test():
     """Runs the unit tests without coverage."""
     tests = unittest.TestLoader().discover('tests', pattern='*.py')
     unittest.TextTestRunner(verbosity=2).run(tests)
+
 
 @manager.command
 def cov():
@@ -48,6 +50,8 @@ def scrape_data():
     federal_data.horCsvs()
     qld_data = qld.QldData()
     qld_data.qldData()
+    act_data = act.ActData()
+    act_data.actData()
 
 
 @manager.command

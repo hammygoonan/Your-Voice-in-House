@@ -21,6 +21,11 @@ class Electorate(db.Model):
         self.name = name
         self.chamber = chamber
 
+    def __str__(self):
+        return '<Electorate {} ({}) - {} {}>'.format(
+            self.name, self.id, self.chamber.state, self.chamber.house
+        )
+
     def serialise(self):
         data = {
             'id': self.id,
@@ -72,6 +77,10 @@ class Member(db.Model):
         self.party = party
         self.photo = photo
 
+    def __str__(self):
+        return '<Member {} {} ({}) - {}>'.format(
+            self.first_name, self.second_name, self.id, self.electorate.name
+        )
     def serialise(self):
         data = {
             'id': self.id,

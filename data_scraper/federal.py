@@ -248,8 +248,7 @@ class FederalData(BaseData):
             self.scrapePage(member, 'mem')
 
     def scrapePage(self, member, house):
-        """
-            house can be either 'sen' or 'mem'
+        """house can be either 'sen' or 'mem'
         """
         # search for member
         query_string = quote(member.first_name + '+' + member.second_name)
@@ -283,7 +282,7 @@ class FederalData(BaseData):
         # go to member page
         soup = BeautifulSoup(member_page)
 
-        # get image and save as base64 string
+        # get image
         thumbnail = soup.find('p', 'thumbnail')
         if thumbnail:
             image = thumbnail.find('img')

@@ -94,7 +94,8 @@ class QldData(BaseData):
         for link in data.find_all('a'):
             if link['href'].find('mailto:') > -1:
                 email = models.Email(
-                    link['href'].replace('mailto:', ''), member)
+                    link['href'].replace('mailto:', ''), member
+                )
                 db.session.add(email)
             elif(link['href'].find('javascript:DoSpeechSearch()') < 0 and
                     link['href'].find('.pdf') < 0):
