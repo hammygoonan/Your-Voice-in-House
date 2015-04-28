@@ -21,16 +21,21 @@ class SaData(BaseData):
             page = self.getMemberPage('https://www2.parliament.sa.gov.au/'
                                       'Internet/DesktopModules/'
                                       + link['href'])
+            name = self.getName(page)
             role = self.getRole(page)
             party = self.getParty(page)
             electorate = self.getElectorate(page)
-            print(role)
-            print(party)
-            print(electorate)
+            photo = self.getPhoto(page, name)
 
     def getMemberPage(self, url):
         page = requests.get(url).content
         return BeautifulSoup(page)
+
+    def getName(self, page):
+        text = page.find('td', align='right').text.split()
+        first_name = text[-2]
+        second_name = text[-1]
+        return {'first_name': first_name, 'second_name': second_name}
 
     def getRole(self, page):
         position = page.find('td', text=re.compile("Position"))
@@ -51,3 +56,9 @@ class SaData(BaseData):
         electorate = page.find('td', text=re.compile("Electorate"))
         electorate = electorate.next_sibling.text
         return super(SaData, self).getElectorate(electorate, house)
+
+    def getPhoto(self, page, name):
+        img = page.find_all('img')
+        src = 'https://www2.parliament.sa.gov.au{}'.format(img[2]['src'])
+        filename = '{}_{}.jpg'.format(name['first_name'], name['second_name'])
+        return self.saveImg(src, filename, 'sa')
