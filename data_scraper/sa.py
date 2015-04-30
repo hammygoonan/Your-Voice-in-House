@@ -5,7 +5,7 @@ import requests
 import re
 from bs4 import BeautifulSoup
 from .base import BaseData
-
+from yvih import models, db
 
 class SaData(BaseData):
     """Scrape SA Parliament website for member data
@@ -26,6 +26,11 @@ class SaData(BaseData):
             party = self.getParty(page)
             electorate = self.getElectorate(page)
             photo = self.getPhoto(page, name)
+            member = models.Member(name['first_name'], name['second_name'],
+                                   role, electorate, party, photo)
+            db.session.add(member)
+
+            self.processAddress(page, member)
 
     def getMemberPage(self, url):
         page = requests.get(url).content
@@ -52,9 +57,13 @@ class SaData(BaseData):
     def getElectorate(self, page):
         house = page.find('td', text=re.compile("House"))
         house = house.next_sibling.text
-        house = 8 if house == 'House of Assembly' else 9
-        electorate = page.find('td', text=re.compile("Electorate"))
-        electorate = electorate.next_sibling.text
+        if house == 'House of Assembly':
+            house = 8
+            electorate = page.find('td', text=re.compile("Electorate"))
+            electorate = electorate.next_sibling.text
+        else:
+            house = 9
+            electorate = 'South Australia'
         return super(SaData, self).getElectorate(electorate, house)
 
     def getPhoto(self, page, name):
@@ -62,3 +71,40 @@ class SaData(BaseData):
         src = 'https://www2.parliament.sa.gov.au{}'.format(img[2]['src'])
         filename = '{}_{}.jpg'.format(name['first_name'], name['second_name'])
         return self.saveImg(src, filename, 'sa')
+
+    def processAddress(self, page, member):
+        contact = page.find(id='ctl00_ContentPlaceHolder1_trContactDetails')
+        for parts in contact.contents:
+            if str(parts).find('Address') > -1:
+                sweet_spot = str(parts)
+        td = BeautifulSoup(sweet_spot).find('td')
+        contents = [
+            content for content in td.contents
+            if isinstance(content, str) or not content.can_be_empty_element
+        ]
+        query = dict(zip(contents[0::2], contents[1::2]))
+        for key, value in query.items():
+            if key.text == 'Ministry Facsimile:':
+                pass
+            if key.text == 'Telephone:':
+                pass
+            if key.text == 'Electorate Facsimile:':
+                pass
+            if key.text == 'Ministry Postal Address:':
+                pass
+            if key.text == 'Ministry Email:':
+                pass
+            if key.text == 'Ministry Telephone:':
+                pass
+            if key.text == 'Electorate Postal Address:':
+                pass
+            if key.text == 'Ministry Address:':
+                pass
+            if key.text == 'Address:':
+                pass
+            if key.text == 'Facsimile:':
+                pass
+            if key.text == 'Electorate Address:':
+                pass
+            if key.text == 'Electorate Telephone:':
+                pass
