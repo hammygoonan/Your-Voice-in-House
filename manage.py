@@ -44,7 +44,7 @@ def cov():
 @manager.command
 def scrape_data():
     """Run data updates"""
-    # base.BaseData()
+    base.BaseData()
     # federal_data = federal.FederalData()
     # federal_data.generateSenate()
     # federal_data.horCsvs()

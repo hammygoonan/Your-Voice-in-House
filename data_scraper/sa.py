@@ -7,6 +7,7 @@ from bs4 import BeautifulSoup
 from .base import BaseData
 from yvih import models, db
 
+
 class SaData(BaseData):
     """Scrape SA Parliament website for member data
     """
@@ -31,6 +32,8 @@ class SaData(BaseData):
             db.session.add(member)
 
             self.processAddress(page, member)
+            self.addEmail(page, member)
+            db.session.commit()
 
     def getMemberPage(self, url):
         page = requests.get(url).content
@@ -83,28 +86,56 @@ class SaData(BaseData):
             if isinstance(content, str) or not content.can_be_empty_element
         ]
         query = dict(zip(contents[0::2], contents[1::2]))
+        phone_numbers = ['Ministry Facsimile:', 'Telephone:',
+                         'Electorate Facsimile:', 'Ministry Telephone:',
+                         'Facsimile:', 'Electorate Telephone:']
+        addresses = ['Ministry Postal Address:', 'Electorate Postal Address:',
+                     'Ministry Address:', 'Address:', 'Electorate Address:']
+        emails = ['Ministry Email:']
         for key, value in query.items():
-            if key.text == 'Ministry Facsimile:':
+            if key.text in phone_numbers:
+                self.addPhone(value, key.text, member)
+            if key.text in addresses:
+                self.addAddress(value, key.text, member)
+            if key.text in emails:
                 pass
-            if key.text == 'Telephone:':
-                pass
-            if key.text == 'Electorate Facsimile:':
-                pass
-            if key.text == 'Ministry Postal Address:':
-                pass
-            if key.text == 'Ministry Email:':
-                pass
-            if key.text == 'Ministry Telephone:':
-                pass
-            if key.text == 'Electorate Postal Address:':
-                pass
-            if key.text == 'Ministry Address:':
-                pass
-            if key.text == 'Address:':
-                pass
-            if key.text == 'Facsimile:':
-                pass
-            if key.text == 'Electorate Address:':
-                pass
-            if key.text == 'Electorate Telephone:':
-                pass
+
+    def addPhone(self, number, type, member):
+        number_type = {
+            'Ministry Facsimile:': 'ministerial fax',
+            'Telephone:': 'electoral',
+            'Ministry Telephone:': 'ministerial phone',
+            'Facsimile:': 'electoral fax',
+            'Electorate Telephone:': 'electoral',
+            'Electorate Facsimile:': 'electoral fax'
+        }
+        db.session.add(models.PhoneNumber(number,
+                                          number_type[type], member))
+
+    def addAddress(self, address, type, member):
+        address_type = {
+            'Ministry Postal Address:': models.AddressType.query.get(6),
+            'Electorate Postal Address:': models.AddressType.query.get(1),
+            'Ministry Address:': models.AddressType.query.get(7),
+            'Address:': models.AddressType.query.get(2),
+            'Electorate Address:': models.AddressType.query.get(2)
+        }
+        address = address.split('  ')
+        address_lines = address[0].split(',')
+        address_line1 = address_lines[0]
+        if len(address_lines) > 1 and address_lines[1] != address_lines[-1]:
+            address_line2 = address_lines[1]
+        else:
+            address_line2 = None
+        suburb = address_lines[-1]
+        postcode = address[-1]
+        address_model = models.Address(address_line1, address_line2,
+                                       None, suburb, 'SA', postcode,
+                                       address_type[type], member, 0)
+        db.session.add(address_model)
+
+    def addEmail(self, page, member):
+        for link in page.find_all('a'):
+            if 'mailto:' in link['href']:
+                href = link['href'].split(':')
+                db.session.add(models.Email(href[1], member))

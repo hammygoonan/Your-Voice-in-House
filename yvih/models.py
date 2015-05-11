@@ -81,6 +81,7 @@ class Member(db.Model):
         return '<Member {} {} ({}) - {}>'.format(
             self.first_name, self.second_name, self.id, self.electorate.name
         )
+
     def serialise(self):
         data = {
             'id': self.id,
