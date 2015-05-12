@@ -48,7 +48,7 @@ class SaData(BaseData):
     def getRole(self, page):
         position = page.find('td', text=re.compile("Position"))
         position = position.next_sibling.text
-        if position == 'member' or position == 'minister':
+        if position == 'Member' or position == 'Minister':
             position = None
         return position
 
