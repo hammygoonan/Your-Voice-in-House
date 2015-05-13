@@ -70,7 +70,8 @@ class BaseData(object):
             {'name': 'Liberal Party', 'alias':
                 ['LP', 'Canberra Liberals']},
             {'name': 'Australian Greens', 'alias':
-                ['AG', 'ACT Greens', 'The Greens', 'Greens SA']},
+                ['AG', 'ACT Greens', 'The Greens', 'Greens SA',
+                 'Victorian Greens']},
             {'name': 'National Party', 'alias': ['Nats', 'The Nationals']},
             {'name': 'Liberal National Party', 'alias':
                 ['Nats', 'Liberal National Party (LNP)', 'LNP']},
@@ -88,10 +89,14 @@ class BaseData(object):
                 ['LDP']},
             {'name': 'Australian Motoring Enthusiasts Party', 'alias':
                 ['AMEP']},
-            {'name': 'Shooters and Fishers Party', 'alias': []},
+            {'name': 'Shooters and Fishers Party', 'alias':
+                ['Shooters and Fishers Party']},
             {'name': 'Christian Democratic Party (Fred Nile Group)',
              'alias': []},
-            {'name': 'Dignity for Disability', 'alias': []}
+            {'name': 'Dignity for Disability', 'alias': []},
+            {'name': 'Democratic Labour Party', 'alias': []},
+            {'name': 'Australian Sex Party', 'alias': []},
+            {'name': 'Vote 1 Local Jobs', 'alias': []}
         ]
         for party in parties:
             party = models.Party(party['name'], ','.join(party['alias']))
