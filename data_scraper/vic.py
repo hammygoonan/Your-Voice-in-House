@@ -42,8 +42,52 @@ class VicData(BaseData):
             party = self.getParty(row['Party'])
             photo = self.getPhoto(name, page)
             member = models.Member(name['first_name'], name['second_name'],
-                                    role, electorate, party, photo)
+                                   role, electorate, party, photo)
             db.session.add(member)
+            self.addEmail(row['Email'], member)
+            self.addLink(row['WWW'], member)
+            if row['PO Address line 1']:
+                if row['PO Address line 3']:
+                    addr_pcode = row['PO Address line 3'].split(' ')
+                    line2 = row['PO Address line 2']
+                else:
+                    addr_pcode = row['PO Address line 2'].split(' ')
+                    line2 = None
+                self.addAddress(
+                    models.AddressType.query.get(2),
+                    row['PO Address line 1'],
+                    line2,
+                    addr_pcode[0],
+                    None,
+                    addr_pcode[1],
+                    member
+                )
+            if row['Electorate Office Address line 1']:
+                self.addAddress(
+                    models.AddressType.query.get(1),
+                    row['Electorate Office Address line 1'],
+                    row['Electorate Office Address line 2'],
+                    row['Electorate Office Address line 3'],
+                    row['Electorate Office Address line 4'],
+                    row['Electoral Office Postcode'],
+                    member
+                )
+            if row['Ministerial Address line 1']:
+                addr_pcode = row['PO Address line 3'].split(' ')
+                self.addAddress(
+                    models.AddressType.query.get(4),
+                    row['Ministerial Address line 1'],
+                    row['Ministerial Address line 2'],
+                    row['Ministerial Address line 3'],
+                    row['Ministerial Address line 4'],
+                    row['Ministerial Postcode'],
+                    member
+                )
+            self.addPhoneNumber(row['Phone'], 'electoral', member)
+            self.addPhoneNumber(row['Ministerial Phone'], 'ministerial',
+                                member)
+            self.addPhoneNumber(row['Fax'], 'electoral fax', member)
+
             db.session.commit()
 
     def getName(self, name, page):
@@ -69,3 +113,41 @@ class VicData(BaseData):
         img = member_page.find('img', {"class": "details-portrait"})
         filename = '{}_{}.jpg'.format(name['first_name'], name['second_name'])
         return self.saveImg(img['src'], filename, 'vic')
+
+    def addEmail(self, email, member):
+        email = models.Email(email, member)
+        db.session.add(email)
+
+    def addLink(self, link, member):
+        links = link.split(', ')
+        if len(links) < 1:
+            return None
+        for link in links:
+            link_type = 'website'
+            if 'twitter' in link:
+                link_type = 'twitter'
+            if 'facebook' in link:
+                link_type = 'facebook'
+        db.session.add(models.Link(link, link_type, member))
+
+    def addAddress(self, address_type, line1, line2, line3, line4, pcode,
+                   member):
+        if line1 is None:
+            return
+        state = 'Vic'
+        address1 = line1
+        address2 = None
+        if line4 == 'VIC':
+            address2 = line2
+            suburb = line3
+        else:
+            suburb = line2
+        address = models.Address(address1, address2, None, suburb,
+                                 state, pcode, address_type, member, 0)
+        db.session.add(address)
+
+    def addPhoneNumber(self, number, type, member):
+        if not number:
+            return None
+        phone = models.PhoneNumber(number, type, member)
+        db.session.add(phone)

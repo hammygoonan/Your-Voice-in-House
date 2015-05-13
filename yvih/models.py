@@ -209,7 +209,7 @@ class PhoneNumber(db.Model):
 
 
 class Link(db.Model):
-    """Link types: website, wikipedia, twitter"""
+    """Link types: website, wikipedia, twitter, facebook"""
     __tablename__ = "links"
 
     id = db.Column(db.Integer, primary_key=True)
