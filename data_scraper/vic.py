@@ -16,31 +16,51 @@ class VicData(BaseData):
     very last minute.
     """
     def vicData(self):
-        data = self.getData()
-        page = self.getPage()
-        self.processData(data, page)
+        houses = ['mlc', 'mla']
+        for house in houses:
+            data = self.getData(house)
+            pages = self.getPages(
+                'http://www.parliament.vic.gov.au/members/house/' + house
+            )
+            self.processData(data, pages, house)
 
-    def getData(self):
+    def getData(self, house):
         """ Returns dictionary of CSV Data """
-        url = 'http://www.parliament.vic.gov.au/members/house/mlc?format=csv'
-        csvfile = requests.get(url, stream=True)
+        # 'http://www.parliament.vic.gov.au/members/house/mla?format=csv'
+        csvfile = requests.get('http://www.parliament.vic.gov.au/' +
+                               'members/house/' + house +
+                               '?format=csv', stream=True)
         return csv.DictReader(StringIO(csvfile.text))
 
-    def getPage(self):
-        url1 = 'http://www.parliament.vic.gov.au/members/house/mlc'
-        url2 = ('http://www.parliament.vic.gov.au/members/results?houseabb='
-                'mlc&page=2')
-        page1 = requests.get(url1).content
-        page2 = requests.get(url2).content
-        return {'page_1': BeautifulSoup(page1), 'page_2': BeautifulSoup(page2)}
+    def getPage(self, url):
+        """ Returns BeautifulSoup object from url
+        """
+        page = requests.get(url).content
+        soup = BeautifulSoup(page, "html5lib")
+        return soup.find(id='member-list')
 
-    def processData(self, data, page):
+    def getPages(self, url):
+        """ Get page from url. Finds next page and gets it until there are no
+        more pages to get
+        """
+        pages = []
+        next_page = True
+        while next_page:
+            page = self.getPage(url)
+            pages.append(page)
+            next_page = page.find('a', title="Next Page")
+            if next_page:
+                url = 'http://www.parliament.vic.gov.au/' + next_page['href']
+        return pages
+
+    def processData(self, data, pages, house):
         for row in data:
-            name = self.getName(row['Name'], page)
-            electorate = self.getElectorate(row['Electorate'], 12)
+            name = self.getName(row['Name'], pages)
+            house_id = 12 if house == 'mlc' else 13
+            electorate = self.getElectorate(row['Electorate'], house_id)
             role = row['Ministry']
             party = self.getParty(row['Party'])
-            photo = self.getPhoto(name, page)
+            photo = self.getPhoto(name, pages)
             member = models.Member(name['first_name'], name['second_name'],
                                    role, electorate, party, photo)
             db.session.add(member)
@@ -50,6 +70,8 @@ class VicData(BaseData):
                 if row['PO Address line 3']:
                     addr_pcode = row['PO Address line 3'].split(' ')
                     line2 = row['PO Address line 2']
+                    if len(addr_pcode) == 1:
+                        addr_pcode.append(None)
                 else:
                     addr_pcode = row['PO Address line 2'].split(' ')
                     line2 = None
@@ -90,28 +112,61 @@ class VicData(BaseData):
 
             db.session.commit()
 
-    def getName(self, name, page):
+    def getName(self, name, pages):
+        """ gets first name by searching member pages for surname match
+        """
         titles = ['Ms', 'Mrs', 'Mr', 'Hon', 'Dr',
-                  '(President', 'of', 'the', 'Legislative', 'Council)']
+                  '(President', 'of', 'the', 'Legislative', 'Council)',
+                  '(Premier)', '(Leader', 'of', 'the', 'Opposition)',
+                  '(Speaker', 'of', 'the', 'Legislative', 'Assembly)',
+                  '(Deputy', 'Premier)', '(Deputy', 'Leader', 'of', 'the',
+                  'Opposition)']
         name = name.split(' ')
-        name_on_page = page['page_1'].find('a', text=re.compile(name[-1]))
-        if not name_on_page:
-            name_on_page = page['page_2'].find('a',
-                                               text=re.compile(name[-1]))
+        # a pretty uncreative way of dealing with two members with the same
+        # last name
+        if name[-1] == 'Bull':
+            if name[1] == 'Timothy':
+                return {'first_name': 'Tim', 'second_name': 'Bull'}
+            else:
+                return {'first_name': 'Josh', 'second_name': 'Bull'}
+        if name[-1] == 'O\'Brien':
+            if name[1] == 'Michael':
+                return {'first_name': 'Michael', 'second_name': 'O\'Brien'}
+            else:
+                return {'first_name': 'Danny', 'second_name': 'O\'Brien'}
+        if name[-1] == 'Richardson':
+            if name[1] == 'Fiona':
+                return {'first_name': 'Fiona', 'second_name': 'Richardson'}
+            else:
+                return {'first_name': 'Tim', 'second_name': 'Richardson'}
+        if name[-1] == 'Smith':
+            if name[1] == 'Ryan':
+                return {'first_name': 'Ryan', 'second_name': 'Smith'}
+            else:
+                return {'first_name': 'Tim', 'second_name': 'Smith'}
+        for page in pages:
+            name_on_page = page.find(
+                'a', text=re.compile(' {}'.format(name[-1]))
+            )
+            if name_on_page:
+                break
         names = name_on_page.text.strip().split(' ')
         names = [n for n in names if n not in titles]
         return {'first_name': names[0], 'second_name': names[-1]}
 
-    def getPhoto(self, name, page):
-        link = page['page_1'].find('a', text=re.compile(name['second_name']))
-        if not link:
-            link = page['page_2'].find('a',
-                                       text=re.compile(name['second_name']))
+    def getPhoto(self, name, pages):
+        for page in pages:
+            member_name = '{} {}'.format(
+                name['first_name'], name['second_name']
+            )
+            link = page.find('a', text=re.compile(member_name))
+            if link:
+                break
         url = 'http://www.parliament.vic.gov.au/' + link['href']
         member_page = requests.get(url).content
         member_page = BeautifulSoup(member_page)
         img = member_page.find('img', {"class": "details-portrait"})
-        filename = '{}_{}.jpg'.format(name['first_name'], name['second_name'])
+        filename = '{}.jpg'.format(member_name)
         return self.saveImg(img['src'], filename, 'vic')
 
     def addEmail(self, email, member):
