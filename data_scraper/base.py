@@ -68,11 +68,12 @@ class BaseData(object):
                 ['ALP', 'Australian Labor Party (ALP)',
                  'Australian Labor Party']},
             {'name': 'Liberal Party', 'alias':
-                ['LP', 'Canberra Liberals']},
+                ['LP', 'LIB', 'Canberra Liberals']},
             {'name': 'Australian Greens', 'alias':
                 ['AG', 'ACT Greens', 'The Greens', 'Greens SA',
-                 'Victorian Greens']},
-            {'name': 'National Party', 'alias': ['Nats', 'The Nationals']},
+                 'Victorian Greens', 'GWA']},
+            {'name': 'National Party', 'alias':
+                ['Nats', 'The Nationals', 'NAT', 'NPA']},
             {'name': 'Liberal National Party', 'alias':
                 ['Nats', 'Liberal National Party (LNP)', 'LNP']},
             {'name': 'Country Liberal Party', 'alias':
@@ -90,7 +91,7 @@ class BaseData(object):
             {'name': 'Australian Motoring Enthusiasts Party', 'alias':
                 ['AMEP']},
             {'name': 'Shooters and Fishers Party', 'alias':
-                ['Shooters and Fishers Party']},
+                ['Shooters and Fishers Party', 'SF']},
             {'name': 'Christian Democratic Party (Fred Nile Group)',
              'alias': []},
             {'name': 'Dignity for Disability', 'alias': []},

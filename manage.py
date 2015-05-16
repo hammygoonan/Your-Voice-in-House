@@ -4,7 +4,7 @@
 import unittest
 import os
 import coverage
-from data_scraper import base, act, federal, qld, nsw, nt, sa, vic
+from data_scraper import base, act, federal, qld, nsw, nt, sa, vic, wa
 from flask.ext.script import Manager
 from yvih import app
 
@@ -58,8 +58,10 @@ def scrape_data():
     # nt_data.ntData()
     # sa_data = sa.SaData()
     # sa_data.saData()
-    vic_data = vic.VicData()
-    vic_data.vicData()
+    # vic_data = vic.VicData()
+    # vic_data.vicData()
+    wa_data = wa.WaData()
+    wa_data.waData()
 
 
 @manager.command
