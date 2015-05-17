@@ -23,13 +23,13 @@ class WaData(BaseData):
                 'site': 'http://www.parliament.wa.gov.au/parliament/memblist' +
                         '.nsf/WCouncilMembers?openform'
             },
-            # 'assembly': {
-            #     'csv': 'http://www.parliament.wa.gov.au/WebCMS/WebCMS.nsf/re' +
-            #            'sources/file-mla-merge-data/$file/MLA%20Merge%20Data' +
-            #            '%2020150205.xls',
-            #     'site': 'http://www.parliament.wa.gov.au/parliament/memblist' +
-            #             '.nsf/WAssemblyMembers?openform'
-            # }
+            'assembly': {
+                'csv': 'http://www.parliament.wa.gov.au/WebCMS/WebCMS.nsf/re' +
+                       'sources/file-mla-merge-data/$file/MLA%20Merge%20Data' +
+                       '%2020150205.xls',
+                'site': 'http://www.parliament.wa.gov.au/parliament/memblist' +
+                        '.nsf/WAssemblyMembers?openform'
+            }
         }
 
     def waData(self):
@@ -43,29 +43,49 @@ class WaData(BaseData):
     def getCouncilMembers(self, data):
         page = self.getPage(self.houses['council']['site'])
         for row in data:
-            member_page = self.getMemberPage(page, row['SURNAME'])
-            party = self.getParty(row['PARTY'])
-            electorate = self.getElectorate(row['REGION'], 15)
+            member_page = self.getMemberPage(page, row[2])
+            party = self.getParty(row[10])
+            electorate = self.getElectorate(row[11], 15)
             role = self.getRole(
-                row['OTHER_POSITIONS HELD'], row['MINISTERIAL_POSITIONS']
+                row[8], row[7]
             )
-            fname = '{}_{}.jpg'.format(row['PREFERRED_NAME'], row['SURNAME'])
+            fname = '{}_{}.jpg'.format(row[5], row[2])
             photo = self.getPhoto(member_page, fname)
-            member = models.Member(row['PREFERRED_NAME'], row['SURNAME'],
+            member = models.Member(row[5], row[2],
                                    role, electorate, party, photo)
             db.session.add(member)
             self.getLinks(page, member)
-            if(row['MIN_ADDRESS']):
-                self.getAddress(row['MIN_ADDRESS'], 7, member)
-            self.getAddress(row['ELEC_ADDRESS'], 2, member)
-            self.getAddress(row['ELEC_ADDRESS_MAILING'], 1, member)
-            self.getAddress(row['PARL_ADDRESS'], 4, member)
+            if(row[12]):
+                self.getAddress(row[12], 7, member)
+            self.getAddress(row[13], 2, member)
+            self.getAddress(row[14], 1, member)
+            self.getAddress(row[15], 4, member)
             self.getPhone(member_page, member)
 
             db.session.commit()
 
     def getAssemblyMembers(self, data):
-        pass
+        page = self.getPage(self.houses['assembly']['site'])
+        for row in data:
+            member_page = self.getMemberPage(page, row[3])
+            party = self.findParty(page, row[3])
+            electorate = self.getElectorate(row[5].replace('Member for ', ''),
+                                            14)
+            role = row[6]
+            fname = '{}_{}.jpg'.format(row[2], row[3])
+            photo = self.getPhoto(member_page, fname)
+            member = models.Member(row[2], row[3],
+                                   role, electorate, party, photo)
+            db.session.add(member)
+            self.getLinks(page, member)
+            if(row[8]):
+                self.getAddress('{}\n{}'.format(row[8], row[9]), 6, member)
+            self.getAddress('{}\n{}'.format(row[10], row[11]), 1, member)
+            self.getAddress('{}\n{}'.format(row[12], row[13]), 2, member)
+            self.getAddress('{}\n{}'.format(row[14], row[15]), 4, member)
+            self.getPhone(member_page, member)
+
+            db.session.commit()
 
     def getRole(self, ministerial, other):
         if ministerial and not other:
@@ -117,8 +137,8 @@ class WaData(BaseData):
                    ('Ministerial Office:', 'ministerial')]
         numbers = {
             'freecall': re.compile('Freecall:\ [0-9\ ]{12}'),
-            'phone': re.compile('Ph:\ [0-9\ \(\)]{14}'),
-            'fax': re.compile('Fax:\ [0-9\ \(\)]{14}')
+            'phone': re.compile('Ph:\ [0-9()]{0,4}[0-9\ ]{9,14}'),
+            'fax': re.compile('Fax:\ [0-9()]{0,4}[0-9\ ]{9,14}')
         }
 
         for office in offices:
@@ -138,6 +158,13 @@ class WaData(BaseData):
                         phone = models.PhoneNumber(no, no_type, member)
                         db.session.add(phone)
 
+    def findParty(self, page, second_name):
+        name = page.find('b', text=re.compile(second_name))
+        tr = name.find_parent('tr')
+        regex = re.compile('Party: [A-Za-z]{3}')
+        party = regex.search(tr.text)
+        return self.getParty(party.group(0).replace('Party: ', ''))
+
     def getMemberPage(self, page, second_name):
         member = page.find('b', text=re.compile(second_name))
         member_page = self.getPage('http://www.parliament.wa.gov.au/' +
@@ -155,11 +182,12 @@ class WaData(BaseData):
         book = xlrd.open_workbook(temp_file)
         sheet_names = book.sheet_names()
         sheet = book.sheet_by_name(sheet_names[0])
-        header = sheet.row_values(0)
+        # header = sheet.row_values(0)
         values = []
         for rownum in range(1, sheet.nrows):
             values.append(
-                dict(zip(header, sheet.row_values(rownum)))
+                # dict(zip(header, sheet.row_values(rownum)))
+                sheet.row_values(rownum)
             )
         os.remove(temp_file)
         return values
