@@ -37,6 +37,12 @@
                         <li><a href="{{link.link}}">{{link.type}}</a></li>
                     {% endfor %}
                 </ul>
+                <p>Phone numbers:</p>
+                <ul>
+                    {% for number in member.phone_numbers %}
+                        <li>{{number.type}} - {{number.number}}</li>
+                    {% endfor %}
+                </ul>
             </article>
             {% if loop.index % 2 == 0 %}
                 </div>

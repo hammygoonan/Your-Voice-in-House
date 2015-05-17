@@ -2,10 +2,12 @@
 # -*- coding: utf-8 -*-
 
 from .base import BaseData
+from bs4 import BeautifulSoup
 import requests
 import os
+import re
 import xlrd
-from yvih import models
+from yvih import models, db
 
 
 class WaData(BaseData):
@@ -39,17 +41,28 @@ class WaData(BaseData):
                 self.getAssemblyMembers(data)
 
     def getCouncilMembers(self, data):
+        page = self.getPage(self.houses['council']['site'])
         for row in data:
+            member_page = self.getMemberPage(page, row['SURNAME'])
             party = self.getParty(row['PARTY'])
             electorate = self.getElectorate(row['REGION'], 15)
             role = self.getRole(
                 row['OTHER_POSITIONS HELD'], row['MINISTERIAL_POSITIONS']
             )
-
-            photo = self.getPhoto()
+            fname = '{}_{}.jpg'.format(row['PREFERRED_NAME'], row['SURNAME'])
+            photo = self.getPhoto(member_page, fname)
             member = models.Member(row['PREFERRED_NAME'], row['SURNAME'],
                                    role, electorate, party, photo)
-            print(member.__dict__)
+            db.session.add(member)
+            self.getLinks(page, member)
+            if(row['MIN_ADDRESS']):
+                self.getAddress(row['MIN_ADDRESS'], 7, member)
+            self.getAddress(row['ELEC_ADDRESS'], 2, member)
+            self.getAddress(row['ELEC_ADDRESS_MAILING'], 1, member)
+            self.getAddress(row['PARL_ADDRESS'], 4, member)
+            self.getPhone(member_page, member)
+
+            db.session.commit()
 
     def getAssemblyMembers(self, data):
         pass
@@ -62,6 +75,74 @@ class WaData(BaseData):
         if other and not ministerial:
             return other
         return None
+
+    def getPhoto(self, member_page, filename):
+        td = member_page.find('td', width=198)
+        img = td.find('img')
+        img = img['src'].replace('..', 'http://www.parliament.wa.gov.au/'
+                                       'Parliament/Memblist.nsf/')
+        return self.saveImg(img, filename, 'wa')
+
+    def getLinks(self, page, member):
+        member_link = page.find('b', text=re.compile(member.second_name))
+        td = member_link.find_parent('tr')
+        for link in td.find_all('a'):
+            if('mailto:' in link['href'] and
+               link['href'].replace('mailto:', '') != ''):
+                db.session.add(
+                    models.Email(link['href'].replace('mailto:', ''), member)
+                )
+            elif('http' in link['href'] and
+                 link['href'].replace('http://', '') != ''):
+                db.session.add(
+                    models.Link(link['href'], 'website', member)
+                )
+
+    def getAddress(self, address, type_id, member):
+        address_type = models.AddressType.query.get(type_id)
+        address_lines = address.split('\n')
+        addr1 = address_lines[0].strip()
+        addr2 = None
+        if len(address_lines) > 2:
+            addr2 = address_lines[1].strip()
+        pcode = re.search('[0-9]{4}', address_lines[-1].strip())
+        pcode = pcode.group(0)
+        suburb = address_lines[-1].replace(pcode, '').replace('WA', '').strip()
+        db.session.add(models.Address(addr1, addr2, None, suburb, 'WA', pcode,
+                                      address_type, member, 0))
+
+    def getPhone(self, member_page, member):
+        offices = [('Electorate Office:', 'electoral'),
+                   ('Other Office:', 'alternative'),
+                   ('Ministerial Office:', 'ministerial')]
+        numbers = {
+            'freecall': re.compile('Freecall:\ [0-9\ ]{12}'),
+            'phone': re.compile('Ph:\ [0-9\ \(\)]{14}'),
+            'fax': re.compile('Fax:\ [0-9\ \(\)]{14}')
+        }
+
+        for office in offices:
+            office_text = member_page.find(text=re.compile(office[0]))
+            if office_text:
+                tr = office_text.find_parent('tr')
+                address_block = tr.find_next_sibling('tr').text
+
+                for no_type, regex in numbers.items():
+                    number = regex.search(address_block)
+                    if number:
+                        # change phone to ph to then remove it from number
+                        replace_pre = no_type.replace('phone', 'ph')\
+                            .title() + ': '
+                        no = number.group(0).replace(replace_pre, '')
+                        no_type = office[1] + ' ' + no_type
+                        phone = models.PhoneNumber(no, no_type, member)
+                        db.session.add(phone)
+
+    def getMemberPage(self, page, second_name):
+        member = page.find('b', text=re.compile(second_name))
+        member_page = self.getPage('http://www.parliament.wa.gov.au/' +
+                                   member.parent['href'])
+        return member_page
 
     def getData(self, url):
         """ Returns dictionary of CSV Data """
@@ -83,5 +164,8 @@ class WaData(BaseData):
         os.remove(temp_file)
         return values
 
-    def getPhoto(self):
-        return None
+    def getPage(self, url):
+        """ Returns BeautifulSoup object from url """
+        page = requests.get(url).content
+        soup = BeautifulSoup(page, "html5lib")
+        return soup
