@@ -10,8 +10,7 @@ class BaseTestCase(TestCase):
     """Base test class that all other test inherit. Sets up and tears down context.
     """
     def create_app(self):
-        app.config['TESTING'] = True
-        self.maxDiff = None
+        app.config.from_object('config.TestConfig')
         return app
 
     def setUp(self):

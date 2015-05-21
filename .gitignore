@@ -8,6 +8,7 @@ datasets
 database.db
 coverage
 member_photos
+config.py
 
 *.pyc
 *.csv
