@@ -52,16 +52,16 @@ def scrape_data():
     # qld_data.qldData()
     # act_data = act.ActData()
     # act_data.actData()
-    # nsw_data = nsw.NswData()
-    # nsw_data.nswData()
+    nsw_data = nsw.NswData()
+    nsw_data.nswData()
     # nt_data = nt.NtData()
     # nt_data.ntData()
     # sa_data = sa.SaData()
     # sa_data.saData()
     # vic_data = vic.VicData()
     # vic_data.vicData()
-    wa_data = wa.WaData()
-    wa_data.waData()
+    # wa_data = wa.WaData()
+    # wa_data.waData()
 
 
 @manager.command

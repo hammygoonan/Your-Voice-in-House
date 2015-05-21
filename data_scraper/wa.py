@@ -11,8 +11,7 @@ from yvih import models, db
 
 
 class WaData(BaseData):
-    """Scraper for Western Australian Parliament.
-    """
+    """Scraper for Western Australian Parliament."""
     def __init__(self):
         self.houses = {
             'council': {
