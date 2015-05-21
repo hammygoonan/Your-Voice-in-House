@@ -35,6 +35,114 @@ class NswData(BaseData):
                                    party, photo)
             db.session.add(member)
 
+            address = models.Address(
+                row['CONTACT ADDRESS LINE1'],
+                row['CONTACT ADDRESS LINE2'],
+                row['CONTACT ADDRESS LINE3'],
+                row['CONTACT ADDRESS SUBURB'],
+                row['CONTACT ADDRESS STATE'],
+                row['CONTACT ADDRESS POSTCODE'],
+                models.AddressType.query.get(2),
+                member,
+                0
+            )
+            db.session.add(address)
+            if row['CONTACT ADDRESS POBOX '] != '':
+                address = models.Address(
+                    row['CONTACT ADDRESS POBOX '],
+                    None,
+                    None,
+                    row['CONTACT ADDRESS POBOX SUBURB'],
+                    row['CONTACT ADDRESS POBOX STATE'],
+                    row['CONTACT ADDRESS POBOX POSTCODE'],
+                    models.AddressType.query.get(1),
+                    member,
+                    0
+                )
+                db.session.add(address)
+            if row['MINISTERIAL OFFICE ADDRESS LINE1'] != '':
+                address = models.Address(
+                    row['MINISTERIAL OFFICE ADDRESS LINE1'],
+                    row['MINISTERIAL OFFICE ADDRESS LINE2'],
+                    row['MINISTERIAL OFFICE ADDRESS LINE3'],
+                    row['MINISTERIAL OFFICE ADDRESS SUBURB'],
+                    row['MINISTERIAL OFFICE ADDRESS STATE'],
+                    row['MINISTERIAL OFFICE ADDRESS POSTCODE'],
+                    models.AddressType.query.get(7),
+                    member,
+                    0
+                )
+                db.session.add(address)
+            if row['MINISTERIAL OFFICE POBOX '] != '':
+                address = models.Address(
+                    row['MINISTERIAL OFFICE POBOX '],
+                    None,
+                    None,
+                    row['MINISTERIAL OFFICE POBOX SUBURB'],
+                    row['MINISTERIAL OFFICE POBOX STATE'],
+                    row['MINISTERIAL OFFICE POBOX POSTCODE'],
+                    models.AddressType.query.get(6),
+                    member,
+                    0
+                )
+                db.session.add(address)
+            if row['ALTERNATIVE OFFICE ADDRESS LINE1'] != '':
+                address = models.Address(
+                    row['ALTERNATIVE OFFICE ADDRESS LINE1'],
+                    row['ALTERNATIVE OFFICE ADDRESS LINE2'],
+                    row['ALTERNATIVE OFFICE ADDRESS LINE3'],
+                    row['ALTERNATIVE OFFICE ADDRESS SUBURB'],
+                    row['ALTERNATIVE OFFICE ADDRESS STATE'],
+                    row['ALTERNATIVE OFFICE ADDRESS POSTCODE'],
+                    models.AddressType.query.get(5),
+                    member,
+                    0
+                )
+                db.session.add(address)
+            if row['ALTERNATIVE OFFICE POBOX '] != '':
+                address = models.Address(
+                    row['ALTERNATIVE OFFICE POBOX '],
+                    None,
+                    None,
+                    row['ALTERNATIVE OFFICE POBOX SUBURB'],
+                    row['ALTERNATIVE OFFICE POBOX STATE'],
+                    row['ALTERNATIVE OFFICE POBOX POSTCODE'],
+                    models.AddressType.query.get(5),
+                    member,
+                    0
+                )
+                db.session.add(address)
+
+            # add emails
+            email_types = [row['CONTACT ADDRESS EMAIL'],
+                           row['MINISTERIAL OFFICE EMAIL'],
+                           row['ALTERNATIVE OFFICE EMAIL']]
+            for email in email_types:
+                if email != '':
+                    emails = models.Email(email, member)
+                db.session.add(emails)
+
+            numbers = [(row['CONTACT ADDRESS PHONE'], 'electoral'),
+                       (row['CONTACT ADDRESS FAX'], 'electoral fax'),
+                       (row['MINISTERIAL OFFICE PHONE'], 'ministerial phone'),
+                       (row['MINISTERIAL OFFICE FAX'], 'ministerial fax'),
+                       (row['ALTERNATIVE OFFICE PHONE'], 'alternative phone'),
+                       (row['ALTERNATIVE OFFICE FAX'], 'alternative fax')]
+
+            for number in numbers:
+                if number[0] != '':
+                    ph_number = models.PhoneNumber(number[0], number[1],
+                                                   member)
+                    db.session.add(ph_number)
+
+            sites = [row['MINISTERIAL OFFICE WEBSITE'],
+                     row['ALTERNATIVE OFFICE WEBSITE']]
+            for site in sites:
+                if site != '':
+                    link = models.Link(site, 'website', member)
+                    db.session.add(link)
+            db.session.commit()
+
     def getFirstName(self, second_name, page):
         """ gets member name from page. First name isn't provided in csv """
         name_text = page.find('a', text=re.compile(second_name))
