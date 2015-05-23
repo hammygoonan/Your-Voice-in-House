@@ -3,7 +3,8 @@
 
 import unittest
 from flask.ext.testing import TestCase
-from yvih import app
+from yvih import app, db
+from tests.create_db import create_test_db
 
 
 class BaseTestCase(TestCase):
@@ -14,10 +15,12 @@ class BaseTestCase(TestCase):
         return app
 
     def setUp(self):
-        pass
+        create_test_db()
+        app.config.from_object('config.TestConfig')
 
     def tearDown(self):
-        pass
+        db.session.remove()
+        db.drop_all()
 
 if __name__ == '__main__':
     unittest.main()

@@ -178,7 +178,7 @@ class Address(db.Model):
     )
 
     def __init__(self, address_line1, address_line2, address_line3, suburb,
-                 state, postcode, address_type, member, primary):
+                 state, postcode, address_type, member):
         self.address_line1 = address_line1
         self.address_line2 = address_line2
         self.address_line3 = address_line3
@@ -187,7 +187,6 @@ class Address(db.Model):
         self.postcode = postcode
         self.address_type = address_type
         self.member = member
-        self.primary = primary
 
 
 class PhoneNumber(db.Model):
