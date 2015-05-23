@@ -3,6 +3,7 @@
 
 from data_scraper.base import BaseData
 from tests.base import BaseTestCase
+from yvih import models
 
 
 class BaseDataTestCase(BaseTestCase):
@@ -28,3 +29,16 @@ class BaseDataTestCase(BaseTestCase):
         with self.assertRaises(TypeError):
             self.base_data.getRole(1)
         # @ todo BeautifulSoup mocked response ?
+
+    def test_get_address(self):
+        member = models.Member.query.get(1)
+        address_type = models.Member.query.get(1)
+        address = {'line1': 'PO Box 42', 'suburb': 'Melbourne', 'pcode': 3000,
+                   'state': 'Vic', 'member': member,
+                   'address_type': address_type}
+        self.assertTrue(
+            isinstance(self.base_data.getAddress(**address), models.Address)
+        )
+        address['member'] = 2
+        with self.assertRaises(TypeError):
+            self.base_data.getAddress(**address)
