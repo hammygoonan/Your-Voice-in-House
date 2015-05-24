@@ -127,13 +127,18 @@ class BaseData(object):
             electorate = models.Electorate(name, chamber)
             return electorate
 
-    def saveImg(self, src, filename, dir=""):
+    def getPhoto(self, url, filename, directory=""):
+        return self.__saveImg(url, filename, directory)
+
+    def __saveImg(self, src, filename, dir=""):
         """saves a file and returns the file page relateive to
         yvih/static/member_photos src, string - path to image to download
         filename, string - what to call the file dir, string - directory with
         no preceeding or trailing slash
         """
         imgfile = requests.get(src)
+        if imgfile.status_code != 200:
+            raise Exception('Image could not be downloaded')
         static = 'yvih/static/member_photos/'
         if not dir[-1] == '/':
             directory = dir + '/'

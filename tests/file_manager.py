@@ -5,7 +5,6 @@ from base import BaseTestCase
 from mock import Mock, patch
 from data_scraper.file_manager import FileManager
 import requests
-import csv
 
 
 class FileManagerTestCase(BaseTestCase):
