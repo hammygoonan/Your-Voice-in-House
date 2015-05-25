@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from yvih import models, db
+from yvih import models
 import os
 import re
 import requests

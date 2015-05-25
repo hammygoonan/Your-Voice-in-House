@@ -4,6 +4,7 @@
 import requests
 import csv
 from io import StringIO
+from data_scraper.cache_manager import CacheManager
 
 
 class FileManager(object):
@@ -44,8 +45,13 @@ class FileManager(object):
 
     def __getFile(self, url, stream_flag=False):
         """ returns page as a stream """
+        cache = CacheManager()
+        is_cached = cache.checkCache(url)
+        if is_cached:
+            return is_cached
         response = requests.get(url, stream=stream_flag)
         if response.status_code == 200:
+            cache.saveCache(url, response.content)
             return response
         else:
             raise Exception(url + ' status code: ' + str(response.status_code))

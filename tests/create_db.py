@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 from yvih import models, db
+import datetime
 
 
 def create_test_db():
@@ -114,5 +115,14 @@ def create_test_db():
     member = models.Member('Gough', 'Whitlam', 'Prime Minister',
                            electorate, party, photo)
     db.session.add(member)
+
+    # create cache entries
+
+    date = datetime.datetime(2015, 5, 25)
+    url = 'http://httpbin.org'
+    md5 = 'b0da4eeb66a12a9ba07cb2f86a967129'
+    local_storage = 'data_scraper/cache/{}.txt'.format(md5)
+    cache_data = models.DataCache(date, url, md5, local_storage)
+    db.session.add(cache_data)
 
     db.session.commit()

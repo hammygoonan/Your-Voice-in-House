@@ -298,6 +298,22 @@ class Data(db.Model):
         self.status = status
 
 
+class DataCache(db.Model):
+    __tablename__ = 'data_cache'
+
+    id = db.Column(db.Integer, primary_key=True)
+    date = db.Column(db.DateTime)
+    url = db.Column(db.Text)
+    md5 = db.Column(db.Text)
+    local_storage = db.Column(db.Text)
+
+    def __init__(self, date, url, md5, local_storage):
+        self.date = date
+        self.url = url
+        self.md5 = md5
+        self.local_storage = local_storage
+
+
 def data_listener(mapper, connection, target):
     """Send email to alert that new issue has been raised"""
     message = """From: From Person <test@test.com>

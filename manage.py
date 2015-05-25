@@ -17,7 +17,7 @@ app.config['PRESERVE_CONTEXT_ON_EXCEPTION'] = False
 @manager.command
 def test():
     """Runs the unit tests without coverage."""
-    tests = unittest.TestLoader().discover('tests', pattern='*.py')
+    tests = unittest.TestLoader().discover('tests/', pattern='*.py')
     unittest.TextTestRunner(verbosity=2).run(tests)
 
 
@@ -45,23 +45,23 @@ def cov():
 def scrape_data():
     """Run data updates"""
     base.BaseData()
-    # federal_data = federal.FederalData()
-    # federal_data.generateSenate()
-    # federal_data.horCsvs()
-    # qld_data = qld.QldData()
-    # qld_data.qldData()
-    # act_data = act.ActData()
-    # act_data.actData()
+    federal_data = federal.FederalData()
+    federal_data.generateSenate()
+    federal_data.horCsvs()
+    qld_data = qld.QldData()
+    qld_data.qldData()
+    act_data = act.ActData()
+    act_data.actData()
     nsw_data = nsw.NswData()
     nsw_data.nswData()
-    # nt_data = nt.NtData()
-    # nt_data.ntData()
-    # sa_data = sa.SaData()
-    # sa_data.saData()
-    # vic_data = vic.VicData()
-    # vic_data.vicData()
-    # wa_data = wa.WaData()
-    # wa_data.waData()
+    nt_data = nt.NtData()
+    nt_data.ntData()
+    sa_data = sa.SaData()
+    sa_data.saData()
+    vic_data = vic.VicData()
+    vic_data.vicData()
+    wa_data = wa.WaData()
+    wa_data.waData()
 
 
 @manager.command

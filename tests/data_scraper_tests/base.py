@@ -6,7 +6,6 @@ from tests.base import BaseTestCase
 from yvih import models
 from mock import Mock, patch
 import requests
-import shutil
 import os
 
 
@@ -15,14 +14,17 @@ class BaseDataTestCase(BaseTestCase):
         super().setUp()
         self.base_data = BaseData()
         filepath = os.path.realpath(__file__).replace(
-            'tests/data_tests/base.py', ''
+            'tests/data_scraper_tests/base.py', ''
         )
         self.photo_path = filepath + 'yvih/static/member_photos/test'
+        # self.cache_path = filepath + 'data_scraper/cache'
         self.member = models.Member.query.get(1)
 
     def tearDown(self):
-        if os.path.isdir(self.photo_path):
-            shutil.rmtree(self.photo_path)
+        # if os.path.isdir(self.photo_path):
+        #     shutil.rmtree(self.photo_path)
+        # if os.path.isdir(self.cache_path):
+        #     shutil.rmtree(self.cache_path)
         super().tearDown()
 
     def test_get_name(self):
