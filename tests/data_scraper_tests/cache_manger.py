@@ -3,11 +3,10 @@
 
 from tests.base import BaseTestCase
 from data_scraper.cache_manager import CacheManager
+from yvih.models import DataCache
 import shutil
 import os
-# from mock import Mock, patch
-# from data_scraper.file_manager import FileManager
-# import requests
+import datetime
 
 
 class FileManagerTestCase(BaseTestCase):
@@ -16,10 +15,11 @@ class FileManagerTestCase(BaseTestCase):
         self.cache_manager = CacheManager()
         self.cache_content = 'this is test content'
         self.cache_path = os.path.realpath('data_scraper/cache')
+        self.md5 = 'b0da4eeb66a12a9ba07cb2f86a967129'
         if not os.path.isdir(self.cache_path):
             os.mkdir(self.cache_path)
-        file_path = self.cache_path + '/b0da4eeb66a12a9ba07cb2f86a967129.txt'
-        file = open(file_path, 'w')
+        self.file_path = '{}/{}.txt'.format(self.cache_path, self.md5)
+        file = open(self.file_path, 'w')
         file.write(self.cache_content)
         file.close()
 
@@ -29,18 +29,26 @@ class FileManagerTestCase(BaseTestCase):
         super().tearDown()
 
     def test_check_cache(self):
+        # should return None if cache doesn't exist
+        self.assertEquals(None,
+                          self.cache_manager.checkCache('http://test.com'))
+        # should return cache_content if cache does exist
+        self.assertEquals(
+            self.cache_content,
+            self.cache_manager.checkCache('http://httpbin.org'),
+        )
+        # should return None if cache file is over 5 days ago
+        time = datetime.datetime(2015, 1, 1)
+        time = time.timestamp()
+        os.utime(self.file_path, (time, time))
         self.assertEquals(None,
                           self.cache_manager.checkCache('http://test.com'))
 
-        # returns old file
-        # returns new file if old file is old
-
-        self.assertIsInstance(
-            self.cache_manager.checkCache('http://httpbin.org'),
-            str
-        )
-
     def test_cache_save(self):
-        # creates new file
-        # creates new entry in db
-        pass
+        url = 'http://httpbin.org'
+        self.cache_manager.saveCache(url, self.cache_content)
+        self.assertTrue(os.path.isfile(self.file_path))
+        with open(self.file_path, 'r') as file:
+            self.assertEquals(self.cache_content, file.read())
+        db_entry = DataCache.query.filter_by(url=url).first()
+        self.assertIsInstance(db_entry, DataCache)

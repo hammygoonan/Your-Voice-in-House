@@ -17,7 +17,6 @@ class CacheManager(object):
     def checkCache(self, url):
         """ checks to see is a recently cached version of the file exists """
         cache = DataCache.query.filter_by(url=url).first()
-
         # if nothing cached
         if not cache:
             return None
